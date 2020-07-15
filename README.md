@@ -2,7 +2,7 @@
 
 Materials for the August 2020 virtual R bootcamp at UC Berkeley. See below (under the listing of files) for information about the bootcamp, including logistics, how to get the course content, and how to install the software you need for the bootcamp on your laptop.
 
-This site is UNDER CONSTRUCTION. The information in this README and the installation instructions in the `install` directory should be up-to-date, but the information in the schedule and modules is not.
+This site is UNDER CONSTRUCTION. The information in this README and the installation instructions in the `install` directory should be up-to-date. The schedule is tentative. The content in the `modules` directory is still the content from 2019, not updated yet for the virtual event this year.
 
 Co-trainers: UC Berkeley Statistics and the D-Lab
 
