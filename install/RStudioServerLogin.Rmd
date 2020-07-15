@@ -1,0 +1,27 @@
+If you're not able to install R and RStudio on your laptop, you can access RStudio through a web browser.
+
+You'll be using RStudio through a front-end interface called Jupyter that will manage starting RStudio.
+
+1) Go to https://datahub.berkeley.edu/user-redirect/rstudio
+
+2) Select "Sign in with bCourses" and use your CalNet credentials to login.
+
+3) You'll be prompted by Datahub to "Authorize" access to your account. Click "Authorize".
+
+4) At this point, to make the bootcamp materials accessible to your RStudio session, you'll need to do the following:
+
+Within RStudio go to File->New Project->Version Control->Git and enter:
+
+- "Repository URL": https://github.com/berkeley-scf/r-bootcamp-fall-2020
+- "Project Directory Name": r-bootcamp-fall-2020 (or something else of your choosing)
+- "Directory": ~
+
+Then to update from the repository to get any changes we've made, you can select (from within RStudio):
+Tools->Version Control->Pull Branches
+
+or from the Environment/History/Git window, click on the Git tab and then on the blue down arrow.
+
+5) To restart RStudio (e.g., if you're having a problem with R), click on the orange power button in the upper right.
+
+6) To end your session entirely, just kill the browser or browser tab. If you've saved code files or data files, they should be available when you log back in.
+
