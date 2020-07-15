@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -30,6 +30,8 @@ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -59,6 +61,7 @@ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 \suppress_date false
 \justification true
 \use_refstyle 0
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -71,7 +74,10 @@ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -85,7 +91,7 @@ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
 \begin_body
 
 \begin_layout Title
-R bootcamp - August 2019: Syllabus/schedule
+R bootcamp - August 2020: Syllabus/schedule
 \end_layout
 
 \begin_layout Subsection*
@@ -118,13 +124,13 @@ ask participants to play with code as we go along and see if they can break
 \end_layout
 
 \begin_layout Standard
-Unless otherwise noted, modules are about 75 minutes long: 45 minutes for
- presentation, 20 minutes for breakout and 10 minutes for discussion of
+Unless otherwise noted, modules are about 90 minutes long: 50 minutes for
+ presentation, 30 minutes for breakout and 10 minutes for discussion of
  solutions.
 \end_layout
 
 \begin_layout Itemize
-Day 1 morning (8:30-12:15) (learning R)
+Session 1 (Monday) (learning R)
 \begin_inset Separator latexpar
 \end_inset
 
@@ -133,22 +139,11 @@ Day 1 morning (8:30-12:15) (learning R)
 
 \begin_deeper
 \begin_layout Itemize
-Module 0: Introduction, what is R, starting R, why R? why not R? (Chris)
- (15 minutes)
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-scripting, text files, notes
-\end_layout
-
-\end_inset
-
-
+Module 0: Introduction, what is R, starting R, why R? why not R? (15 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 1: Basics of R, with Rstudio (Chris)
+Module 1: Basics of R, with Rstudio (90 minutes)
 \begin_inset Separator latexpar
 \end_inset
 
@@ -186,26 +181,6 @@ basic graphics
 
 \begin_layout Itemize
 breakout problems 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[perhaps a basic plotting problem that involves some data manipulation]
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-graphics problem, manipulating data frame
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_deeper
@@ -214,7 +189,7 @@ Break (15 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 2: Managing R and your analyses (Chris) (45 minutes)
+Module 2: Managing R and your analyses (60 minutes)
 \begin_inset Separator latexpar
 \end_inset
 
@@ -235,29 +210,15 @@ the working directory and basic file reading/writing
 \end_layout
 
 \begin_layout Itemize
+more on reading data into R
+\end_layout
+
+\begin_layout Itemize
 Git, Github and version control
 \end_layout
 
 \begin_layout Itemize
 getting R help online 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-R help, Stack Overflow, Google 
-\begin_inset Quotes eld
-\end_inset
-
-in R
-\begin_inset Quotes erd
-\end_inset
-
-, reproducible examples, sessionInfo() [could shift to last session Sunday]
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Itemize
@@ -266,7 +227,11 @@ breakout problems
 
 \end_deeper
 \begin_layout Itemize
-Module 3: Working with data (Chris) (45 minutes)
+Break (15 minutes)
+\end_layout
+
+\begin_layout Itemize
+Module 3: Working with data (60 minutes)
 \begin_inset Separator latexpar
 \end_inset
 
@@ -287,60 +252,20 @@ subsetting
 \end_layout
 
 \begin_layout Itemize
-strings
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Itemize
-Lunch (on your own) (12:00-1:30)
-\end_layout
-
-\begin_layout Itemize
-Day 1 afternoon (1:30-5:00) (data processing and manipulation)
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Module 3: Working with data, continued (Chris) (40 minutes)
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-more on reading data
-\end_layout
-
-\begin_layout Itemize
 breakout problems
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-+ 5 minute quick break
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_deeper
-\begin_layout Standard
-
+\end_deeper
+\begin_layout Itemize
+Session 2 (Tuesday) 
 \series bold
 TRACK 2 splits from TRACK 1
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
-Track 2: Session 1 (Evan)
+Track 2: Session 2a (Evan)
 \end_layout
 
 \begin_deeper
@@ -350,11 +275,11 @@ Revisit variables, data types, data structures
 
 \end_deeper
 \begin_layout Itemize
-Break (15 minutes)
+Break (30 minutes)
 \end_layout
 
 \begin_layout Itemize
-Track 2: Session 2 (Evan)
+Track 2: Session 2b (Evan)
 \end_layout
 
 \begin_deeper
@@ -365,7 +290,7 @@ Revisit data frames, subsetting, and data summarization
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-Day 2 morning (9-12:45) (programming and data analysis)
+Session 3 (Wednesday) (data analysis and plotting using the Tidyverse)
 \end_layout
 
 \begin_deeper
@@ -376,7 +301,7 @@ TRACK 2 rejoins TRACK 1
 \end_layout
 
 \begin_layout Itemize
-Module 6: Data manipulation using the tidyverse (Dana)
+Module 6: Data manipulation using the Tidyverse 
 \begin_inset Separator latexpar
 \end_inset
 
@@ -389,6 +314,7 @@ stratified analyses: groupwise operations and split-apply-combine using
  dplyr
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 reshaping and tidying data
 \end_layout
@@ -399,11 +325,11 @@ breakout problems/homework
 
 \end_deeper
 \begin_layout Itemize
-Break (15 minutes)
+Break (30 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 7: Data analysis (Nima) 
+Module 7: Graphics 
 \begin_inset Separator latexpar
 \end_inset
 
@@ -412,76 +338,7 @@ Module 7: Data analysis (Nima)
 
 \begin_deeper
 \begin_layout Itemize
-regression, GLMs 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-(building on Chris' intro to S3 in module)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-smoothing
-\end_layout
-
-\begin_layout Itemize
-optimization
-\end_layout
-
-\begin_layout Itemize
-simulation, sample()
-\end_layout
-
-\begin_layout Itemize
-dates and times
-\end_layout
-
-\begin_layout Itemize
-breakout problems 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[a small simulation study perhaps]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Module 8: Graphics (Dana)
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-http://teachpress.environmentalinformatics-marburg.de/2013/07/creating-publication
--quality-graphs-in-r-7/
-\end_layout
-
-\end_inset
-
-
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-exporting graphics (vector/raster formats)
-\end_layout
-
-\begin_layout Itemize
-lattice graphics
+overview of graphics in R
 \end_layout
 
 \begin_layout Itemize
@@ -489,27 +346,18 @@ ggplot2
 \end_layout
 
 \begin_layout Itemize
+organizing and exporting graphics (vector/raster formats)
+\end_layout
+
+\begin_layout Itemize
 breakout problems 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[creating a nice lattice/ggplot2 graphic]
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_deeper
 \end_deeper
+\end_deeper
 \begin_layout Itemize
-Lunch (on your own) (12:45-2:00)
-\end_layout
-
-\begin_layout Itemize
-Day 2 afternoon (2:00-4:30) (more advanced topics) 
+Session 4 (Thursday) (more advanced topics) 
 \begin_inset Separator latexpar
 \end_inset
 
@@ -524,7 +372,7 @@ TRACK 2 splits from TRACK 1
 \end_layout
 
 \begin_layout Itemize
-Track 2: Session 3 (Evan)
+Track 2: Session 4a (Evan)
 \end_layout
 
 \begin_deeper
@@ -534,11 +382,11 @@ Revisit base graphics and ggplot, data analysis
 
 \end_deeper
 \begin_layout Itemize
-Break (15 minutes)
+Break (30 minutes)
 \end_layout
 
 \begin_layout Itemize
-Track 2: Session 4 (Evan)
+Track 2: Session 4b (Evan)
 \end_layout
 
 \begin_deeper
@@ -548,40 +396,6 @@ Programming: for loops, if-then-else conditionals, functions
 
 \begin_layout Itemize
 Automation example: Monte Carlo simulation and the birthday problem
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-
-\series bold
-TRACK 2 rejoins TRACK 1
-\end_layout
-
-\begin_layout Itemize
-Module 11: Wrapping up (Chris) (15 minutes)
-\begin_inset Separator latexpar
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-R inconsistencies and different ways to do things 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-(see Knowles slide)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Where to learn more (campus and non-campus resources)
 \end_layout
 
 \end_deeper
