@@ -1,5 +1,5 @@
 % R bootcamp, Module 7: Analysis
-% August 2019, UC Berkeley
+% August 2020, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE} 

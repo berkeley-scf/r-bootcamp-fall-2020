@@ -1,5 +1,5 @@
 % R Bootcamp, Module 8: Graphics
-% August 2019, UC Berkeley
+% August 2020, UC Berkeley
 % Dana Seidel (built off of material by Kellie Ottoboni and Chris Krogslund)
 
 ```{r chunksetup, include=FALSE}

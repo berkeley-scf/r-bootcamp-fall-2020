@@ -1,5 +1,5 @@
 % R bootcamp, Module 1: Basics
-% August 2019, UC Berkeley
+% August 2020, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE, cache=TRUE} 
@@ -134,12 +134,12 @@ getwd()
 ## if the result is not the 'modules' subdirectory of the bootcamp materials
 ## directory, set the working directly along the lines of this (on a Mac):
 ##
-## setwd('/Users/paciorek/Desktop/r-bootcamp-fall-2019/modules')
+## setwd('/Users/paciorek/Desktop/r-bootcamp-fall-2020/modules')
 ##
 ## replace '/Users/paciorek/Desktop' with whatever directory you put the R part of the Bridge
 ## materials in.
 ## On Windows, it would look somethign like this:
-## setwd('C:\\Users\\sarah\\r-bootcamp-fall-2019\\modules')
+## setwd('C:\\Users\\sarah\\r-bootcamp-fall-2020\\modules')
 ##
 ## If you've done that correctly, then the next command reads
 ## in the dataset from the 'data' directory. In the next
