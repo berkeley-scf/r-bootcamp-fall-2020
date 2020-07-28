@@ -31,7 +31,7 @@ typeof(v3)
 is.vector(v1)
 is.list(v1)
 
-# only present if code from module 1 run in this R session
+## Note that 'myList' will only present in your R session if code from module 1 run in this R session.
 is.list(myList)
 is.vector(myList)
 
@@ -108,14 +108,14 @@ install.packages('fields', lib = file.path('~', 'R'))
 If you're using R directly installed on your laptop (i.e., most of you), now (or at the break) would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:
 
 ```{r eval=FALSE}
-install.packages(c('chron','colorspace','codetools', 'DBI','devtools',
-                   'dichromat','digest','doFuture','dplyr', 'fields',
-                   'foreach','future.apply', 'ggplot2','gridExtra','gtable',
-                   'inline','iterators','knitr','labeling','lattice','lme4',
-                   'mapproj','maps','munsell','proftools','proto','purrr',
-                   'R6','rbenchmark','RColorBrewer','Rcpp','reshape2','rJava',
-                   'RSQLite', 'scales','spam','stringr','tidyr','xlsx',
-                   'xlsxjars','xtable'))
+install.packages(c('chron', 'colorspace', 'codetools', 'DBI', 'devtools',
+                   'dichromat', 'digest', 'doFuture', 'dplyr', 'fields',
+                   'foreach', 'future.apply', 'ggplot2', 'gridExtra', 'gtable',
+                   'inline', 'iterators', 'knitr', 'labeling', 'lattice', 'lme4',
+                   'mapproj', 'maps', 'munsell', 'patchwork', 'proftools', 'proto',
+		   'purrr', 'R6', 'rbenchmark', 'RColorBrewer', 'Rcpp', 'reshape2',
+		   'rJava', 'RSQLite', 'scales', 'spam', 'stringr', 'tidyr', 'xlsx',
+                   'xlsxjars', 'xtable'))
 ```
 
 Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., *fields* depends on *maps* and on *spam*.
@@ -191,7 +191,7 @@ See the *devtools* package and `package.skeleton()` for some useful tools to hel
 
 # The working directory
 
-To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from. 
+To read and write from R, you need to have a firm grasp of where in the computer's filesystem (i.e., the hard drive) you are reading and writing from. 
 
 ```{r, eval=FALSE}
 getwd()  # what directory will R look in?
@@ -244,6 +244,57 @@ R can also read in (and write out) Excel files, netCDF files, HDF5 files, etc., 
 A pause for a (gentle) diatribe:
 
 Please try to avoid using Excel files as a data storage format. It's proprietary, complicated (can have multiple sheets), allows a limited number of rows/columns, and files are not easily readable/viewable (unlike simple text files).
+
+# More details on reading data into R
+
+Remember that you'll need to know the current working directory so that you know where R is looking for files.
+
+The workhorse for reading into a data frame is *read.table()*, which allows any separator (CSV, tab-delimited, etc.). *read.csv()* is a special case of *read.table()* for CSV files.
+
+You've already seen a bit of this, but let's work through a more involved example, so you can see some of the steps and tricks involved in reading data into R.
+
+```{r, cache=TRUE}
+## First try:
+rta <- read.table("../data/RTAData.csv", sep = ",", head = TRUE)
+rta[1:5, 1:5]
+dim(rta)
+## great, we're all set, right?
+## Not so fast...
+unlist(lapply(rta, class))[1:5]
+
+## Second try (only relevant if not using R 4.0 or later):
+## ?read.table
+## stringsAsFactors=FALSE is the default as of R 4.0
+rta2 <- read.table("../data/RTAData.csv", sep = ",", 
+  head = TRUE, stringsAsFactors = FALSE)
+rta2[3,3]
+unlist(lapply(rta2, class))[1:5]
+
+## Third try:
+## let's delve more deeply
+levels(rta[ , 2])[c(1:5, 3041:3044)]
+rta3 <- read.table("../data/RTAData.csv", sep = ",", head = TRUE, 
+      stringsAsFactors = FALSE, na.strings = c('NA', 'x'))
+unlist(lapply(rta3, class))[1:5]
+
+## checking...
+missing <- which(rta[ , 2] == "")
+missing[1:5]
+rta3[head(missing), ]
+```
+
+It's good to first look at your data in plain text format outside of R and then to check it after you've read it into R.
+
+# Other ways to read data into R
+
+The *read.table()* family of functions just skims the surface of things...
+
+1) You can also read in a file as vector of characters, one character string per line of the file with *readLines()*, and then post-process it. 
+2) You can read fixed width format (constant number of characters per field) with *read.fwf()*.
+3) *read_csv()* (and *read_lines()*, *read_fwf()*, etc.) in the *readr* package is a faster, more helpful drop-in replacement for *read.csv()* that plays well with *dplyr* (see Module 5).
+4) the *data.table* package is great for reading and manipulating large datasets (orders of gigabytes or 10s of gigabytes).
+
+
 
 # Writing data out from R
 
