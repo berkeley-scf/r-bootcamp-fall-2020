@@ -26,7 +26,7 @@ Course logistics
 Location: online on Zoom, Zoom link to be provided at a later date.
 
 Time: 
-  - Monday, August 10 - Friday August 14
+  - Monday, August 10 - Thursday August 13
   - 8:30 am - 1 pm
 
 Exact hours are tentative. We may end a bit before 1 pm and Friday may be a special topics session. 
@@ -34,6 +34,11 @@ Exact hours are tentative. We may end a bit before 1 pm and Friday may be a spec
 
 We'll start formally on Monday morning at 8:30 am, but please plan to arrive in the Zoom room by 8:20 so you can  get settled. And if you need help with any software installation please come at 8 am. (Actually it would be even better if you email us in advance if you have installation problems.
 
+## Course Discussion and Questions
+
+We'll have an active [online discussion forum on Piazza](https://piazza.com/berkeley/fall2020/rbootcampfall2020) during the event. We'll also have in-person help using a Zoom virtual front desk.
+
+If you need to contact us directly with an administrative question you can email r-bootcamp@lists.berkeley.edu.
 
 ## Preparing for the course - course content
 
@@ -69,8 +74,3 @@ Alternatively, IF INSTALLING ON YOUR LAPTOP FAILS, the following is an alternati
 
 Note that our ability to troubleshoot R or RStudio installed directly on your machine is limited (particularly in Windows). We'll try to help, but if we run into roadblocks, we'll direct you to the browser option.
 
-## Course Discussion and Questions
-
-We'll have an active online discussion forum (likely using Slack, Piazza, or Google groups) during the event. We'll also have in-person help using a Zoom virtual front desk.
-
-If you need to contact us directly with an administrative question you can email r-bootcamp@lists.berkeley.edu.
