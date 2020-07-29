@@ -8,17 +8,9 @@
 
 The GitHub site ([https://github.com/berkeley-scf/r-bootcamp-fall-2020](https://github.com/berkeley-scf/r-bootcamp-fall-2020)) is the main site for the bootcamp. It has information on logistics, software installation, and is the master repository for materials for the modules.
 
-We'll use the r-bootcamp-fall-2020@lists.berkeley.edu [Google group](https://groups.google.com/a/lists.berkeley.edu/d/forum/r-bootcamp-fall-2020) for discussion and answering questions during (and before) the bootcamp. 
+We'll use this [Piazza site](https://foo.com) for discussion and answering questions during (and before) the bootcamp. 
 
 If you have an administrative question, email r-bootcamp@lists.berkeley.edu.
-
-## Wireless
-
-If you need wireless access as a guest (i.e., you don't have a CalNet ID), connect to 'CalVisitor'.
-
-# A little warm-up
-
-This isn't really all that related to R, programming or statistics, but check out the 'binary solo' in this [Flight of the Conchords song](https://www.youtube.com/watch?v=B1BdQcJ2ZYY).
 
 # How we'll operate
 
@@ -26,9 +18,16 @@ The bootcamp will be organized in modules, each of which will be a combination o
 
 Many of the modules will use a common dataset as an example on which to carry out various operations. We'll focus on dataset of demographic/economic information (population, GDP per capita, life expectancy) for many of the countries in the world every five years, provided by the [Gapminder project](https://www.gapminder.org). (Note that this is almost the full population of countries -- I'll fit some statistical models but the interpretation is tricky as we are not working with a sample from a well-defined population.)
 
-Counselors will be available to help answer any questions you have (just wave to one of them), or feel free to just ask the presenter during the presentation. The counselors will also be monitoring the [Google group Q&A area](https://groups.google.com/a/lists.berkeley.edu/d/forum/r-bootcamp-fall-2020), so feel free to type in a question there (or send email to r-bootcamp-fall-2020@lists.berkeley.edu) and one of the counselors will answer the question. Or if you know the answer, help us out by answering it yourself or adding your thoughts. 
+Assistants will be available to help answer any questions you have in several ways:
 
-Your counseloRs are: Nima Hejazi (Biostatistics), Miyabi Ishihara (Statistics), Dana Seidel (ESPM alum), and Evan Muzzall (D-Lab).
+- On the Piazza site.
+- At the Zoom frontdesk (we may use breakout rooms to pair you with an assistant).
+- The presenter may be alerted by the counselors that it would be worth answering a question for everyone at once.
+- If you notice me making a mistake or have a quick clarification question, feel free to unmute yourself and just ask directly.
+
+If you know the answer to a question posed on the Piazza site, please do help us out by answering it yourself or adding your thoughts. 
+
+Your counseloRs are: Andrew Do, Corrine Elliott, Avery Richards, Koen Van den Berge
 
 # Suggestions on how to get the most out of the bootcamp
 
@@ -175,11 +174,10 @@ The building blocks of scientific computing include:
 
 # Thanks!  
 
-* To Evan, Nima, Dana, and Miyabi.
-* To D-Lab for sponsorship and logistical support.
-* To the Statewide Database at Berkeley Law for hosting/co-sponsoring.
+* To all the presenters and assistants.
+* To D-Lab and the Statistics Department for sponsorship and logistical support.
 
 # We want your feedback (even if you leave early)!
 
 During the afternoon break tomorrow, we'll ask everyone to fill out a feedback form, but if you leave early, please also fill it out:
-[https://berkeley.qualtrics.com/jfe/form/SV_3Qmh1KuwGkEDNEp](https://berkeley.qualtrics.com/jfe/form/SV_3Qmh1KuwGkEDNEp)
+[https://berkeley.qualtrics.com/TODO](https://berkeley.qualtrics.com/TODO)

@@ -1,0 +1,84 @@
+In general try to determine what will work or not work before you try to run the code.
+Then use R to verify (or correct!) your understanding.
+
+Module 1
+
+How do I calculate the cosine of 2 pi?
+
+- cosine(2pi)
+- cosine(2*pi)
+- cos(2 * pi)
+- cos(2 x pi)
+- cos(2*pi)
+- cos(2 * 3.14159)
+
+Which of these will work to extract a subset of a vector?
+Assume the vector is created like this: vals <- rnorm(4)
+
+vals[3]
+vals[2,3]
+vals[c(2,3)]
+vals(2,3)
+vals[c(FALSE, TRUE, TRUE, FALSE)]
+vals(3)
+
+
+How would you extract "china" from this list?
+
+- myList$moreStuff[1]
+- myList$moreStuff[[1]]
+- myList[[1]]
+- myList[[3]][2]
+- myList[[3]][1]
+- myList[3][1]
+- myList[['moreStuff']][1]
+
+
+a) What do you think this will do?
+
+ints <- 1:5
+ints[0.9999]
+
+- return an error
+- return 1
+- return an empty vector
+
+
+b) What does the code do when it tries to use 0.9999 to subset?
+
+- round the 0.9999 to 1
+- truncate the 0.9999 to 0
+- return an error
+
+Module 2
+
+Which of these is true?
+
+`gap` is a data frame
+`gap` is a matrix
+`gap` is a vector
+`gap` is a list
+`gap` is a function
+
+Suppose I am on a Mac that has the following directories:
+
+Users
+  paciorek
+    Desktop
+      r-bootcamp-fall-2020
+        data
+	modules
+	schedule
+    Documents
+
+and suppose my current working directory is /Users/paciorek/Desktop/r-bootcamp-fall-2020/modules.
+Which of the following will allow me to change to the 'data' subdirectory?
+
+setwd('Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
+setwd('/Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
+setwd('data')
+setwd('../data')
+setwd('~paciorek/Desktop/r-bootcamp-fall-2020/data')
+setwd('paciorek', ' Desktop/r-bootcamp-fall-2020/data')
+setwd('./data')
+setwd('Desktop/r-bootcamp-fall-2020/data')

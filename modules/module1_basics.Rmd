@@ -22,7 +22,7 @@ log(100, base = 10)
 23 %/% 2 
 23 %% 2
 
-# scientific notation
+## scientific notation
 5000000000 * 1000
 5e9 * 1e3
 ```
@@ -79,7 +79,7 @@ If you're starting to type something you've typed before, or the long name of an
 - Put your code in a file and use `source()`. For example: `source('myRcodeFile.R')`
 
 
-**Question**: Are there other tricks that anyone knows of?
+**Question**: Are there other tricks that anyone knows of? Please post them on Piazza. 
 
 RStudio has lots of shortcuts. See [here](https://appsilon.com/r-studio-shortcuts-and-tips/) and [here](https://www.r-bloggers.com/r-studio-shortcuts-and-tips-part-2).
 
@@ -181,7 +181,7 @@ gdpTotal <- gap$gdpPercap * gap$pop
 tmp <- gdpTotal[gap$year == "2007"]
 gdpSubset <- tmp[1:20]
 
-gdpSubset >= 1e6  # Dr. Evil's version of "a lot"
+gdpSubset >= 1e6  
 
 vec1 <- rnorm(5)
 vec2 <- rnorm(5)
@@ -212,9 +212,8 @@ median(gap$lifeExp)
 
 Functions generally take arguments, some of which are often optional:
 ```{r}
-maxYear <- max(gap$year)
-lifeExp <- gap$lifeExp[gap$year == maxYear]
-median(lifeExp)
+head(gap$lifeExp)
+head(gap$lifeExp, n = 10)
 ```
 
 * We can embed function calls: 
@@ -230,6 +229,7 @@ To get information about a function you know exists, use `help` or `?`, e.g., `?
 help(lm)
 ?lm
 
+?head
 ?log
 
 apropos("mean")
@@ -292,9 +292,9 @@ as.numeric(c('3.7', '4.8'))
 Be careful: R tries to be helpful and convert between types/classes when it thinks it's a good idea. Sometimes it is overly optimistic. 
 
 ```{r}
+ints[0.999999999]
 indices <- c(1.7, 2.3)
 ints[indices]
-ints[0.999999999]
 ```
 
 
@@ -325,7 +325,7 @@ plot(gap$lifeExp ~ gap$gdpPercap, xlab = 'GDP per capita (dollars)',
 
 # Breakout
 
-In general, your answers to any questions should involve writing code to manipulate objects. For example, if I ask you to find the maximum flight delay, do not scan through all the values and find it by eye. Use R to do the calculations and print results.
+In general, your answers to any questions should involve writing code to manipulate objects. For example, if I ask you to find the maximum value in a vector, do not scan through all the values and find it by eye. Use R to do the calculations and print results.
 
 ### Basics
 
