@@ -8,7 +8,7 @@
 
 The GitHub site ([https://github.com/berkeley-scf/r-bootcamp-fall-2020](https://github.com/berkeley-scf/r-bootcamp-fall-2020)) is the main site for the bootcamp. It has information on logistics, software installation, and is the master repository for materials for the modules.
 
-We'll use this [Piazza site](https://foo.com) for discussion and answering questions during (and before) the bootcamp. 
+We'll use this [Piazza site](piazza.com/berkeley/fall2020/rbootcampfall2020) for discussion and answering questions during (and before) the bootcamp. 
 
 If you have an administrative question, email r-bootcamp@lists.berkeley.edu.
 

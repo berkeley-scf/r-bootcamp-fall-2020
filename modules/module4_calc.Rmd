@@ -12,6 +12,7 @@ gap <- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'), stringsAs
 gap2007 <- gap[gap$year == 2007, ]
 ```
 
+
 # Reminder: Vectorized calculations and comparisons
 
 At the core of R is the idea of doing calculations on entire vectors.
@@ -145,6 +146,7 @@ Rinv <- solve(R) # R^{-1} -- try to avoid this
 
 # Pre-allocation
 
+
 This is slow.
 ```{r cache=TRUE}
 vals <- 0
@@ -156,6 +158,8 @@ for(i in 1:n)
 ```
 
 The same holds for using `rbind()`, `cbind()`, or adding to a list, one element at a time.
+
+Note that we'll discuss for loops in Module 5, but many of you are probably familiar with syntax like this either in R or in other languages.
 
 
 **Question**: Thoughts on why this are so slow? Think about what R might be doing behind the scenes
@@ -180,46 +184,131 @@ vals <- list(); length(vals) <- n
 head(vals)
 ```
 
-# apply
 
-Some functions aren't vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.
+# Subsetting
 
-For this we use the `apply()` family of functions.
-
-```{r}
-mat <- matrix(rnorm(100*1000), nr = 100)
-row_min <- apply(mat, MARGIN = 1, FUN = min)
-col_max <- apply(mat, MARGIN = 2, FUN = max)
-```
-
-There are actually some even faster specialized functions:
-```{r}
-row_mean <- rowMeans(mat)
-col_sum <- colSums(mat)
-```
-
-# `lapply()` and `sapply()`
+There are many ways to select subsets in R. The syntax below is useful for vectors, matrices, data frames, arrays and lists.
 
 ```{r}
-myList <- list(rnorm(3), rnorm(3), rnorm(5))
-lapply(myList, min)
-sapply(myList, min)
+vec <- gap2007$lifeExp
+mat <- matrix(1:20, 4, 5)
+rownames(mat) <- letters[1:4]
+mat
 ```
+1) by direct indexing
 
-Note that we don't generally want to use `apply()` on a data frame. 
-
-You can use `lapply()` and `sapply()` on regular vectors, such as vectors of indices, which can come in handy, though this is a silly example:
 ```{r}
-sapply(1:10, function(x) x^2)
+vec[c(3, 5, 12:14)]
+vec[-c(3,5)]
+gap[c(2,4), 5]
+gap[c(2,4), 'lifeExp']
+
+## more advanced: select using a matrix of indexes
+rowInd <- c(1, 3, 4)
+colInd <- c(2, 2, 1)
+elemInd <- cbind(rowInd, colInd)
+elemInd
+gap[elemInd]
+```
+
+Note the last usage where we give it a 2-column matrix of indices
+
+2) by a vector of logicals
+
+```{r}
+wealthy <- gap$gdpPercap > 50000
+gap$gdpPercap[wealthy]
+gap[wealthy, ]
+```
+
+What happened in the last subsetting operation?
+
+3) by a vector of names
+```{r}
+mat[c('a', 'd', 'a'), ]
+```
+
+4) using *subset()*
+
+```{r}
+subset(gap, gdpPercap > 50000)
+```
+
+5) using *dplyr* tools such as *filter()* and *select()* -- more in Module 6
+
+# Assignment into subsets
+
+We can assign into subsets by using similar syntax, as we saw with vectors.
+
+```{r}
+vec <- rnorm(20)
+vec[c(3, 5, 12:14)] <- 1:5
+vec
+
+## Here's a complicated bit of assignment syntax:
+mat[2, 3:5] <- rnorm(3)
+mat[mat[,1] > 0, ] <- -Inf
+mat
 ```
 
 
-# And more `apply()`s
+# Factors
 
-There are a bunch of `apply()` variants, as well as parallelized versions of them:
+- A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is incredibly frustrating.
 
-* `tapply()`, `vapply()`, `mapply()`, `rapply()`, `eapply()`
-* for parallelized versions see Module 10 or `?clusterApply`
+```{r fac}
+## let's read the Gapminder data in using the defaults for `read.csv`
+gap <- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'), stringsAsFactors = TRUE)
+class(gap$continent)
+head(gap$continent) # What order are the factors in?
+levels(gap[["continent"]])  # note alternate way to get the variable
+summary(gap$continent)
+```
+
+- What if we don't like the order these are in? Factor order is important for all kinds of things like plotting, analysis of variance, regression output, and more
+
+# Ordering the Factor
+
+- Ordered factors simply have an additional attribute explaining the order of the levels of a factor
+- This is a useful shortcut when we want to preserve some of the meaning provided by the order
+- Think ordinal data
+
+This example is a bit artificial as 'continent' doesn't really have a natural ordering.
+
+```{r orderedfac, fig.cap = ""}
+gap$continent2 <- ordered(gap$continent, 
+     levels = levels(gap$continent)[c(2,1,3,4,5)])
+
+head(gap$continent2)
+levels(gap$continent2)
+boxplot(lifeExp ~ continent2, data = gap)
+```
+
+# (Advanced) Reclassifying Factors
+- Turning factors into other data types can be tricky. All factors have an underlying numeric structure.
+
+```{r fac2}
+students <- factor(c('basic','proficient','advanced','basic', 
+      'advanced', 'minimal'))
+levels(students)
+unclass(students)
+```
+
+- Hmmm, what happened?
+- Be careful! The best way to convert a factor is to convert it to a character first.
+
+```{r}
+students <- factor(c('basic','proficient','advanced','basic', 
+      'advanced', 'minimal'))
+score = c(minimal = 3, basic = 1, advanced = 13, proficient = 7) # a named vector
+score["advanced"]  # look up by name
+students[3]
+score[students[3]]
+score[as.character(students[3])]
+```
+
+What went wrong and how did we fix it?  Notice how easily this could be a big bug in your code.
+
 
 # Tabulation 
 
@@ -229,14 +318,14 @@ There are a bunch of `apply()` variants, as well as parallelized versions of the
 ```{r table}
 tbl <- table(gap$country, gap$continent)
 tbl
-rowSums(tbl)
-all(rowSums(tbl) == 12)
+range(tbl)
+table(tbl)
 ```
 
 
 # Discretization
 
-You may need to discretize a continuous variable [or a discrete variable with many levels], e.g., by life expectancy:
+You may need to discretize a continuous variable (or a discrete variable with many levels), e.g., by life expectancy:
 ```{r fig.width=9}
 gap2007$lifeExpBin <- cut(gap2007$lifeExp, breaks = c(0, 40, 50, 60, 70, 75, 80, Inf))
 tbl <- table(gap2007$continent, gap2007$lifeExpBin)
@@ -335,6 +424,255 @@ identical(gapSave, gap[ , names(gapSave)])
 ```
 
 What's the deal with the `all.x` and `all.y` ?  We can tell R whether we want to keep all of the `x` observations, all the `y` observations, or neither, or both, when there may be rows in either of the datasets that don't match the other dataset.
+
+# Describing relationships
+
+- Once we've carried out group-wise operations and perhaps reshaped it, we may also like to describe the relationships in the data. Often this involves fitting some style of regression model.  The goal can be pure prediction, description, or inferring a causal relationship between variables.
+
+Of course to infer causality, one has to be quite careful and techniques that try to avoid the usual pitfall that correlation is not causation are way beyond what we can cover here.
+
+We'll just see the basics of how to fit regressions here. 
+
+# Inference/Regression
+
+- Running regressions in R is generally straightforward.
+
+- Most basic, catch-all regression function in R is *glm*
+
+- *glm* fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
+
+- *lm* is just a standard linear regression (equivalent to glm with family = gaussian(link = "identity"))
+
+- The basic glm call looks something like this:
+
+```{r eval=FALSE}
+glm(formula = y ~ x1 + x2 + x3 + ..., family = familyname(link = "linkname"),
+            data = )
+```
+
+- There are a bunch of families and links to use (help(family) for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
+
+If you're using `lm`, the call looks the same but without the `family` argument. 
+
+- Example: suppose we want to regress the life expectency on the GDP per capita and the population, as well as the continent and year.  The lm/glm call would be something like this:
+
+```{r}
+reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
+                data = gap)
+```
+
+# Regression output
+
+- When we store this regression in an object, we get access to several items of interest
+
+```{r}
+# View components contained in the regression output
+names(reg)
+# Examine regression coefficients
+reg$coefficients
+# Examine regression degrees of freedom
+reg$df.residual
+# See the standard (diagnostic) plots for a regression
+plot(reg)
+```
+
+- R has a helpful summary method for regression objects
+```{r}
+summary(reg)
+```
+
+- Can also extract useful things from the summary object
+
+```{r}
+# Store summary method results
+summ_reg <- summary(reg)
+# View summary method results objects
+objects(summ_reg)
+# View table of coefficients
+summ_reg$coefficients
+```
+
+- Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels)
+
+- If your data aren't factorized, you can tell lm/glm to factorize a variable (i.e. create dummy variables on the fly) by writing
+
+```{r, eval=FALSE}
+glm(formula = y ~ x1 + x2 + factor(x3), family = family(link = "link"),
+            data = )
+```
+
+# Setting up regression interactions
+
+- There are also some useful shortcuts for regressing on interaction terms:
+
+`x1:x2` interacts all terms in x1 with all terms in x2
+```{r}
+summary(lm(lifeExp ~ log(gdpPercap) + log(pop) +
+                    continent:factor(year), 
+                    data = gap))
+```
+
+`x1*x2` produces the cross of x1 and x2, or x1+x2+x1:x2
+```{r}
+summary(lm(lifeExp ~ log(gdpPercap) + log(pop) + continent*factor(year), 
+                data = gap))
+```
+
+# Distributions
+
+Since R was developed by statisticians, it handles distributions and simulation seamlessly.
+
+All commonly-used distributions have functions in R. Each distribution has a family of functions: 
+
+* d - probability density/mass function, e.g. `dnorm()`
+* r - generate a random value, e.g., `rnorm()`
+* p - cumulative distribution function, e.g., `pnorm()`: 
+* q - quantile function (inverse CDF), e.g., `qnorm()`
+
+Some of the distributions include the following (in the form of their random number generator function): `rnorm()`, `runif()`, `rbinom()`, `rpois()`, `rbeta()`, `rgamma()`, `rt()`, `rchisq()`.
+
+# Distributions in action
+
+```{r, fig.cap = ""}
+pnorm(1.96)
+qnorm(.975)
+dbinom(0:10, size = 10, prob = 0.3)
+dnorm(5)
+dt(5, df = 1)
+
+x <- seq(-5, 5, length = 100)
+plot(x, dnorm(x), type = 'l')
+lines(x, dt(x, df = 1), col = 'red')
+```
+
+```{r, fig.cap = ""}
+rmultinom(1, 100, prob = c(.1, .1, .2, .3, .25, .05)) 
+
+x <- seq(0, 10, length = 100)
+plot(x, dchisq(x, df = 1), type = 'l')
+lines(x, dchisq(x, df = 2), col = 'red')
+```
+
+# Other types of simulation and sampling
+
+We can draw a sample with or without replacement.
+
+```{r}
+sample(1:nrow(gap), 20, replace = FALSE)
+```
+
+Here's an example of some code that would be part of coding up a bootstrap. As I mentioned previously, this would be a weird dataset to do formal statistical inference on given it includes most of the countries in the world, though one could think about fitting models for the variation over time, treating short-term fluctuations as random.
+
+```{r}
+# actual mean
+mean(gap$lifeExp, na.rm = TRUE)
+# here's a bootstrap sample:
+smp <- sample(seq_len(nrow(gap)), replace = TRUE) 
+mean(gap$lifeExp[smp], na.rm = TRUE)
+```
+
+It's a good idea to use `seq_along()` and `seq_len()` and not syntax like `1:length(gap)` in `sample()` because the outcome of `length()` might in some cases be unexpected (e.g., if you're taking subsets of a dataset). Similar reasoning holds when setting up for loops: e.g., 
+
+```{r eval=FALSE}
+for(i in seq_len(nrow(gap))) {
+# blah
+}
+```
+
+# The Random Seed
+
+A few key facts about generating random numbers
+
+* Random number generation is based on generating uniformly between 0 and 1 and then transforming to the kind of random number of interest: normal, categorical, etc.
+* Random numbers on a computer are *pseudo-random*; they are generated deterministically from a very, very, very long sequence that repeats
+* The *seed* determines where you are in that sequence
+
+To replicate any work involving random numbers, make sure to set the seed first.
+
+```{r}
+set.seed(1)
+vals <- sample(1:nrow(gap), 10)
+vals
+vals <- sample(1:nrow(gap), 10)
+vals
+set.seed(1)
+vals <- sample(1:nrow(gap), 10)
+vals
+```
+
+
+# Strings
+
+R has lots of functionality for character strings. Usually these are stored as vectors of strings, each with arbitrary length.
+
+```{r}
+chars <- c('hi', 'hallo', "mother's", 'father\'s', "He said, \"hi\"" )
+length(chars)
+nchar(chars)
+paste("Barack", "Obama", sep = " ")  # paste together a set of strings
+paste(chars, collapse = ' ')  # paste together things from a vector
+
+strsplit("This is the R bootcamp", split = " ")
+
+countries <- as.character(gap2007$country)
+substring(countries, 1, 3)
+tmp <- countries
+substring(tmp, 5, 10) <- "______"
+tmp[1:20]
+```
+We can search for patterns in character vectors and replace patterns (both vectorized!)
+```{r}
+indexes <- grep("Korea", countries)
+indexes
+countries[indexes]
+countries2 <- gsub("Korea Dem. Rep.", "North Korea", countries)
+countries2[indexes]
+```
+
+# Regular expressions (regex or regexp)
+
+Some of you may be familiar with using *regular expressions*, which is functionality for doing sophisticated pattern matching and replacement with strings. *Python* and *Perl* are both used extensively for such text manipulation. 
+
+R has a full set of regular expression capabilities available through the *grep()*, *gregexpr()*, and *gsub()* functions (among others - many R functions will work with regular expressions). A particularly nice way to make use of this functionality is to use the *stringr* package, which is more user-friendly than directly using the core R functions.
+
+You can basically do any regular expression/string manipulations in R, though the syntax may be a bit clunky at times.
+
+# Dates
+- R has built-in ways to handle dates (don't reinvent the wheel!) 
+
+```{r dates}
+date1 <- as.Date("03-01-2011", format = "%m-%d-%Y")
+date2 <- as.Date("03/02/11", format = "%m/%d/%y")
+date3 <- as.Date("07-May-11", format = "%d-%b-%y")
+
+date1; date2
+class(date1)
+dates <- c(date1, date2, date3)
+weekdays(dates)
+dates + 30
+date3 - date2
+unclass(dates)
+```
+- The origin date in R is January 1, 1970
+
+
+# Time too!
+
+```{r}
+library(chron)
+d1 <- chron("12/25/2004", "10:37:59") 
+# default format of m/d/Y and h:m:s
+d2 <- chron("12/26/2004", "11:37:59")
+
+class(d1)
+d1
+d1 + 33
+d2 - d1
+d1 + d2
+```
+
+There's lots more packages/functionality for dates/times: see *lubridate* and `?DateTimeClasses`
+
 
 # Breakout
 

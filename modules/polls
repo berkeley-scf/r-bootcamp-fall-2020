@@ -72,6 +72,7 @@ Users
     Documents
 
 and suppose my current working directory is /Users/paciorek/Desktop/r-bootcamp-fall-2020/modules.
+(Windows users, just think of this as being C:\Users\paciorek\Desktop\r-bootcamp-fall-2020\modules.)
 Which of the following will allow me to change to the 'data' subdirectory?
 
 setwd('Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
@@ -82,3 +83,171 @@ setwd('~paciorek/Desktop/r-bootcamp-fall-2020/data')
 setwd('paciorek', ' Desktop/r-bootcamp-fall-2020/data')
 setwd('./data')
 setwd('Desktop/r-bootcamp-fall-2020/data')
+
+Module 3
+
+Recall the gap dataframe has columns that are numeric and columns that are character strings.
+What do you think will happen if we do this:
+as.matrix(gap)
+
+- it will convert to a matrix with no changes
+- all numeric columns will be converted to character strings
+- R will throw an error
+- all character columns will be converted to numeric values
+- R will drop some of the columns
+
+
+Consider our matrix 'mat': mat <- matrix(1:16, nrow = 4, ncol = 4)
+     [,1] [,2] [,3] [,4]
+[1,]    1    5    9   13
+[2,]    2    6   10   14
+[3,]    3    7   11   15
+[4,]    4    8   12   16
+
+Suppose I run this code: mat[4]
+What do you think will be returned?
+
+- 13
+- 4
+- 13, 14, 15, 16
+- 4, 8, 12, 16
+- an error
+
+(a) Consider the following vector:
+vec <- c(3, NA, 7)
+
+What is vec[2]:
+
+- NA
+- 7
+
+(b) Consider this vector:
+vec <- c(3, NULL, 7)
+
+What is vec[2]:
+
+- NULL
+- NA
+- 7
+- 3
+
+(c) Consider this list:
+
+mylist <- list(3, NULL, 7)
+
+What is mylist[[2]]:
+
+- 7
+- NULL
+- NA
+- 3
+
+(d) Consider this code:
+
+mylist <- list(3, 5, 7)
+mylist[[2]] <- NULL
+
+What is length(mylist):
+
+- 3
+- 2
+- 1
+
+
+a) Suppose I want to select the 3rd elements from the 2nd and 4th columns of a matrix or dataframe. Which syntax will work?
+Here's a test matrix:
+
+mat <- matrix(1:16, nrow = 4, ncol = 4)
+
+- mat[3, (2, 4)]
+- mat[c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)]
+- mat[c(FALSE, FALSE, TRUE, FALSE), c(2, 4)]
+- mat[3, c(2, 4)]
+- mat(3, c(2, 4))
+- mat[3, ][c(2, 4)]
+- mat[ , c(2, 4)][3, ]
+- mat[ , c(2, 4)][3]
+- mat[c(2, 4)][3, ]
+
+b) (Advanced) One of those answers won't work with a matrix but will work with a dataframe. Which one?
+
+- mat[3, (2, 4)]
+- mat[c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)]
+- mat[c(FALSE, FALSE, TRUE, FALSE), c(2, 4)]
+- mat[3, c(2, 4)]
+- mat(3, c(2, 4))
+- mat[3, ][c(2, 4)]
+- mat[ , c(2, 4)][3, ]
+- mat[ , c(2, 4)][3]
+- mat[c(2, 4)][3, ]
+
+
+Module 4:
+
+2^3 is raising 2 to the power 3, so you get 8. 
+What will this return?  (1:4)^(1:4)
+
+- an error
+- 1, 2, 3, 4
+- 1, 4, 27, 256
+- 1, 4, 9, 16
+- 1, 16, 81, 256
+
+What will this return?
+
+vec1 <- c(1,2,3,4)
+vec2 <- c(1,2)
+vec1 + vec2
+
+- 2, 4
+- 2, 4, 5, 6
+- 2, 4, 4, 6
+- an error
+
+
+Consider this regression model:
+reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
+                data = gap)
+
+a) 'continent' could be:
+
+ - numeric
+ - character
+ - factor
+ - none of the above
+
+b) 'year' should be:
+
+ - numeric
+ - factor
+ - character
+ - none of the above
+
+
+What kind of object is produced by split, e.g., subsets <- split(gap,  gap$year)
+
+- a dataframe
+- a list
+- a list of lists
+- a list of dataframes
+- some new kind of object we haven't encountered yet
+
+Suppose you see this syntax when using the output of a regression:
+
+reg$coefficients
+
+The `reg` object is:
+ - a list
+ - a numeric vector
+ - a dataframe
+ - something else
+
+
+Suppose you want know the probability of getting 4 or fewer heads when flipping a coin 10 times. Which of the following will work?
+
+ - dbinom(4, size = 10, prob = 0.5)
+ - pbinom(4, size = 10, prob = 0.5)
+ - qbinom(4, size = 10, prob = 0.5)
+ - pbinom(5, size = 10, prob = 0.5)
+ - sum(dbinom(0:4, size = 10, prob = 0.5)
+ - rbinom(1, size = 10, prob = 0.5)

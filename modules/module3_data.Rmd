@@ -21,16 +21,16 @@ If you need to do numeric calculations on an entire non-vector object (dimension
 mat <- matrix(rnorm(12), nrow = 3, ncol = 4)
 mat
 
-# vectorized calcs work with matrices too
+## vectorized calcs work with matrices too
 mat*4
 mat <- cbind(mat, 1:3)
 mat
 
-# Let's convert the gapminder dataframe to a matrix:
+## Let's convert the gapminder dataframe to a matrix:
 gm_mat <- as.matrix(gap[ , c('lifeExp', 'gdpPercap')])
 head(gm_mat)
 
-# What do you think will happen?
+## What do you think will happen?
 gm_mat <- as.matrix(gap)
 head(gm_mat)
 ```
@@ -146,12 +146,12 @@ healthy <- gap2007$lifeExp > 75
 head(wealthy)
 table(wealthy)
 
-# note the vectorized boolean arithmetic
+## note the vectorized boolean arithmetic
 gap2007[wealthy & healthy, ]
 gap2007[wealthy | healthy, ]
 gap2007[wealthy & !healthy, ]
 
-# what am I doing here?
+## what am I doing here?
 sum(healthy)
 mean(healthy)
 ```
@@ -202,59 +202,18 @@ identical(gap[c(3,5)], gap[ , c(3,5)])
 In general the placement of commas in R is crucial, but here, two different operations give the same result because of the underlying structure of data frames.
 
 # Factors
-- A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is incredibly frustrating. 
+
+- A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is incredibly frustrating.
 
 ```{r fac}
 ## let's read the Gapminder data in using the defaults for `read.csv`
-gap <- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'))
+gap <- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'), stringsAsFactors = TRUE)
 class(gap$continent)
 head(gap$continent) # What order are the factors in?
 levels(gap[["continent"]])  # note alternate way to get the variable
 summary(gap$continent)
 ```
 
-- What if we don't like the order these are in? Factor order is important for all kinds of things like plotting, analysis of variance, regression output, and more
-
-# Ordering the Factor
-- Ordered factors simply have an additional attribute explaining the order of the levels of a factor
-- This is a useful shortcut when we want to preserve some of the meaning provided by the order
-- Think ordinal data
-
-This example is a bit artificial as 'continent' doesn't really have a natural ordering.
-
-```{r orderedfac, fig.cap = ""}
-gap$continent2 <- ordered(gap$continent, 
-     levels = levels(gap$continent)[c(2,1,3,4,5)])
-
-head(gap$continent2)
-levels(gap$continent2)
-boxplot(lifeExp ~ continent2, data = gap)
-```
-
-# Reclassifying Factors
-- Turning factors into other data types can be tricky. All factors have an underlying numeric structure.
-
-```{r fac2}
-students <- factor(c('basic','proficient','advanced','basic', 
-      'advanced', 'minimal'))
-levels(students)
-unclass(students)
-```
-
-- Hmmm, what happened?
-- Be careful! The best way to convert a factor is to convert it to a character first.
-
-```{r}
-students <- factor(c('basic','proficient','advanced','basic', 
-      'advanced', 'minimal'))
-score = c(minimal = 3, basic = 1, advanced = 13, proficient = 7) # a named vector
-score["advanced"]  # look up by name
-students[3]
-score[students[3]]
-score[as.character(students[3])]
-```
-
-What went wrong and how did we fix it?  Notice how easily this could be a big bug in your code.
 
 # Subsetting
 
@@ -274,6 +233,7 @@ vec[-c(3,5)]
 gap[c(2,4), 5]
 gap[c(2,4), 'lifeExp']
 
+## more advanced: select using a matrix of indexes
 rowInd <- c(1, 3, 4)
 colInd <- c(2, 2, 1)
 elemInd <- cbind(rowInd, colInd)
@@ -314,9 +274,8 @@ We can assign into subsets by using similar syntax, as we saw with vectors.
 vec <- rnorm(20)
 vec[c(3, 5, 12:14)] <- 1:5
 vec
-mat[2, 3:5] <- rnorm(3)
-mat[mat[,1] > 0, ] <- -Inf
-mat
+
+mat[2, 3:5] <- 1:3
 ```
 
 # Strings
@@ -327,7 +286,7 @@ R has lots of functionality for character strings. Usually these are stored as v
 chars <- c('hi', 'hallo', "mother's", 'father\'s', "He said, \"hi\"" )
 length(chars)
 nchar(chars)
-paste("bill", "clinton", sep = " ")  # paste together a set of strings
+paste("Barack", "Obama", sep = " ")  # paste together a set of strings
 paste(chars, collapse = ' ')  # paste together things from a vector
 
 strsplit("This is the R bootcamp", split = " ")
@@ -346,58 +305,6 @@ countries[indexes]
 countries2 <- gsub("Korea Dem. Rep.", "North Korea", countries)
 countries2[indexes]
 ```
-
-# Regular expressions (regex or regexp)
-
-Some of you may be familiar with using *regular expressions*, which is functionality for doing sophisticated pattern matching and replacement with strings. *Python* and *Perl* are both used extensively for such text manipulation. 
-
-R has a full set of regular expression capabilities available through the *grep()*, *gregexpr()*, and *gsub()* functions (among others - many R functions will work with regular expressions). A particularly nice way to make use of this functionality is to use the *stringr* package, which is more user-friendly than directly using the core R functions.
-
-You can basically do any regular expression/string manipulations in R, though the syntax may be a bit clunky at times.
-
-# More details on reading data into R
-
-Remember that you'll need to know the current working directory so that you know where R is looking for files.
-
-The workhorse for reading into a data frame is *read.table()*, which allows any separator (CSV, tab-delimited, etc.). *read.csv()* is a special case of *read.table()* for CSV files.
-
-You've already seen a bit of this, but let's work through a more involved example, so you can see some of the steps and tricks involved in reading data into R.
-
-```{r, cache=TRUE}
-rta <- read.table("../data/RTAData.csv", sep = ",", head = TRUE)
-rta[1:5, 1:5]
-dim(rta)
-# great, we're all set, right?
-# Not so fast...
-unlist(lapply(rta, class))[1:5]
-# ?read.table
-# stringsAsFactors=FALSE is the default as of R 4.0
-rta2 <- read.table("../data/RTAData.csv", sep = ",", 
-  head = TRUE, stringsAsFactors = FALSE)
-rta2[3,3]
-unlist(lapply(rta2, class))[1:5]
-# let's delve more deeply
-levels(rta[ , 2])[c(1:5, 3041:3044)]
-rta3 <- read.table("../data/RTAData.csv", sep = ",", head = TRUE, 
-      stringsAsFactors = FALSE, na.strings = c('NA', 'x'))
-unlist(lapply(rta3, class))[1:5]
-
-# checking...
-missing <- which(rta[ , 2] == "")
-missing[1:5]
-rta3[head(missing), ]
-```
-
-It's good to first look at your data in plain text format outside of R and then to check it after you've read it into R.
-
-# Other ways to read data into R
-
-The *read.table()* family of functions just skims the surface of things...
-
-1) You can also read in a file as vector of characters, one character string per line of the file with *readLines()*, and then post-process it. 
-2) You can read fixed width format (constant number of characters per field) with *read.fwf()*.
-3) *read_csv()* (and *read_lines()*, *read_fwf()*, etc.) in the *readr* package is a faster, more helpful drop-in replacement for *read.csv()* that plays well with *dplyr* (see Module 5).
-4) the *data.table* package is great for reading and manipulating large datasets (orders of gigabytes or 10s of gigabytes).
 
 
 # Breakout
