@@ -454,7 +454,7 @@ Thankfully, the `tidyr` package will help you efficiently transform your data re
 library(tidyr)
 ```
 
-# `tidyr::gather`
+# `tidyr::pivot_longer`
 
 Until now, we've been using the nicely formatted original gapminder data set. This data set is not quite wide and not quite long -- it's something in the middle, but "real" data (i.e., our own research data) will never be so well organized. Here let's start with the wide format version of the gapminder data set.
 
@@ -464,25 +464,18 @@ head(gap_wide)
 ```
 
 The first step towards getting our nice intermediate data format is to first convert from the wide to the long format.
-The function `gather()` will 'gather' the observation variables into a single variable. This is sometimes called "melting" your data, because it melts the table from wide to long. Those data will be melted into two variables: one for the variable names, and the other for the variable values.
+The function `pivot_longer()` will 'gather' the observation variables into a single variable. This is sometimes called "melting" your data, because it melts the table from wide to long. Those data will be melted into two variables: one for the variable names, and the other for the variable values.
 
 ```{r}
-gap_long <- gap_wide %>%
-    gather(obstype_year, obs_values, 3:38)
+gap_long <- gap_wide %>% pivot_longer(gdpPercap_1952:pop_2007)
 head(gap_long)
 ```
 
-Notice that we put 3 arguments into the `gather()` function:
-
-1. the name the new column for the new ID variable (`obstype_year`),
-2. the name for the new amalgamated observation variable (`obs_value`),
-3. the indices of the old variables (`3:38`, signalling columns 3 through 38) that we want to gather into one variable. Notice that we don't want to melt down columns 1 and 2, as these are considered "ID" variables.
+Formerly one used the function `gather` to do this, but many people found it not to be intuitive to use.
 
 # `tidyr::select`
 
-If there are a lot of columns or they're named in a consistent pattern, we might not want to select them using the column numbers.
-It'd be easier to use some information contained in the names themselves.
-We can select variables using:
+There are various ways to select the columns to 'melt':
 
 * variable indices
 * variable names (without quotes)
@@ -499,13 +492,12 @@ For instance, here we do the same gather operation with (1) the `starts_with` fu
 ```{r}
 # with the starts_with() function
 gap_long <- gap_wide %>%
-    gather(obstype_year, obs_values, starts_with('pop'),
-           starts_with('lifeExp'), starts_with('gdpPercap'))
+    pivot_longer(c(starts_with('pop'), starts_with('lifeExp'), starts_with('gdpPercap')))
 head(gap_long)
 
 # with the - operator
 gap_long <- gap_wide %>%
-  gather(obstype_year, obs_values, -continent, -country)
+  pivot_longer(c(-continent, -country))
 head(gap_long)
 ```
 
@@ -519,22 +511,25 @@ We can use the `separate()` function to split the character strings into multipl
 
 ```{r}
 gap_long_sep <- gap_long %>%
-  separate(obstype_year, into = c('obs_type','year'), sep = "_") %>%
+  separate(name, into = c('obs_type','year'), sep = "_") %>%
   mutate(year = as.integer(year))
 head(gap_long_sep)
 ```
 
 If you didn't use `tidyr` to do this, you'd have to use the `strsplit` function and use multiple lines of code to replace the column in `gap_long` with two new columns. This solution is much cleaner.
 
-# `tidyr::spread`
+# `tidyr::pivot_wider`
 
-The opposite of `gather()` is `spread()`. It spreads our observation variables back out to make a wider table. We can use this function to spread our `gap_long()` to the original "medium" format.
+The opposite of `pivot_longer()` is `pivot_wider()`. It spreads our observation variables back out to make a wider table. We can use this function to spread our `gap_long()` to the original "medium" format.
 
 ```{r}
 gap_medium <- gap_long_sep %>%
-  spread(obs_type, obs_values)
+  pivot_wider(names_from = obs_type, values_fvalue)
 head(gap_medium)
 ```
+
+Formerly one used the function `spread` to do this, but many people found it not to be intuitive to use.
+
 
 All we need is some quick fixes to make this dataset identical to the original `gap` dataset:
 
@@ -549,15 +544,9 @@ head(gap_medium)
 
 # arrange by country, continent, and year
 gap_medium <- gap_medium %>%
-  arrange(country,continent,year)
+  arrange(country, continent, year)
 head(gap_medium)
 ```
-
-# What we just told you will become obsolete...
-
-`gather` and `spread` are being replaced by `pivot_longer` and `pivot_wider` in
-`tidyr 1.0.0`, which use ideas from the `cdata` package to make reshaping easier
-to think about. In a future bootcamp, we'll migrate to those functions.
 
 # Extra Resources
 

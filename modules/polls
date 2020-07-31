@@ -251,3 +251,70 @@ Suppose you want know the probability of getting 4 or fewer heads when flipping 
  - pbinom(5, size = 10, prob = 0.5)
  - sum(dbinom(0:4, size = 10, prob = 0.5)
  - rbinom(1, size = 10, prob = 0.5)
+
+
+Module 5
+
+What do you think this will return:
+sapply(1:6, function(x) rnorm(x))
+
+- a list, like lapply
+- a vector of 21 (1+2+3+4+5+6) elements
+- an error
+
+
+Which of these give exactly the same result: pi, 2*pi, 3*pi, ...?
+
+- (1:n)*pi
+- out <- rep(0, n); for(x in 1:n) out <- x*pi
+- sapply(1:n, function(x) x*pi)
+- out <- rep(0, n); for(x in 1:n) out[i] <- x*pi
+- lapply(1:n, function(x) x*pi)
+- sapply(1:n, `*`, pi)
+- 1:n*pi
+
+Which of these do you think will be fastest for a long vector, x?
+
+- x <- exp(x)
+- x <- sapply(x, exp)
+- for(i in 1:length(x)) x[i] <- exp(x[i])
+
+
+What will this return?
+if(sqrt(-1) == 0i) {
+   print('i')
+} else print('not i')
+
+- 'i'
+- an error
+- 'not i'
+
+
+
+Module 6
+
+Which of these will produce an error? (Assume 'continent' is a column in the data frame but not a stand-alone variable.)
+
+- gap[ , 'continent']
+- gap[ , continent]
+- gap %>% select(gap, continent)
+- gap %>% select(gap, 'continent')
+- gap$continent
+- gap$"continent"
+- gap[[continent]]
+- gap[['continent']]
+
+Which of these has the same number of rows as the original gap dataframe?
+
+- gap %>% group_by(continent) %>% mutate(mean_gdp = mean(gdpPercap))
+- gap %>% group_by(continent) %>% summarize(mean_gdp = mean(gdpPercap))
+- gap %>% group_by(continent) %>% summarize(mean_gdp = mean(gdpPercap)) %>% mutate(mean_gdpBillion = mean_gdp / 1e9)
+
+
+Which of the 'wide' and 'long' objects do you prefer in terms of how the heartrate 'data' are formatted?
+
+- wide
+- long
+- I'd format it some other way
+
+

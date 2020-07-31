@@ -273,6 +273,15 @@ threshZero <- function(x) {
 
 ```{r, using_the_ideas6}
 ## 2 ##
+out <- lapply(1:length(years), function(yrIdx) {
+     sub <- subset(gap, gap$year == years[yrIdx])
+     # fit regression
+     return(lm(lifeExp ~ log(gdpPercap), data = sub))
+})
+
+
+
+## 3 ##
 thresh <- function(x, threshold = 0, below = TRUE) {
     if(below) {
        x[ x < threshold ] <- threshold
@@ -282,7 +291,7 @@ thresh <- function(x, threshold = 0, below = TRUE) {
     return(x)
 }
 
-## 3 ##
+## 4 ##
 thresh <- function(x, threshold = 0, below = TRUE) {
     if(!is.numeric(x) || is.list(x)) stop("'x' must be a numeric vector")
     if(below) {
@@ -293,7 +302,7 @@ thresh <- function(x, threshold = 0, below = TRUE) {
     return(x)
 }
 
-## 4 ##
+## 5 ##
 sortByCol <- function(data, col1, col2) {
     ord <- order(data[, col1], data[, col2], decreasing=TRUE)
     sorted <- data[ord, ]
@@ -302,14 +311,14 @@ sortByCol <- function(data, col1, col2) {
 ```
 
 ```{r, advanced6}
-## 5 ##
+## 6 ##
 sortByCol <- function(data, ...) {
     ord <- order(..., decreasing=TRUE)
     sorted <- data[ord, ]
     invisible(sorted)
 }
 
-## 6 ##
+## 7 ##
 sortByCol <- function(data, ..., cols = NULL, decreasing = FALSE) {
    if(is.null(cols)) {
       ord <- order(..., decreasing = decreasing)
@@ -325,7 +334,7 @@ sortByCol <- function(data, ..., cols = NULL, decreasing = FALSE) {
    invisible(sorted)
 }
 
-## 7 ##
+## 8 ##
 funGenerator <- function(x) {
    x <- 10
    g <- function(y) {

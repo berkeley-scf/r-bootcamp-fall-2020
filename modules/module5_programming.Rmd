@@ -10,64 +10,6 @@ gap <- read.csv(file.path('..', 'data', 'gapminder-FiveYearData.csv'), stringsAs
 gap2007 <- gap[gap$year == 2007, ]
 ```
 
-# Loops
-
-In many languages, looping (for loops, while loops, etc.) is one of the main
-constructs used to carry out computation. Loops are not emphasized as much in R,
-both because they can be slow and because other syntax is often cleaner.
-
-But there are lots of times when using a loop does make sense.
-
-Most of you are probably familiar at least with the basic idea of iterating
-through a series of steps. A for loop iterates through a pre-determined number
-of iterations, while a while loop iterates until some condition is met. For
-loops are more common in R, but while loops can be handy particularly for things
-like optimization.
-
-Let's take our use of `aggregate()` from Module 4 and use a for loop instead.
-
-```{r, for-example}
-out <- list()
-years <- unique(gap$year)
-length(out) <- length(years)
-names(out) <- years
-
-for (yrIdx in seq_along(years)) {
-     # equivalently: for(i in 1:length(years))
-     # n.b., seq_along(x) is better than 1:length(x), since it handles the case
-     # where the length of an object is 0 or NULL more robustly.
-     sub <- subset(gap, gap$year == years[yrIdx])
-     # fit regression
-     out[[yrIdx]] <- lm(lifeExp ~ log(gdpPercap), data = sub)
-}
-out[['2007']]
-summary(out[['2007']])
-summary(out[['1952']])
-```
-
-The iterations do not have to explicitly be over sequential numbers.
-
-```{r, for-nonnumeric}
-for (yr in years) {
-     cat(yr, '\n')
-}
-```
-
-# While loop
-
-It's not a particularly interesting example, but we can see the `while` loop
-syntax in the same example. In this case 
-
-```{r, while}
-yrIdx <- 1
-while (yrIdx <= length(years)) {
-     sub <- subset(gap, gap$year == years[yrIdx])
-     # fit regression
-     out[[yrIdx]] <- lm(lifeExp ~ log(gdpPercap), data = sub)
-     yrIdx = yrIdx + 1
-}
-summary(out[['2007']])
-```
 
 # apply
 
@@ -97,9 +39,26 @@ sapply(myList, min)
 
 Note that we don't generally want to use `apply()` on a data frame. 
 
-You can use `lapply()` and `sapply()` on regular vectors, such as vectors of indices, which can come in handy, though this is a silly example:
+Recall that a dataframe is a list:
+
 ```{r}
-sapply(1:10, function(x) x^2)
+sapply(gap, class)
+```
+
+# `lapply()` and `sapply()` with vectors
+
+You can use `lapply()` and `sapply()` on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:
+
+```{r}
+myfun <- function(x) {
+   rnorm(x)
+}	
+
+out <- lapply(1:6, myfun)
+out
+
+## Or, 'in-line' the function:
+out <- lapply(1:6, function(x) rnorm(x))
 ```
 
 
@@ -109,6 +68,75 @@ There are a bunch of `apply()` variants, as well as parallelized versions of the
 
 * `tapply()`, `vapply()`, `mapply()`, `rapply()`, `eapply()`
 * for parallelized versions see Module 10 or `?clusterApply`
+
+# Loops
+
+In many languages, looping (for loops, while loops, etc.) is one of the main
+constructs used to carry out computation. Loops are not emphasized as much in R,
+both because they can be slow and because other syntax is often cleaner.
+
+But there are lots of times when using a loop does make sense.
+
+Most of you are probably familiar at least with the basic idea of iterating
+through a series of steps. A for loop iterates through a pre-determined number
+of iterations, while a while loop iterates until some condition is met. For
+loops are more common in R, but while loops can be handy particularly for things
+like optimization.
+
+Let's take our use of `aggregate()` from Module 4 and use a for loop instead.
+
+```{r, for-example}
+out <- list()
+years <- unique(gap$year)
+length(out) <- length(years)
+names(out) <- years
+
+for (yrIdx in 1:length(years)) {
+     sub <- subset(gap, gap$year == years[yrIdx])
+     # fit regression
+     out[[yrIdx]] <- lm(lifeExp ~ log(gdpPercap), data = sub)
+}
+out[['2007']]
+summary(out[['2007']])
+summary(out[['1952']])
+```
+
+A better approach to setting up the loop is this:
+
+```{r, eval=FALSE}
+for (yrIdx in seq_along(years)) {
+     # n.b., seq_along(x) is better than 1:length(x), since it handles the case
+     # where the length of an object is 0 or NULL more robustly.
+     sub <- subset(gap, gap$year == years[yrIdx])
+     # fit regression
+     out[[yrIdx]] <- lm(lifeExp ~ log(gdpPercap), data = sub)
+}
+```
+
+
+The iterations do not have to explicitly be over sequential numbers.
+
+```{r, for-nonnumeric}
+for (yr in years) {
+     cat(yr, '\n')
+}
+```
+
+# While loop
+
+It's not a particularly interesting example, but we can see the `while` loop
+syntax in the same example. In this case 
+
+```{r, while}
+yrIdx <- 1
+while (yrIdx <= length(years)) {
+     sub <- subset(gap, gap$year == years[yrIdx])
+     # fit regression
+     out[[yrIdx]] <- lm(lifeExp ~ log(gdpPercap), data = sub)
+     yrIdx = yrIdx + 1
+}
+summary(out[['2007']])
+```
 
 # Branching (if-then-else syntax)
 
@@ -156,7 +184,7 @@ a very common bug.
 
 ```{r, if-bug}
 continents <- unique(gap$continent)
-continents  # what happened ?!
+continents  # those using R <= 3.6 should see something odd; what happened ?!
 
 continents <- unique(as.character(gap$continent))
 continents <- c('Antarctica', continents)
@@ -302,7 +330,7 @@ identical(gm_ord, sortByCol(gap, "year", "lifeExp"))
 
 Of course this is somewhat limited in that it is specific to sorting based on
 two columns. We'd usually want to extend this to be more general, but it's
-usually good to start with something concrete and more limited in generality and
+usually good to start with something concrete but not general and
 then generalize once you are sure it works.
 
 # Function arguments
@@ -310,6 +338,16 @@ then generalize once you are sure it works.
 R can match arguments by name (when provided) or by position (the fall-back). It
 also allows one to specify default values so that the user doesn't have to
 explicitly provide all the arguments.
+
+```{r, fun-args0}
+log(100)
+log(100, base = 10)
+log(100, 10)
+log(base = 10, 100)
+log(base = 10, x = 100)
+```
+
+And in our running example:
 
 ```{r, fun-args}
 sortByCol <- function(data, col1 = 1, col2 = 2) {
@@ -578,30 +616,40 @@ values in the vector to zero.
 
 ### Using the ideas
 
-2) Write an R function that will take an input vector and set any value below a
+2) Take the for loop we looked at earlier and replace the loop with `lapply` using an index vector.
+
+```{r, eval=FALSE}
+for (yrIdx in 1:length(years)) {
+     sub <- subset(gap, gap$year == years[yrIdx])
+     # fit regression
+     out[[yrIdx]] <- lm(lifeExp ~ log(gdpPercap), data = sub)
+}
+```
+
+3) Write an R function that will take an input vector and set any value below a
 threshold to be the value of threshold. Optionally, the function should instead
 set values above a threshold to the value of the threshold.
 
-3) Augment your function so that it checks that the input is a numeric vector
+4) Augment your function so that it checks that the input is a numeric vector
 and return an error if not. (See the help information for `stop()`.)
 
-4) Figure out what `invisible()` does and why it is useful when writing
+5) Figure out what `invisible()` does and why it is useful when writing
 functions. Use `invisible()` in your function from just above or in the
 `sortByCol()` function.
 
 ### Advanced
 
-5) Extend the `sortByCol()` function to handle an arbitrary number of columns on
+6) Extend the `sortByCol()` function to handle an arbitrary number of columns on
 which to do the sorting. You may need to modify the functionality a bit to use
 full vectors for the sorting rather than column names.
 
-6) Extend the `sortByCol()` function so that it can take either numeric indices or
+7) Extend the `sortByCol()` function so that it can take either numeric indices or
 character strings indicating columns of the input data or take entire vectors to
 use in the sorting of the input data. If information specifying columns is
 given, make sure your function carefully checks that the input refers to
 legitimate columns and returns an error or warning (see `warning()`) if not.
 
-7) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that `funGenerator()` returns a function as the return object,
+8) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that `funGenerator()` returns a function as the return object,
 consistent with the idea that functions are objects in R. This is an example of
 what is called a *closure* in R. Basically, the function contains object(s)
 enclosed with and accessible to the function.
