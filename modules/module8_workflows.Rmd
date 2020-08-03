@@ -1,4 +1,4 @@
-% R bootcamp, Module 9: Workflows, managing projects and good practices
+% R bootcamp, Module 8: Workflows, managing projects and good practices
 % August 2020, UC Berkeley
 % Chris Paciorek
 
@@ -359,4 +359,4 @@ Here are some useful articles talking about reproducibility.
 # Breakout
 
 Please fill out the feedback survey.
-[https://berkeley.qualtrics.com/jfe/form/SV_3Qmh1KuwGkEDNEp](https://berkeley.qualtrics.com/jfe/form/SV_3Qmh1KuwGkEDNEp)
+[https://berkeley.qualtrics.com/jfe/form/UNDER_CONSTRUCTION](https://berkeley.qualtrics.com/jfe/form/UNDER_CONSTRUCTION)

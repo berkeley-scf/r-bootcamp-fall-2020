@@ -318,3 +318,64 @@ Which of the 'wide' and 'long' objects do you prefer in terms of how the heartra
 - I'd format it some other way
 
 
+Module 7
+
+Which of these ggplot2 calls will work (in the sense of not giving an error, not in the sense of being a useful plot)?
+
+- gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) %>% geom_point()
+- gap %>% ggplot(aes(x = gdpPercap, y = lifeExp))
+- gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
+- gap %>% ggplot(aes(x = gdpPercap, y = lifeExp, shape = 'a')) + geom_point()
+- gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(aes(shape = country), show.legend = FALSE)
+- gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(shape = 'a', show.legend = FALSE)
+- gap %>% ggplot() + geom_point(aes(x = gdpPercap, y = lifeExp, shape = country), show.legend = FALSE)
+
+
+Module 8
+
+Have you used R's debugger?
+
+- yes, some or a lot
+- yes, a little bit
+- no
+
+
+Suppose you have a CSV file with one million rows and one thousand columns, filled with numbers. How much memory will this take up if you read the data into R?
+
+- 800 MB
+- 8 GB
+- 1 GB
+- 80 GB
+- something else
+
+
+Module 9
+
+Have you used object-oriented programming in the past?
+
+- Yes, I've done it in R (S3, S4, ReferenceClasses, or R6)
+- Yes, in Python
+- Yes, in Java
+- Yes, in C++
+- Yes, in some other language
+- No
+
+
+What kind of R object do you think is returned when you query a database using dbGetQuery?
+
+- a list of dataframes
+- a matrix
+- a dataframe
+- a list of vectors
+- some sort of specialized object (recall that `lm()` returns a specialized object)
+
+
+Have you used R's parallel processing capabilities?
+
+- No
+- Yes, I've used foreach
+- Yes, I've used mclapply or parLapply
+- Yes, I've used other tools from the parallel package
+- Yes, I've used the future package
+- Yes, I've used something else, not listed above
+

@@ -1,6 +1,6 @@
-% R Bootcamp, Module 8: Graphics
+% R Bootcamp, Module 7: Graphics
 % August 2020, UC Berkeley
-% Dana Seidel (built off of material by Kellie Ottoboni and Chris Krogslund)
+% Chris Paciorek
 
 ```{r chunksetup, include=FALSE}
 knitr::opts_chunk$set(fig.cap = " ", warning=FALSE, fig.show = "hold")
@@ -222,7 +222,7 @@ gap_wide[1:5, 1:5]
 plot(gap_wide$year, gap_wide$China, col = 'red', type = 'l', ylim = c(40, 85))
 lines(gap_wide$year, gap_wide$Turkey, col = 'green')
 lines(gap_wide$year, gap_wide$Italy, col = 'blue')
-legend("right", legend = c("China", "Turkey", "Italy"),
+legend("right", legend = c("China", "Italy", "Turkey"),
                 fill = c("red", "blue", "green"))
 ```
 
@@ -366,7 +366,7 @@ ggplot(data = gapChina, aes(x = year, y = lifeExp)) +
             geom_line(color = "red")
 ```
 
-**Note:** Aesthetics automatically show up in your legend, parameters (those not mapped to a 
+**Note:** Aesthetics automatically show up in your legend, while parameters (those not mapped to a 
 variable in your data frame) do not!
 
 # Using aesthetics to highlight features
@@ -411,7 +411,7 @@ ggplot(data = gap2007, aes(x = gdpPercap, y = lifeExp)) +
 ### Scaling Aesthetics:
 
 Aesthetics are handled by their very own `scale` functions which allow you to set
-the limits, breaks, tranformations, and any palletes that might determine how you want your 
+the limits, breaks, tranformations, and any palettes that might determine how you want your 
 data plotted. `ggplot2` includes a number of helpful default scale functions like 
 `scale_x_log10` that can tranform your data on the fly or `scale_color_viridis` 
 which uses palettes from the `viridis` package specifically
@@ -590,7 +590,7 @@ plot1 / plot2 / plot3
 
 Feel free to explore more at [https://github.com/thomasp85/patchwork](https://github.com/thomasp85/patchwork).
 
-**Note:** `patchwork` is an example of a ggplot2 extension package of which there are many! One of the benefits to learning and using `ggplot2` is that there is a huge community of developers that build separate graphics packages that generally use the same syntax to extend the `ggplot2` functionality into things like animation and 3D plotting! Check them out --> http://www.ggplot2-exts.org/gallery/ 
+**Note:** `patchwork` is an example of a ggplot2 extension package, of which there are many! One of the benefits to learning and using `ggplot2` is that there is a huge community of developers that build separate graphics packages that generally use the same syntax to extend the `ggplot2` functionality into things like animation and 3D plotting! Check them out --> http://www.ggplot2-exts.org/gallery/ 
 
 # Exporting
 
@@ -598,7 +598,9 @@ Two basic image types:
 
 ### **Raster/Bitmap** (.png, .jpeg)
 
-Every pixel of a plot contains its own separate coding; not so great if you want to resize the image
+Every pixel of a plot contains its own separate coding.
+
+Not so great if you want to resize the image (zooming in leads to 'pixellated' images).
 
 ```{r, eval=FALSE}
 jpeg(filename = "example.jpg", width=, height=)
@@ -608,7 +610,9 @@ dev.off()
 
 ### **Vector** (.pdf, .ps)
 
-Every element of a plot is encoded with a function that gives its coding conditional on several factors; great for resizing
+Every element of a plot is encoded with a function that gives its coding conditional on several factors.
+
+Great for resizing but using with plots with many points or lines can lead to very big files.
 
 ```{r, eval=FALSE}
 # NOT run

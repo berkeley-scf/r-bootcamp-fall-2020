@@ -1,6 +1,6 @@
 % R Bootcamp, Module 6: Data manipulation with the `tidyverse`
 % August 2020, UC Berkeley
-% Dana Seidel with materials developed by Nima Hejazi, Kellie Ottoboni, Rochelle Terman, and Chris Krogslund
+% Chris Paciorek
 
 
 ```{r chunksetup, include=FALSE}
@@ -82,7 +82,7 @@ head(year_country_gdp_dplyr)
 If we open up `year_country_gdp`, we'll see that it only contains the year, country and gdpPercap. This is equivalent to the base R subsetting function:
 
 ```{r}
-year_country_gdp_base <- gap[,c("year", "country", "gdpPercap")]
+year_country_gdp_base <- gap[ , c("year", "country", "gdpPercap")]
 head(year_country_gdp_base)
 ```
 

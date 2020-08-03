@@ -1,4 +1,4 @@
-% R bootcamp, Module 10: Advanced topics
+% R bootcamp, Module 9: Advanced topics
 % August 2020, UC Berkeley
 % Chris Paciorek
 
@@ -212,6 +212,86 @@ master <- tsSimClass$new(1:100, 2, 3)
 set.seed(1)
 devs <- master$simulate()   # generate a second time series
 lines(master$getTimes(), devs, col = 'red')
+```
+
+# Smoothing
+
+Linear regression and GLMs are of course useful, but often the relationship is not linear, even on some transformed scale.
+
+Additive models and generalized additive models (GAMs) are the more flexible variants on linear models and GLMs.
+
+There are a variety of tools in R for modeling nonlinear and smooth relationships, mirroring the variety of methods in the literature.
+
+One workhorse is `gam()` in the *mgcv* package.
+
+# GAM in action
+
+Do we think there should be a linear relationship of life expectancy with GDP and year?
+
+```{r gamExample, cache=TRUE, fig.width=10, fig.cap = ""}
+library(mgcv)
+
+mod <- gam(lifeExp ~ s(gdpPercap, k = 30) + s(year, k = 10), data = gap)
+
+plot(mod)
+summary(mod)
+
+mod2 <- gam(lifeExp ~ s(log(gdpPercap), k = 30) + s(year, k = 10), data = gap)
+plot(mod2)
+```
+
+If we were serious about building a good-fitting model, we could use the same kind of functionality as in lm/glm in terms of factors and interactions.
+
+# How does GAM choose how much to smooth?
+
+GAM uses the data to choose how much smoothing to do. Roughly one can think of what it is doing as carrying out cross-validation and choosing the best amount of smoothing for predicting held-out data.
+
+`k` simply sets an upper bound on the amount of smoothing (you can think if `k` as the number of degrees of freedom - one would be a linear fit).
+
+ - Make sure `k` is less than the number of unique values of the predictor variable
+ - The default for `k` is relatively small and in some cases this may overly limit the smoothness of the curve.
+    - You can try increasing `k` and see if it increases the fit.
+    - If `summary` reports and `edf` that is close to `k` that often suggests that `k` should be increased.
+
+# Optimization
+
+R provides functionality for optimization - finding maxima or minima of a function. 
+
+A workhorse is `optim()`, which implements a number of optimization algorithms. 
+
+```{r eval=FALSE, fig.cap = ""} 
+library(fields)  
+```
+
+```{r fig.width=11, fig.height=5, fig.cap = ""}
+ banana <- function(x) {   ## Rosenbrock Banana function
+         x1 <- x[1]
+         x2 <- x[2]
+         100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+     }
+
+x1s <- x2s <- seq(-5, 5, length = 100)
+x <- expand.grid(x1s, x2s)
+fx <- apply(x, 1, banana)
+
+par(mfrow = c(1, 2), mai = c(.45, .4, .1, .4))
+image.plot(x1s, x2s, matrix(fx, 100), xlab = '', ylab = '')
+image.plot(x1s, x2s, matrix(log(fx), 100), xlab = '', ylab = '')
+
+optim(c(-2,0), banana)
+```
+We can see the progression of evaluations of the objective function:
+```{r eval=FALSE, fig.cap = ""}
+banana <- function(x) {   ## Rosenbrock Banana function
+         points(x[1],x[2])
+         Sys.sleep(.03)
+         x1 <- x[1]
+         x2 <- x[2]
+         100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+     }
+par(mfrow = c(1, 1), mai = c(.45, .4, .1, .4))
+image.plot(x1s, x2s, matrix(log(fx), 100), xlab = '', ylab = '')
+optim(c(-2,0), banana)
 ```
 
 
@@ -535,7 +615,7 @@ Can you think of others in your work?
 
 Some things that are not EP (at least not in a basic formulation):
 
-1. Markov chain Monte Carlo for fitting Bayesian models
+1. Markov chain Monte Carlo for fitting Bayesian statistical models
 2. optimization
 
 # Using multiple cores for EP problems: parallel *apply* using `future`
@@ -577,7 +657,7 @@ The *foreach* package provides a way to do a for loop using multiple cores. It c
 
 To use multiple cores on a single machine, use the *parallel* back-end from the *doParallel* package.
 
-We'll use a new dataset here, which is a dataset of airline departure times (in particular delays) for all flights from SFO over a period of several years. We'll do a stratified analysis, fitting a GAM (see Unit 7) for each of the destination airports.
+We'll use a new dataset here, which is a dataset of airline departure times (in particular delays) for all flights from SFO over a period of several years. We'll do a stratified analysis, fitting a GAM for each of the destination airports.
 
 ```{r cache=TRUE}
 library(parallel)
