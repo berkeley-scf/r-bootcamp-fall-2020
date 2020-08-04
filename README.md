@@ -2,7 +2,7 @@
 
 Materials for the August 2020 virtual R bootcamp at UC Berkeley. See below (under the listing of files) for information about the bootcamp, including logistics, how to get the course content, and how to install the software you need for the bootcamp on your laptop.
 
-This site is UNDER CONSTRUCTION. The information in this README and the installation instructions in the `install` directory should be up-to-date. The schedule is tentative. The content in the `modules` directory is still the content from 2019, not updated yet for the virtual event this year.
+This site is UNDER CONSTRUCTION. The information in this README and the installation instructions in the `install` directory should be up-to-date. The content in the `modules` directory is still being finalized as of Tuesday August 4.
 
 Co-trainers: UC Berkeley Statistics and the D-Lab
 
@@ -10,7 +10,7 @@ Co-trainers: UC Berkeley Statistics and the D-Lab
 
 ### Overview
 
-This is the website for the seventh annual R bootcamp at Berkeley. The bootcamp will be an intensive two-day introduction to R using RStudio. Topics will include:
+This is the website for the eighth annual R bootcamp at Berkeley. The bootcamp will be an intensive four-morning introduction to R using RStudio. Topics will include:
 
  * R basics - reading and manipulating data, working with R data objects, doing calculations, making plots
  * programming in R
@@ -23,22 +23,28 @@ No prior experience with R is expected, but some familiarity with programming co
 
 Course logistics
 
-Location: online on Zoom, Zoom link to be provided at a later date.
+Location: online on Zoom, Zoom link to be provided via email.
 
 Time: 
   - Monday, August 10 - Thursday August 13
   - 8:30 am - 1 pm
 
-Exact hours are tentative. We may end a bit before 1 pm and Friday may be a special topics session. 
+The 1 pm ending time is tentative. We may end a bit before 1 pm on some days.
 
 
 We'll start formally on Monday morning at 8:30 am, but please plan to arrive in the Zoom room by 8:20 so you can  get settled. And if you need help with any software installation please come at 8 am. (Actually it would be even better if you email us in advance if you have installation problems.
 
 ## Course Discussion and Questions
 
-We'll have an active [online discussion forum on Piazza](https://piazza.com/berkeley/fall2020/rbootcampfall2020) during the event. We'll also have in-person help using a Zoom virtual front desk.
+We'll have an active [online discussion forum on Piazza](https://piazza.com/berkeley/fall2020/rbootcampfall2020) during the event. 
+
+We'll also have in-person help using a Zoom virtual front desk (see email for link).
 
 If you need to contact us directly with an administrative question you can email r-bootcamp@lists.berkeley.edu.
+
+## Zoom Recordings
+
+Recordings of the Zoom sessions will be available for each day. 
 
 ## Preparing for the course - course content
 
