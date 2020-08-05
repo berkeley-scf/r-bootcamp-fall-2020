@@ -40,6 +40,8 @@ gdpSubset >= 100000 | gdpSubset <= 1000
 gap$gdpPercap[1:10] >= 100000 & gap$continent[1:10] == "Asia"
 ```
 
+[poll]
+
 An important related concept is that of recycling
 ```{r}
 vec10 <- sample(1:10, 10, replace = TRUE)
@@ -52,6 +54,8 @@ vec5
 vec10 + vec5
 vec10 + vec3
 ```
+
+[poll]
 
 **Question**: Tell me what's going on. What choices were made by the R developers?
 
@@ -350,6 +354,8 @@ abline(h = 0, col = 'grey')
 
 Obviously, we'd want to iterate to improve that plot given the outlier.
 
+[poll]
+
 # Stratified analyses II
 
 Often we want to do individual analyses within subsets or clusters of our data. R has a variety of tools for this; for now we'll look at `aggregate()` and `by()`. These are wrappers of `tapply()`. 
@@ -461,6 +467,8 @@ reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year,
                 data = gap)
 ```
 
+[poll]
+
 # Regression output
 
 - When we store this regression in an object, we get access to several items of interest
@@ -475,6 +483,8 @@ reg$df.residual
 # See the standard (diagnostic) plots for a regression
 plot(reg)
 ```
+
+[poll]
 
 - R has a helpful summary method for regression objects
 ```{r}
@@ -544,6 +554,8 @@ x <- seq(-5, 5, length = 100)
 plot(x, dnorm(x), type = 'l')
 lines(x, dt(x, df = 1), col = 'red')
 ```
+
+[poll]
 
 ```{r, fig.cap = ""}
 rmultinom(1, 100, prob = c(.1, .1, .2, .3, .25, .05)) 

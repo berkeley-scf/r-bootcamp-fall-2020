@@ -16,7 +16,8 @@ For some of the topics here, my goal is not to teach you how to fish, but merely
 
 # Object-oriented programming (OOP) in R
 
-
+[poll]
+d
 Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.
 
 * S3: informal system used for `lm()`, `glm()`, and many other core features in R in the *stats* package
@@ -536,6 +537,8 @@ popularR <- dbGetQuery(db, "select * from questions join questions_tags
 dbDisconnect(db)
 ```
 
+[poll]
+
 # Computer architecture
 
 Note to participants: I'm having trouble with parallelization in RStudio, so we'll just run the demo code in this module in a command line R session. You can open the basic R GUI for Mac or Windows, or, on a Mac, start R in a terminal window.
@@ -617,6 +620,8 @@ Some things that are not EP (at least not in a basic formulation):
 
 1. Markov chain Monte Carlo for fitting Bayesian statistical models
 2. optimization
+
+[poll]
 
 # Using multiple cores for EP problems: parallel *apply* using `future`
 

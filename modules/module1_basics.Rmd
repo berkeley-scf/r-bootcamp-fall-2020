@@ -29,6 +29,8 @@ log(100, base = 10)
 
 Think of a mathematical operation you need - can you guess how to do it in R?
 
+[poll]
+
 Side note to presenter: turn off R Notebook inline view via RStudio -> Preferences -> R Markdown -> Show output inline ...
 
 # Assigning values to R objects
@@ -171,6 +173,8 @@ wealthy <- gdp[gdp > 100000]
 gdp[1:10]
 ```
 
+[poll]
+
 # Vectorized calculations and comparisons
 
 At the core of R is the idea of doing calculations on entire vectors.
@@ -278,6 +282,7 @@ names(myList)
 
 Lists can be used as vectors of complicated objects. E.g., suppose you have a linear regression for each value of a stratifying variable. You could have a list of regression fits. Each regression fit will itself be a list, so you'll have a list of lists.
 
+[poll]
 
 # Converting between different types of objects
 
@@ -297,6 +302,7 @@ indices <- c(1.7, 2.3)
 ints[indices]
 ```
 
+[poll]
 
 # A bit on plotting
 

@@ -80,6 +80,8 @@ colSums(mat)
 
 # Debugging
 
+[poll]
+
 As a scripting language, R essentially has a debugger working automatically.
 But there is an official debugger and other tools that greatly help in figuring
 out problems.
@@ -234,6 +236,8 @@ gc()
 rm(x)
 gc()
 ```
+
+[poll]
 
 # Scripting
 

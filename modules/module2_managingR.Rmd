@@ -34,10 +34,10 @@ is.list(v1)
 ## Note that 'myList' will only present in your R session if code from module 1 run in this R session.
 is.list(myList)
 is.vector(myList)
-
-is.data.frame(gap)
-is.list(gap)
+is.data.frame(myList)
 ```
+
+[poll]
 
 **Question**: What have you learned? Does it make sense? 
 
@@ -213,6 +213,8 @@ getwd()
 setwd(file.path('..', 'data')) # relative path
 ```
 Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.
+
+[poll]
 
 # Reading text files into R
 

@@ -161,6 +161,8 @@ In this case we don't specify which data object we use in the call to `select()`
 
 **Fun Fact**: There is a good chance you have encountered pipes before in the shell. In R, a pipe symbol is `%>%` while in the shell it is `|.` But the concept is the same!
 
+[poll]
+
 # `dplyr::filter`
 
 Now let's say we're only interested in African countries. We can combine `select` and `filter` to select only the observations where `continent` is `Africa`.
@@ -312,6 +314,8 @@ Note that if you use an aggregation function such as `mean()` within `mutate()` 
 
 And if you use an aggregation function such as `mean()` within `summarize()` without using `groupby()`, you'll simply create an output data frame with one row (i.e., the whole input data frame is a single group).
 
+[poll]
+
 # `dplyr::arrange`
 
 As a last step, let's say we want to sort the rows in our data frame according to values in a certain column. We can use the `arrange()` function to do this. For instance, let's organize our rows by `year` (recent first), and then by `continent`.
@@ -414,9 +418,13 @@ long <- data.frame(
 long
 ```
 
+[poll]
+
+
 **Question**: Which one of these do you think is the *tidy* format?
 
 **Answer**: The first data frame (the "wide" one) would not be considered *tidy* because values (i.e., heartrate) are spread across multiple columns.
+
 
 We often refer to these different structures as "long" vs. "wide" formats. In the "long" format, you usually have 1 column for the observed variable and the other columns are ID variables.
 

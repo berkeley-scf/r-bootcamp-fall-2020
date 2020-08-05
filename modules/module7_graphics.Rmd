@@ -408,6 +408,8 @@ ggplot(data = gap2007, aes(x = gdpPercap, y = lifeExp)) +
             geom_point(aes(size = pop, color = continent)) + scale_x_log10()
 ```
 
+[poll]
+
 ### Scaling Aesthetics:
 
 Aesthetics are handled by their very own `scale` functions which allow you to set

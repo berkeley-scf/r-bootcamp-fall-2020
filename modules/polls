@@ -205,6 +205,15 @@ vec1 + vec2
 - an error
 
 
+
+What kind of object is produced by split, e.g., subsets <- split(gap,  gap$year)
+
+- a dataframe
+- a list
+- a list of lists
+- a list of dataframes
+- some new kind of object we haven't encountered yet
+
 Consider this regression model:
 reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
                 data = gap)
@@ -223,14 +232,6 @@ b) 'year' should be:
  - character
  - none of the above
 
-
-What kind of object is produced by split, e.g., subsets <- split(gap,  gap$year)
-
-- a dataframe
-- a list
-- a list of lists
-- a list of dataframes
-- some new kind of object we haven't encountered yet
 
 Suppose you see this syntax when using the output of a regression:
 
@@ -256,7 +257,7 @@ Suppose you want know the probability of getting 4 or fewer heads when flipping 
 Module 5
 
 What do you think this will return:
-sapply(1:6, function(x) rnorm(x))
+sapply(1:6, function(n) rnorm(n))
 
 - a list, like lapply
 - a vector of 21 (1+2+3+4+5+6) elements
