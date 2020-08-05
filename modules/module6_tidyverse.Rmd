@@ -310,7 +310,7 @@ It can be confusing to decide whether to use `mutate` or `summarize`. The key di
   - `mutate`: creates new columns with as many rows as the original data frame
   - `summarize`: creates a data frame with as many rows as groups
 
-Note that if you use an aggregation function such as `mean()` within `mutate()` without using `groupby()`, you'll simply do the summary over all the rows of the input data frame.
+Note that if you use an aggregation function such as `mean()` within `mutate()` without using `groupby()`, you'll simply do the summary over all the rows of the input data frame and assign the resulting value (duplicated many times) into a new column.
 
 And if you use an aggregation function such as `mean()` within `summarize()` without using `groupby()`, you'll simply create an output data frame with one row (i.e., the whole input data frame is a single group).
 

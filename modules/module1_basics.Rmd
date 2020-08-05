@@ -263,6 +263,8 @@ class(gap$lifeExp)
 class(gap$country)
 ```
 
+# Basic kinds of R objects (2)
+
 ### Lists
 
 Collections of disparate or complicated objects

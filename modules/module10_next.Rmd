@@ -1,4 +1,4 @@
-% R bootcamp, Module 11: Next steps
+% R bootcamp, Module 10: Next steps
 % August 2020, UC Berkeley
 % Chris Paciorek
 
@@ -60,6 +60,5 @@ Specific aspects of R:
 
 # Thanks!  
 
-* To Evan, Nima, and Miyabi.
-* To Jon Stiles and D-Lab for sponsorship and logistical support.
-* To the Statewide Database/School of Law for hosting/co-sponsoring.
+* To Evan and all the assistants.
+* To D-Lab and the Statistics Department for sponsorship and logistical support.

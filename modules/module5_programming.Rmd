@@ -1,6 +1,6 @@
 % R bootcamp, Module 5: Programming
 % August 2020, UC Berkeley
-% Chris Paciorek, with contributions from [Nima Hejazi](http://nimahejazi.org)
+% Chris Paciorek
 
 ```{r chunksetup, include=FALSE}
 # include any code here you don't want to show up in the document,
@@ -37,8 +37,6 @@ lapply(myList, min)
 sapply(myList, min)
 ```
 
-[poll]
-
 Note that we don't generally want to use `apply()` on a data frame. 
 
 Recall that a dataframe is a list:
@@ -52,24 +50,25 @@ sapply(gap, class)
 You can use `lapply()` and `sapply()` on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:
 
 ```{r}
-myfun <- function(x) {
-   rnorm(x)
+myfun <- function(i) {
+   max(rnorm(100))
 }	
 
 out <- lapply(1:6, myfun)
 out
 
 ## Or, 'in-line' the function:
-out <- lapply(1:6, function(x) rnorm(x))
+out <- lapply(1:6, function(i) max(rnorm(100)))
 ```
 
+[poll]
 
 # And more `apply()`s
 
 There are a bunch of `apply()` variants, as well as parallelized versions of them:
 
 * `tapply()`, `vapply()`, `mapply()`, `rapply()`, `eapply()`
-* for parallelized versions see Module 10 or `?clusterApply`
+* for parallelized versions see Module 9 or `?clusterApply`
 
 # Loops
 

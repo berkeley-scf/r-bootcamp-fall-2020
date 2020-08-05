@@ -31,7 +31,7 @@ typeof(v3)
 is.vector(v1)
 is.list(v1)
 
-## Note that 'myList' will only present in your R session if code from module 1 run in this R session.
+myList <- list(3, c("uganda", "bulgaria"), matrix(1:4, 2))
 is.list(myList)
 is.vector(myList)
 is.data.frame(myList)
