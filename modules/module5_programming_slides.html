@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="August 2019, UC Berkeley" />
+  <meta name="author" content="August 2020, UC Berkeley" />
   <title>R bootcamp, Module 5: Programming</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -52,9 +52,78 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="slide titlepage">
   <h1 class="title">R bootcamp, Module 5: Programming</h1>
   <p class="author">
-August 2019, UC Berkeley
+August 2020, UC Berkeley
   </p>
   <p class="date">Chris Paciorek, with contributions from <a href="http://nimahejazi.org">Nima Hejazi</a></p>
+</div>
+<div id="apply" class="slide section level1">
+<h1>apply</h1>
+<p>Some functions aren't vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.</p>
+<p>For this we use the <code>apply()</code> family of functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">100</span><span class="op">*</span><span class="dv">1000</span>), <span class="dt">nr =</span> <span class="dv">100</span>)
+row_min &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dt">MARGIN =</span> <span class="dv">1</span>, <span class="dt">FUN =</span> min)
+col_max &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> max)</code></pre></div>
+<p>There are actually some even faster specialized functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">row_mean &lt;-<span class="st"> </span><span class="kw">rowMeans</span>(mat)
+col_sum &lt;-<span class="st"> </span><span class="kw">colSums</span>(mat)</code></pre></div>
+</div>
+<div id="lapply-and-sapply" class="slide section level1">
+<h1><code>lapply()</code> and <code>sapply()</code></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myList &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">rnorm</span>(<span class="dv">3</span>), <span class="kw">rnorm</span>(<span class="dv">3</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>))
+<span class="kw">lapply</span>(myList, min)</code></pre></div>
+<pre><code>## [[1]]
+## [1] -1.074084
+## 
+## [[2]]
+## [1] -1.60744
+## 
+## [[3]]
+## [1] -1.014419</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(myList, min)</code></pre></div>
+<pre><code>## [1] -1.074084 -1.607440 -1.014419</code></pre>
+<p>[poll]</p>
+<p>Note that we don't generally want to use <code>apply()</code> on a data frame.</p>
+<p>Recall that a dataframe is a list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(gap, class)</code></pre></div>
+<pre><code>##     country        year         pop   continent     lifeExp   gdpPercap 
+## &quot;character&quot;   &quot;integer&quot;   &quot;numeric&quot; &quot;character&quot;   &quot;numeric&quot;   &quot;numeric&quot;</code></pre>
+</div>
+<div id="lapply-and-sapply-with-vectors" class="slide section level1">
+<h1><code>lapply()</code> and <code>sapply()</code> with vectors</h1>
+<p>You can use <code>lapply()</code> and <code>sapply()</code> on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+   <span class="kw">rnorm</span>(x)
+}   
+
+out &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, myfun)
+out</code></pre></div>
+<pre><code>## [[1]]
+## [1] -0.1860651
+## 
+## [[2]]
+## [1] -0.3131162 -1.2473008
+## 
+## [[3]]
+## [1] 2.1469623 0.5202324 1.0030598
+## 
+## [[4]]
+## [1]  0.04612235  0.64035563  1.16925939 -0.67534466
+## 
+## [[5]]
+## [1]  0.89420361 -0.04633484  0.11771720  0.09933934 -0.80253743
+## 
+## [[6]]
+## [1] -0.26342462  0.99427808  0.53755254 -0.09932736  0.56183680  0.05703823</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Or, 'in-line' the function:
+out &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="cf">function</span>(x) <span class="kw">rnorm</span>(x))</code></pre></div>
+</div>
+<div id="and-more-applys" class="slide section level1">
+<h1>And more <code>apply()</code>s</h1>
+<p>There are a bunch of <code>apply()</code> variants, as well as parallelized versions of them:</p>
+<ul>
+<li><code>tapply()</code>, <code>vapply()</code>, <code>mapply()</code>, <code>rapply()</code>, <code>eapply()</code></li>
+<li>for parallelized versions see Module 10 or <code>?clusterApply</code></li>
+</ul>
 </div>
 <div id="loops" class="slide section level1">
 <h1>Loops</h1>
@@ -67,17 +136,10 @@ years &lt;-<span class="st"> </span><span class="kw">unique</span>(gap<span clas
 <span class="kw">length</span>(out) &lt;-<span class="st"> </span><span class="kw">length</span>(years)
 <span class="kw">names</span>(out) &lt;-<span class="st"> </span>years
 
-<span class="cf">for</span> (yrIdx <span class="cf">in</span> <span class="kw">seq_along</span>(years)) {
-     <span class="co"># equivalently: for(i in 1:length(years))</span>
-     <span class="co"># n.b., seq_along(x) is better than 1:length(x), since it handles the case</span>
-     <span class="co"># where the length of an object is 0 or NULL more robustly.</span>
+<span class="cf">for</span> (yrIdx <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(years)) {
      sub &lt;-<span class="st"> </span><span class="kw">subset</span>(gap, gap<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>years[yrIdx])
-     <span class="cf">if</span> (<span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(sub<span class="op">$</span>lifeExp)) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">length</span>(sub<span class="op">$</span>lifeExp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {
      <span class="co"># fit regression</span>
-       out[[yrIdx]] &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(gdpPercap), <span class="dt">data =</span> sub)
-     } <span class="cf">else</span> {
-       out[[yrIdx]] &lt;-<span class="st"> </span><span class="ot">NA</span>
-     }
+     out[[yrIdx]] &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(gdpPercap), <span class="dt">data =</span> sub)
 }
 out[[<span class="st">'2007'</span>]]</code></pre></div>
 <pre><code>## 
@@ -125,6 +187,14 @@ out[[<span class="st">'2007'</span>]]</code></pre></div>
 ## Residual standard error: 8.146 on 140 degrees of freedom
 ## Multiple R-squared:  0.5592, Adjusted R-squared:  0.556 
 ## F-statistic: 177.6 on 1 and 140 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>A better approach to setting up the loop is this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (yrIdx <span class="cf">in</span> <span class="kw">seq_along</span>(years)) {
+     <span class="co"># n.b., seq_along(x) is better than 1:length(x), since it handles the case</span>
+     <span class="co"># where the length of an object is 0 or NULL more robustly.</span>
+     sub &lt;-<span class="st"> </span><span class="kw">subset</span>(gap, gap<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>years[yrIdx])
+     <span class="co"># fit regression</span>
+     out[[yrIdx]] &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(gdpPercap), <span class="dt">data =</span> sub)
+}</code></pre></div>
 <p>The iterations do not have to explicitly be over sequential numbers.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (yr <span class="cf">in</span> years) {
      <span class="kw">cat</span>(yr, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)
@@ -141,19 +211,17 @@ out[[<span class="st">'2007'</span>]]</code></pre></div>
 ## 1997 
 ## 2002 
 ## 2007</code></pre>
+<p>[poll]</p>
+<p>[poll]</p>
 </div>
 <div id="while-loop" class="slide section level1">
 <h1>While loop</h1>
-<p>It's not a particularly interesting example, but we can see the <code>while</code> loop syntax in the same example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="dv">1</span>
+<p>It's not a particularly interesting example, but we can see the <code>while</code> loop syntax in the same example. In this case</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yrIdx &lt;-<span class="st"> </span><span class="dv">1</span>
 <span class="cf">while</span> (yrIdx <span class="op">&lt;=</span><span class="st"> </span><span class="kw">length</span>(years)) {
-     sub &lt;-<span class="st"> </span><span class="kw">subset</span>(gap, gap<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>years[i])
-     <span class="cf">if</span> (<span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(sub<span class="op">$</span>lifeExp)) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">length</span>(sub<span class="op">$</span>lifeExp) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {
+     sub &lt;-<span class="st"> </span><span class="kw">subset</span>(gap, gap<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>years[yrIdx])
      <span class="co"># fit regression</span>
-       out[[yrIdx]] &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(gdpPercap), <span class="dt">data =</span> sub)
-     } <span class="cf">else</span> {
-       out[[yrIdx]] &lt;-<span class="st"> </span><span class="ot">NA</span>
-     }
+     out[[yrIdx]] &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(gdpPercap), <span class="dt">data =</span> sub)
      yrIdx =<span class="st"> </span>yrIdx <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
 }
 <span class="kw">summary</span>(out[[<span class="st">'2007'</span>]])</code></pre></div>
@@ -162,19 +230,19 @@ out[[<span class="st">'2007'</span>]]</code></pre></div>
 ## lm(formula = lifeExp ~ log(gdpPercap), data = sub)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -28.9571  -5.7319   0.7517   6.5770  13.7361 
+##     Min      1Q  Median      3Q     Max 
+## -25.947  -2.661   1.215   4.469  13.115 
 ## 
 ## Coefficients:
 ##                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)    -17.8457     5.0668  -3.522 0.000578 ***
-## log(gdpPercap)   8.8298     0.6626  13.326  &lt; 2e-16 ***
+## (Intercept)      4.9496     3.8577   1.283    0.202    
+## log(gdpPercap)   7.2028     0.4423  16.283   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 8.146 on 140 degrees of freedom
-## Multiple R-squared:  0.5592, Adjusted R-squared:  0.556 
-## F-statistic: 177.6 on 1 and 140 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 7.122 on 140 degrees of freedom
+## Multiple R-squared:  0.6544, Adjusted R-squared:  0.652 
+## F-statistic: 265.2 on 1 and 140 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div id="branching-if-then-else-syntax" class="slide section level1">
 <h1>Branching (if-then-else syntax)</h1>
@@ -182,7 +250,7 @@ out[[<span class="st">'2007'</span>]]</code></pre></div>
 <p>Here's a simple example to illustrate the syntax. Note that the <em>then</em> is implicit.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] 0.8381919</code></pre>
+<pre><code>## [1] 0.4745759</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>)
 } <span class="cf">else</span> {
@@ -192,7 +260,7 @@ val</code></pre></div>
 <p>We can chain together <code>if</code> statements as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] 0.5271044</code></pre>
+<pre><code>## [1] -1.073466</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">-1</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is more than one standard deviation below the mean.&quot;</span>)
 } <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">abs</span>(val) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) {
@@ -200,16 +268,16 @@ val</code></pre></div>
 } <span class="cf">else</span> {
   <span class="kw">print</span>(<span class="st">&quot;val is more than one standard deviation above the mean.&quot;</span>)
 }</code></pre></div>
-<pre><code>## [1] &quot;val is within one standard deviation of the mean.&quot;</code></pre>
+<pre><code>## [1] &quot;val is more than one standard deviation below the mean.&quot;</code></pre>
 <p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions, but R will complain when an <code>else</code> starts a line of code, so generally using the <code>{</code> is good practice. That said, this <em>works just fine</em>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>) <span class="cf">else</span> <span class="kw">print</span>(<span class="st">&quot;val is positive&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;val is positive&quot;</code></pre>
+<pre><code>## [1] &quot;val is negative&quot;</code></pre>
 </div>
 <div id="the-condition-in-an-if-statement" class="slide section level1">
 <h1>The condition in an if statement</h1>
 <p>The condition in the if statement cannot be NA or R will give an error. This is a very common bug.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">continents &lt;-<span class="st"> </span><span class="kw">unique</span>(gap<span class="op">$</span>continent)
-continents  <span class="co"># what happened ?!</span></code></pre></div>
+continents  <span class="co"># those using R &lt;= 3.6 should see something odd; what happened ?!</span></code></pre></div>
 <pre><code>## [1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">continents &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">as.character</span>(gap<span class="op">$</span>continent))
 continents &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'Antarctica'</span>, continents)
@@ -238,6 +306,7 @@ out &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0
        <span class="kw">print</span>(continents[i])
 }</code></pre></div>
 <pre><code>## [1] &quot;Africa&quot;</code></pre>
+<p>[poll]</p>
 </div>
 <div id="flow-control-next-and-break-statements" class="slide section level1">
 <h1>Flow control: <code>next</code> and <code>break</code> statements</h1>
@@ -328,11 +397,22 @@ ord[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
 
 <span class="kw">identical</span>(gm_ord, <span class="kw">sortByCol</span>(gap, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>))</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<p>Of course this is somewhat limited in that it is specific to sorting based on two columns. We'd usually want to extend this to be more general, but it's usually good to start with something concrete and more limited in generality and then generalize once you are sure it works.</p>
+<p>Of course this is somewhat limited in that it is specific to sorting based on two columns. We'd usually want to extend this to be more general, but it's usually good to start with something concrete but not general and then generalize once you are sure it works.</p>
 </div>
 <div id="function-arguments" class="slide section level1">
 <h1>Function arguments</h1>
 <p>R can match arguments by name (when provided) or by position (the fall-back). It also allows one to specify default values so that the user doesn't have to explicitly provide all the arguments.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## [1] 4.60517</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">100</span>, <span class="dt">base =</span> <span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">100</span>, <span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dt">base =</span> <span class="dv">10</span>, <span class="dv">100</span>)</code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dt">base =</span> <span class="dv">10</span>, <span class="dt">x =</span> <span class="dv">100</span>)</code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>And in our running example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sortByCol &lt;-<span class="st"> </span><span class="cf">function</span>(data, <span class="dt">col1 =</span> <span class="dv">1</span>, <span class="dt">col2 =</span> <span class="dv">2</span>) {
     ord &lt;-<span class="st"> </span><span class="kw">order</span>(data[, col1], data[, col2], <span class="dt">decreasing=</span><span class="ot">TRUE</span>)
     sorted &lt;-<span class="st"> </span>data[ord, ]
@@ -425,11 +505,11 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(y) {
 <p>And what about indexing?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">100</span>), <span class="dv">10</span>)
 x[ , <span class="dv">2</span>]</code></pre></div>
-<pre><code>##  [1] 0.39005671 0.13231542 0.69731476 0.27009576 0.06768292 0.89402602
-##  [7] 0.57917832 0.58184561 0.51113387 0.51071924</code></pre>
+<pre><code>##  [1] 0.1296580 0.1914006 0.5362198 0.6769867 0.4799206 0.5539856 0.5882901
+##  [8] 0.8046420 0.5090792 0.2277254</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">'['</span>(x , , <span class="dv">2</span>)</code></pre></div>
-<pre><code>##  [1] 0.39005671 0.13231542 0.69731476 0.27009576 0.06768292 0.89402602
-##  [7] 0.57917832 0.58184561 0.51113387 0.51071924</code></pre>
+<pre><code>##  [1] 0.1296580 0.1914006 0.5362198 0.6769867 0.4799206 0.5539856 0.5882901
+##  [8] 0.8046420 0.5090792 0.2277254</code></pre>
 <p>Also yes!</p>
 <p>This holds more generally - one can investigate and see the same thing in terms of a <code>for</code> loop.</p>
 <h3 id="what-does-the-1st-principle-mean">What does the 1st principle mean?</h3>
@@ -521,12 +601,20 @@ gm_tidy &lt;-<span class="st"> </span>gap <span class="op">%&gt;%</span>
 </ol>
 <h3 id="using-the-ideas">Using the ideas</h3>
 <ol start="2" style="list-style-type: decimal">
+<li>Take the for loop we looked at earlier and replace the loop with <code>lapply</code> using an index vector.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (yrIdx <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(years)) {
+     sub &lt;-<span class="st"> </span><span class="kw">subset</span>(gap, gap<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>years[yrIdx])
+     <span class="co"># fit regression</span>
+     out[[yrIdx]] &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(gdpPercap), <span class="dt">data =</span> sub)
+}</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
 <li><p>Write an R function that will take an input vector and set any value below a threshold to be the value of threshold. Optionally, the function should instead set values above a threshold to the value of the threshold.</p></li>
 <li><p>Augment your function so that it checks that the input is a numeric vector and return an error if not. (See the help information for <code>stop()</code>.)</p></li>
 <li><p>Figure out what <code>invisible()</code> does and why it is useful when writing functions. Use <code>invisible()</code> in your function from just above or in the <code>sortByCol()</code> function.</p></li>
 </ol>
 <h3 id="advanced">Advanced</h3>
-<ol start="5" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li><p>Extend the <code>sortByCol()</code> function to handle an arbitrary number of columns on which to do the sorting. You may need to modify the functionality a bit to use full vectors for the sorting rather than column names.</p></li>
 <li><p>Extend the <code>sortByCol()</code> function so that it can take either numeric indices or character strings indicating columns of the input data or take entire vectors to use in the sorting of the input data. If information specifying columns is given, make sure your function carefully checks that the input refers to legitimate columns and returns an error or warning (see <code>warning()</code>) if not.</p></li>
 <li><p>Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object, consistent with the idea that functions are objects in R. This is an example of what is called a <em>closure</em> in R. Basically, the function contains object(s) enclosed with and accessible to the function.</p></li>

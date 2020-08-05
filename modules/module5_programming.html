@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Loops</title>
+<title>apply</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,6 +201,102 @@ hr {
 </head>
 
 <body>
+<h1>apply</h1>
+
+<p>Some functions aren&#39;t vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.</p>
+
+<p>For this we use the <code>apply()</code> family of functions.</p>
+
+<pre><code class="r">mat &lt;- matrix(rnorm(100*1000), nr = 100)
+row_min &lt;- apply(mat, MARGIN = 1, FUN = min)
+col_max &lt;- apply(mat, MARGIN = 2, FUN = max)
+</code></pre>
+
+<p>There are actually some even faster specialized functions:</p>
+
+<pre><code class="r">row_mean &lt;- rowMeans(mat)
+col_sum &lt;- colSums(mat)
+</code></pre>
+
+<h1><code>lapply()</code> and <code>sapply()</code></h1>
+
+<pre><code class="r">myList &lt;- list(rnorm(3), rnorm(3), rnorm(5))
+lapply(myList, min)
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] -0.6674449
+## 
+## [[2]]
+## [1] -1.711923
+## 
+## [[3]]
+## [1] -0.6011271
+</code></pre>
+
+<pre><code class="r">sapply(myList, min)
+</code></pre>
+
+<pre><code>## [1] -0.6674449 -1.7119227 -0.6011271
+</code></pre>
+
+<p>[poll]</p>
+
+<p>Note that we don&#39;t generally want to use <code>apply()</code> on a data frame. </p>
+
+<p>Recall that a dataframe is a list:</p>
+
+<pre><code class="r">sapply(gap, class)
+</code></pre>
+
+<pre><code>##     country        year         pop   continent     lifeExp   gdpPercap 
+## &quot;character&quot;   &quot;integer&quot;   &quot;numeric&quot; &quot;character&quot;   &quot;numeric&quot;   &quot;numeric&quot;
+</code></pre>
+
+<h1><code>lapply()</code> and <code>sapply()</code> with vectors</h1>
+
+<p>You can use <code>lapply()</code> and <code>sapply()</code> on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:</p>
+
+<pre><code class="r">myfun &lt;- function(x) {
+   rnorm(x)
+}   
+
+out &lt;- lapply(1:6, myfun)
+out
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] -1.404907
+## 
+## [[2]]
+## [1] -1.372779  1.703289
+## 
+## [[3]]
+## [1]  0.2890017 -1.6020022  1.7442200
+## 
+## [[4]]
+## [1]  2.075242632  1.636561682 -1.537066978  0.007424092
+## 
+## [[5]]
+## [1] -1.5679124  0.1555465  0.9033354  0.3376203  0.7821198
+## 
+## [[6]]
+## [1] -1.4931432  1.0053042  0.2068449 -1.4187320 -1.7076984 -1.4277637
+</code></pre>
+
+<pre><code class="r">## Or, &#39;in-line&#39; the function:
+out &lt;- lapply(1:6, function(x) rnorm(x))
+</code></pre>
+
+<h1>And more <code>apply()</code>s</h1>
+
+<p>There are a bunch of <code>apply()</code> variants, as well as parallelized versions of them:</p>
+
+<ul>
+<li><code>tapply()</code>, <code>vapply()</code>, <code>mapply()</code>, <code>rapply()</code>, <code>eapply()</code></li>
+<li>for parallelized versions see Module 10 or <code>?clusterApply</code></li>
+</ul>
+
 <h1>Loops</h1>
 
 <p>In many languages, looping (for loops, while loops, etc.) is one of the main
@@ -222,17 +318,10 @@ years &lt;- unique(gap$year)
 length(out) &lt;- length(years)
 names(out) &lt;- years
 
-for (yrIdx in seq_along(years)) {
-     # equivalently: for(i in 1:length(years))
-     # n.b., seq_along(x) is better than 1:length(x), since it handles the case
-     # where the length of an object is 0 or NULL more robustly.
+for (yrIdx in 1:length(years)) {
      sub &lt;- subset(gap, gap$year == years[yrIdx])
-     if (sum(!is.na(sub$lifeExp)) &amp;&amp; length(sub$lifeExp) &gt; 1) {
      # fit regression
-       out[[yrIdx]] &lt;- lm(lifeExp ~ log(gdpPercap), data = sub)
-     } else {
-       out[[yrIdx]] &lt;- NA
-     }
+     out[[yrIdx]] &lt;- lm(lifeExp ~ log(gdpPercap), data = sub)
 }
 out[[&#39;2007&#39;]]
 </code></pre>
@@ -292,6 +381,17 @@ out[[&#39;2007&#39;]]
 ## F-statistic: 177.6 on 1 and 140 DF,  p-value: &lt; 2.2e-16
 </code></pre>
 
+<p>A better approach to setting up the loop is this:</p>
+
+<pre><code class="r">for (yrIdx in seq_along(years)) {
+     # n.b., seq_along(x) is better than 1:length(x), since it handles the case
+     # where the length of an object is 0 or NULL more robustly.
+     sub &lt;- subset(gap, gap$year == years[yrIdx])
+     # fit regression
+     out[[yrIdx]] &lt;- lm(lifeExp ~ log(gdpPercap), data = sub)
+}
+</code></pre>
+
 <p>The iterations do not have to explicitly be over sequential numbers.</p>
 
 <pre><code class="r">for (yr in years) {
@@ -313,20 +413,20 @@ out[[&#39;2007&#39;]]
 ## 2007
 </code></pre>
 
+<p>[poll]</p>
+
+<p>[poll]</p>
+
 <h1>While loop</h1>
 
 <p>It&#39;s not a particularly interesting example, but we can see the <code>while</code> loop
-syntax in the same example.</p>
+syntax in the same example. In this case </p>
 
-<pre><code class="r">i &lt;- 1
+<pre><code class="r">yrIdx &lt;- 1
 while (yrIdx &lt;= length(years)) {
-     sub &lt;- subset(gap, gap$year == years[i])
-     if (sum(!is.na(sub$lifeExp)) &amp;&amp; length(sub$lifeExp) &gt; 1) {
+     sub &lt;- subset(gap, gap$year == years[yrIdx])
      # fit regression
-       out[[yrIdx]] &lt;- lm(lifeExp ~ log(gdpPercap), data = sub)
-     } else {
-       out[[yrIdx]] &lt;- NA
-     }
+     out[[yrIdx]] &lt;- lm(lifeExp ~ log(gdpPercap), data = sub)
      yrIdx = yrIdx + 1
 }
 summary(out[[&#39;2007&#39;]])
@@ -337,19 +437,19 @@ summary(out[[&#39;2007&#39;]])
 ## lm(formula = lifeExp ~ log(gdpPercap), data = sub)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -28.9571  -5.7319   0.7517   6.5770  13.7361 
+##     Min      1Q  Median      3Q     Max 
+## -25.947  -2.661   1.215   4.469  13.115 
 ## 
 ## Coefficients:
 ##                Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)    -17.8457     5.0668  -3.522 0.000578 ***
-## log(gdpPercap)   8.8298     0.6626  13.326  &lt; 2e-16 ***
+## (Intercept)      4.9496     3.8577   1.283    0.202    
+## log(gdpPercap)   7.2028     0.4423  16.283   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 8.146 on 140 degrees of freedom
-## Multiple R-squared:  0.5592, Adjusted R-squared:  0.556 
-## F-statistic: 177.6 on 1 and 140 DF,  p-value: &lt; 2.2e-16
+## Residual standard error: 7.122 on 140 degrees of freedom
+## Multiple R-squared:  0.6544, Adjusted R-squared:  0.652 
+## F-statistic: 265.2 on 1 and 140 DF,  p-value: &lt; 2.2e-16
 </code></pre>
 
 <h1>Branching (if-then-else syntax)</h1>
@@ -363,7 +463,7 @@ implicit.</p>
 val
 </code></pre>
 
-<pre><code>## [1] -0.209871
+<pre><code>## [1] -0.2582507
 </code></pre>
 
 <pre><code class="r">if (val &lt; 0) {
@@ -382,7 +482,7 @@ val
 val
 </code></pre>
 
-<pre><code>## [1] 0.1294696
+<pre><code>## [1] 1.338085
 </code></pre>
 
 <pre><code class="r">if (val &lt; -1) {
@@ -394,7 +494,7 @@ val
 }
 </code></pre>
 
-<pre><code>## [1] &quot;val is within one standard deviation of the mean.&quot;
+<pre><code>## [1] &quot;val is more than one standard deviation above the mean.&quot;
 </code></pre>
 
 <p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions,
@@ -413,7 +513,7 @@ but R will complain when an <code>else</code> starts a line of code, so generall
 a very common bug.</p>
 
 <pre><code class="r">continents &lt;- unique(gap$continent)
-continents  # what happened ?!
+continents  # those using R &lt;= 3.6 should see something odd; what happened ?!
 </code></pre>
 
 <pre><code>## [1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot;
@@ -470,6 +570,8 @@ for (i in seq_along(continents)) {
 
 <pre><code>## [1] &quot;Africa&quot;
 </code></pre>
+
+<p>[poll]</p>
 
 <h1>Flow control: <code>next</code> and <code>break</code> statements</h1>
 
@@ -605,7 +707,7 @@ identical(gm_ord, sortByCol(gap, &quot;year&quot;, &quot;lifeExp&quot;))
 
 <p>Of course this is somewhat limited in that it is specific to sorting based on
 two columns. We&#39;d usually want to extend this to be more general, but it&#39;s
-usually good to start with something concrete and more limited in generality and
+usually good to start with something concrete but not general and
 then generalize once you are sure it works.</p>
 
 <h1>Function arguments</h1>
@@ -613,6 +715,38 @@ then generalize once you are sure it works.</p>
 <p>R can match arguments by name (when provided) or by position (the fall-back). It
 also allows one to specify default values so that the user doesn&#39;t have to
 explicitly provide all the arguments.</p>
+
+<pre><code class="r">log(100)
+</code></pre>
+
+<pre><code>## [1] 4.60517
+</code></pre>
+
+<pre><code class="r">log(100, base = 10)
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<pre><code class="r">log(100, 10)
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<pre><code class="r">log(base = 10, 100)
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<pre><code class="r">log(base = 10, x = 100)
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<p>And in our running example:</p>
 
 <pre><code class="r">sortByCol &lt;- function(data, col1 = 1, col2 = 2) {
     ord &lt;- order(data[, col1], data[, col2], decreasing=TRUE)
@@ -780,15 +914,15 @@ talk</a></p></li>
 x[ , 2]
 </code></pre>
 
-<pre><code>##  [1] 0.8188109 0.1010325 0.4739784 0.8036898 0.5555630 0.2812617 0.2683165
-##  [8] 0.8361411 0.3910611 0.8747552
+<pre><code>##  [1] 0.42248465 0.57634571 0.78868322 0.05575988 0.22454313 0.63958543
+##  [7] 0.86900436 0.44942773 0.86091752 0.36952503
 </code></pre>
 
 <pre><code class="r">&#39;[&#39;(x , , 2)
 </code></pre>
 
-<pre><code>##  [1] 0.8188109 0.1010325 0.4739784 0.8036898 0.5555630 0.2812617 0.2683165
-##  [8] 0.8361411 0.3910611 0.8747552
+<pre><code>##  [1] 0.42248465 0.57634571 0.78868322 0.05575988 0.22454313 0.63958543
+##  [7] 0.86900436 0.44942773 0.86091752 0.36952503
 </code></pre>
 
 <p>Also yes!</p>
@@ -955,30 +1089,39 @@ values in the vector to zero.</p>
 
 <h3>Using the ideas</h3>
 
-<p>2) Write an R function that will take an input vector and set any value below a
+<p>2) Take the for loop we looked at earlier and replace the loop with <code>lapply</code> using an index vector.</p>
+
+<pre><code class="r">for (yrIdx in 1:length(years)) {
+     sub &lt;- subset(gap, gap$year == years[yrIdx])
+     # fit regression
+     out[[yrIdx]] &lt;- lm(lifeExp ~ log(gdpPercap), data = sub)
+}
+</code></pre>
+
+<p>3) Write an R function that will take an input vector and set any value below a
 threshold to be the value of threshold. Optionally, the function should instead
 set values above a threshold to the value of the threshold.</p>
 
-<p>3) Augment your function so that it checks that the input is a numeric vector
+<p>4) Augment your function so that it checks that the input is a numeric vector
 and return an error if not. (See the help information for <code>stop()</code>.)</p>
 
-<p>4) Figure out what <code>invisible()</code> does and why it is useful when writing
+<p>5) Figure out what <code>invisible()</code> does and why it is useful when writing
 functions. Use <code>invisible()</code> in your function from just above or in the
 <code>sortByCol()</code> function.</p>
 
 <h3>Advanced</h3>
 
-<p>5) Extend the <code>sortByCol()</code> function to handle an arbitrary number of columns on
+<p>6) Extend the <code>sortByCol()</code> function to handle an arbitrary number of columns on
 which to do the sorting. You may need to modify the functionality a bit to use
 full vectors for the sorting rather than column names.</p>
 
-<p>6) Extend the <code>sortByCol()</code> function so that it can take either numeric indices or
+<p>7) Extend the <code>sortByCol()</code> function so that it can take either numeric indices or
 character strings indicating columns of the input data or take entire vectors to
 use in the sorting of the input data. If information specifying columns is
 given, make sure your function carefully checks that the input refers to
 legitimate columns and returns an error or warning (see <code>warning()</code>) if not.</p>
 
-<p>7) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object,
+<p>8) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object,
 consistent with the idea that functions are objects in R. This is an example of
 what is called a <em>closure</em> in R. Basically, the function contains object(s)
 enclosed with and accessible to the function.</p>

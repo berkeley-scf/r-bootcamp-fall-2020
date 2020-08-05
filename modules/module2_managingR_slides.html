@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="August 2019, UC Berkeley" />
+  <meta name="author" content="August 2020, UC Berkeley" />
   <title>R bootcamp, Module 2: Managing R and R resources</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -52,7 +52,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="slide titlepage">
   <h1 class="title">R bootcamp, Module 2: Managing R and R resources</h1>
   <p class="author">
-August 2019, UC Berkeley
+August 2020, UC Berkeley
   </p>
   <p class="date">Chris Paciorek</p>
 </div>
@@ -83,15 +83,14 @@ v3 &lt;-<span class="st"> </span>gap<span class="op">$</span>lifeExp
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.list</span>(v1)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># only present if code from module 1 run in this R session</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Note that 'myList' will only present in your R session if code from module 1 run in this R session.
 <span class="kw">is.list</span>(myList)</code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object 'myList' not found</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(myList)</code></pre></div>
 <pre><code>## Error in is.vector(myList): object 'myList' not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.data.frame</span>(gap)</code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.list</span>(gap)</code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.data.frame</span>(myList)</code></pre></div>
+<pre><code>## Error in is.data.frame(myList): object 'myList' not found</code></pre>
+<p>[poll]</p>
 <p><strong>Question</strong>: What have you learned? Does it make sense?</p>
 </div>
 <div id="managing-and-saving-the-workspace" class="slide section level1">
@@ -141,14 +140,15 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 ## [25] &quot;f.rdist.earth&quot;    &quot;f.sort&quot;           &quot;f.sort2&quot;         
 ## [28] &quot;f.squexp&quot;         &quot;f.trimat&quot;         &quot;f.vecrep&quot;        
 ## [31] &quot;format_bytes&quot;     &quot;getNcdf&quot;          &quot;im&quot;              
-## [34] &quot;indices&quot;          &quot;ls_sizes&quot;         &quot;machineName&quot;     
-## [37] &quot;makePoly&quot;         &quot;module&quot;           &quot;plot.ell&quot;        
-## [40] &quot;pmap&quot;             &quot;pmap2&quot;            &quot;pointsInPoly&quot;    
-## [43] &quot;pplot&quot;            &quot;pretty_size&quot;      &quot;print.closeR&quot;    
-## [46] &quot;q&quot;                &quot;R2&quot;               &quot;R2D&quot;             
-## [49] &quot;rcsv&quot;             &quot;rotate&quot;           &quot;sizes&quot;           
-## [52] &quot;source&quot;           &quot;temp.colors&quot;      &quot;thresh&quot;          
-## [55] &quot;tplot&quot;            &quot;tsplot&quot;           &quot;wcsv&quot;</code></pre>
+## [34] &quot;indices&quot;          &quot;ln&quot;               &quot;ls_sizes&quot;        
+## [37] &quot;machineName&quot;      &quot;makePoly&quot;         &quot;module&quot;          
+## [40] &quot;plot.ell&quot;         &quot;pmap&quot;             &quot;pmap2&quot;           
+## [43] &quot;pointsInPoly&quot;     &quot;pplot&quot;            &quot;pretty_size&quot;     
+## [46] &quot;print.closeR&quot;     &quot;q&quot;                &quot;R2&quot;              
+## [49] &quot;R2D&quot;              &quot;rcsv&quot;             &quot;rotate&quot;          
+## [52] &quot;sizes&quot;            &quot;source&quot;           &quot;temp.colors&quot;     
+## [55] &quot;thresh&quot;           &quot;tplot&quot;            &quot;tsplot&quot;          
+## [58] &quot;wcsv&quot;</code></pre>
 <p><strong>Challenge</strong>: how would I find all of my objects that have 'x' in their names?</p>
 </div>
 <div id="packages-rs-killer-app" class="slide section level1">
@@ -170,14 +170,14 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 <p>If you're on a network and are not the administrator of the machine, you may need to explicitly tell R to install it in a directory you are able to write in:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">'fields'</span>, <span class="dt">lib =</span> <span class="kw">file.path</span>(<span class="st">'~'</span>, <span class="st">'R'</span>))</code></pre></div>
 <p>If you're using R directly installed on your laptop (i.e., most of you), now (or at the break) would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">'chron'</span>,<span class="st">'colorspace'</span>,<span class="st">'codetools'</span>, <span class="st">'DBI'</span>,<span class="st">'devtools'</span>,
-                   <span class="st">'dichromat'</span>,<span class="st">'digest'</span>,<span class="st">'doParallel'</span>, <span class="st">'dplyr'</span>, <span class="st">'fields'</span>,
-                   <span class="st">'foreach'</span>,<span class="st">'ggplot2'</span>,<span class="st">'gridExtra'</span>,<span class="st">'gtable'</span>,<span class="st">'inline'</span>,
-                   <span class="st">'iterators'</span>,<span class="st">'knitr'</span>,<span class="st">'labeling'</span>,<span class="st">'lattice'</span>,<span class="st">'lme4'</span>,
-                   <span class="st">'mapproj'</span>,<span class="st">'maps'</span>,<span class="st">'munsell'</span>,<span class="st">'proftools'</span>,<span class="st">'proto'</span>,<span class="st">'purrr'</span>,
-                   <span class="st">'rbenchmark'</span>,<span class="st">'RColorBrewer'</span>,<span class="st">'Rcpp'</span>,<span class="st">'reshape2'</span>,<span class="st">'rJava'</span>,
-                   <span class="st">'RSQLite'</span>, <span class="st">'scales'</span>,<span class="st">'spam'</span>,<span class="st">'stringr'</span>,<span class="st">'tidyr'</span>,<span class="st">'xlsx'</span>,
-                   <span class="st">'xlsxjars'</span>,<span class="st">'xtable'</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">'chron'</span>, <span class="st">'colorspace'</span>, <span class="st">'codetools'</span>, <span class="st">'DBI'</span>, <span class="st">'devtools'</span>,
+                   <span class="st">'dichromat'</span>, <span class="st">'digest'</span>, <span class="st">'doFuture'</span>, <span class="st">'dplyr'</span>, <span class="st">'fields'</span>,
+                   <span class="st">'foreach'</span>, <span class="st">'future.apply'</span>, <span class="st">'ggplot2'</span>, <span class="st">'gridExtra'</span>, <span class="st">'gtable'</span>,
+                   <span class="st">'inline'</span>, <span class="st">'iterators'</span>, <span class="st">'knitr'</span>, <span class="st">'labeling'</span>, <span class="st">'lattice'</span>, <span class="st">'lme4'</span>,
+                   <span class="st">'mapproj'</span>, <span class="st">'maps'</span>, <span class="st">'munsell'</span>, <span class="st">'patchwork'</span>, <span class="st">'proftools'</span>, <span class="st">'proto'</span>,
+           <span class="st">'purrr'</span>, <span class="st">'R6'</span>, <span class="st">'rbenchmark'</span>, <span class="st">'RColorBrewer'</span>, <span class="st">'Rcpp'</span>, <span class="st">'reshape2'</span>,
+           <span class="st">'rJava'</span>, <span class="st">'RSQLite'</span>, <span class="st">'scales'</span>, <span class="st">'spam'</span>, <span class="st">'stringr'</span>, <span class="st">'tidyr'</span>, <span class="st">'xlsx'</span>,
+                   <span class="st">'xlsxjars'</span>, <span class="st">'xtable'</span>))</code></pre></div>
 <p>Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., <em>fields</em> depends on <em>maps</em> and on <em>spam</em>.</p>
 <p>You can also install directly from a package zip/tarball rather than from CRAN by giving a filename instead of a package name.</p>
 <h3 id="general-information-about-a-package">General information about a package</h3>
@@ -208,7 +208,7 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 <pre><code>## [1] 7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(gap<span class="op">$</span>lifeExp <span class="op">~</span><span class="st"> </span>gap<span class="op">$</span>gdpPercap)</code></pre></div>
 <pre><code>## gap$lifeExp ~ gap$gdpPercap
-## &lt;environment: 0x5577b08c9f00&gt;</code></pre>
+## &lt;environment: 0x55c44fabc5d8&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats<span class="op">::</span><span class="kw">lm</span>(gap<span class="op">$</span>lifeExp <span class="op">~</span><span class="st"> </span>gap<span class="op">$</span>gdpPercap)</code></pre></div>
 <pre><code>## 
 ## Call:
@@ -244,25 +244,26 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 </div>
 <div id="the-working-directory" class="slide section level1">
 <h1>The working directory</h1>
-<p>To read and write from R, you need to have a firm grasp of where in the computer's filesystem you are reading and writing from.</p>
+<p>To read and write from R, you need to have a firm grasp of where in the computer's filesystem (i.e., the hard drive) you are reading and writing from.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()  <span class="co"># what directory will R look in?</span>
 <span class="co"># Linux/Mac specific</span>
-<span class="kw">setwd</span>(<span class="st">'~/Desktop/r-bootcamp-fall-2019'</span>) <span class="co"># change the working directory</span>
+<span class="kw">setwd</span>(<span class="st">'~/Desktop/r-bootcamp-fall-2020'</span>) <span class="co"># change the working directory</span>
 <span class="kw">setwd</span>(<span class="st">'/Users/paciorek/Desktop'</span>) <span class="co"># absolute path</span>
 <span class="kw">getwd</span>()
-<span class="kw">setwd</span>(<span class="st">'r-bootcamp-fall-2019/modules'</span>) <span class="co"># relative path</span>
+<span class="kw">setwd</span>(<span class="st">'r-bootcamp-fall-2020/modules'</span>) <span class="co"># relative path</span>
 <span class="kw">setwd</span>(<span class="st">'../tmp'</span>) <span class="co"># relative path, up and back down the tree</span>
 
 <span class="co"># Windows - use either \\ or / to indicate directories</span>
-<span class="co"># setwd('C:\\Users\\Your_username\\Desktop\\r-bootcamp-fall-2019')</span>
-<span class="co"># setwd('..\\r-bootcamp-fall-2019')</span>
+<span class="co"># setwd('C:\\Users\\Your_username\\Desktop\\r-bootcamp-fall-2020')</span>
+<span class="co"># setwd('..\\r-bootcamp-fall-2020')</span>
 
 <span class="co"># platform-agnostic</span>
-<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'~'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-bootcamp-fall-2019'</span>, <span class="st">'modules'</span>)) <span class="co"># change the working directory</span>
-<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'/'</span>, <span class="st">'Users'</span>, <span class="st">'paciorek'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-bootcamp-fall-2019'</span>, <span class="st">'modules'</span>)) <span class="co"># absolute path</span>
+<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'~'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-bootcamp-fall-2020'</span>, <span class="st">'modules'</span>)) <span class="co"># change the working directory</span>
+<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'/'</span>, <span class="st">'Users'</span>, <span class="st">'paciorek'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-bootcamp-fall-2020'</span>, <span class="st">'modules'</span>)) <span class="co"># absolute path</span>
 <span class="kw">getwd</span>()
 <span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>)) <span class="co"># relative path</span></code></pre></div>
 <p>Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.</p>
+<p>[poll]</p>
 </div>
 <div id="reading-text-files-into-r" class="slide section level1">
 <h1>Reading text files into R</h1>
@@ -304,6 +305,112 @@ vote &lt;-<span class="st"> </span><span class="kw">read.dta</span>(<span class=
 <p>A pause for a (gentle) diatribe:</p>
 <p>Please try to avoid using Excel files as a data storage format. It's proprietary, complicated (can have multiple sheets), allows a limited number of rows/columns, and files are not easily readable/viewable (unlike simple text files).</p>
 </div>
+<div id="more-details-on-reading-data-into-r" class="slide section level1">
+<h1>More details on reading data into R</h1>
+<p>Remember that you'll need to know the current working directory so that you know where R is looking for files.</p>
+<p>The workhorse for reading into a data frame is <em>read.table()</em>, which allows any separator (CSV, tab-delimited, etc.). <em>read.csv()</em> is a special case of <em>read.table()</em> for CSV files.</p>
+<p>You've already seen a bit of this, but let's work through a more involved example, so you can see some of the steps and tricks involved in reading data into R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## First try:
+rta &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../data/RTAData.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">head =</span> <span class="ot">TRUE</span>)
+rta[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>##               time X40010 X40015 X40020 X40025
+## 1 2010-03-01 14:58    821    209    828    258
+## 2 2010-03-01 15:01    804    209    804    248
+## 3 2010-03-01 15:04    892    212    801    237
+## 4 2010-03-01 15:07    857    214    821    243
+## 5 2010-03-01 15:10    849    222    834    252</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(rta)</code></pre></div>
+<pre><code>## [1] 120822     62</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## great, we're all set, right?
+## Not so fast...
+<span class="kw">unlist</span>(<span class="kw">lapply</span>(rta, class))[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>##     time   X40010   X40015   X40020   X40025 
+## &quot;factor&quot; &quot;factor&quot; &quot;factor&quot; &quot;factor&quot; &quot;factor&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Second try (only relevant if not using R 4.0 or later):
+## ?read.table
+## stringsAsFactors=FALSE is the default as of R 4.0
+rta2 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../data/RTAData.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, 
+  <span class="dt">head =</span> <span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+rta2[<span class="dv">3</span>,<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] &quot;212&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlist</span>(<span class="kw">lapply</span>(rta2, class))[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>##        time      X40010      X40015      X40020      X40025 
+## &quot;character&quot; &quot;character&quot; &quot;character&quot; &quot;character&quot; &quot;character&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Third try:
+## let's delve more deeply
+<span class="kw">levels</span>(rta[ , <span class="dv">2</span>])[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">3041</span><span class="op">:</span><span class="dv">3044</span>)]</code></pre></div>
+<pre><code>## [1] &quot;&quot;     &quot;1000&quot; &quot;1001&quot; &quot;1002&quot; &quot;1003&quot; &quot;997&quot;  &quot;998&quot;  &quot;999&quot;  &quot;x&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rta3 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../data/RTAData.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">head =</span> <span class="ot">TRUE</span>, 
+      <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">na.strings =</span> <span class="kw">c</span>(<span class="st">'NA'</span>, <span class="st">'x'</span>))
+<span class="kw">unlist</span>(<span class="kw">lapply</span>(rta3, class))[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>##        time      X40010      X40015      X40020      X40025 
+## &quot;character&quot;   &quot;integer&quot;   &quot;integer&quot;   &quot;integer&quot;   &quot;integer&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## checking...
+missing &lt;-<span class="st"> </span><span class="kw">which</span>(rta[ , <span class="dv">2</span>] <span class="op">==</span><span class="st"> &quot;&quot;</span>)
+missing[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] 1167 1168 1169 1170 1171</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rta3[<span class="kw">head</span>(missing), ]</code></pre></div>
+<pre><code>##                  time X40010 X40015 X40020 X40025 X40030 X40035 X40040
+## 1167 2010-03-04 01:16     NA     NA     NA     NA     NA     NA     NA
+## 1168 2010-03-04 01:19     NA     NA     NA     NA     NA     NA     NA
+## 1169 2010-03-04 01:22     NA     NA     NA     NA     NA     NA     NA
+## 1170 2010-03-04 01:25     NA     NA     NA     NA     NA     NA     NA
+## 1171 2010-03-04 01:28     NA     NA     NA     NA     NA     NA     NA
+## 1172 2010-03-04 01:31     NA     NA     NA     NA     NA     NA     NA
+##      X40045 X40050 X40055 X40060 X40065 X40070 X40075 X40080 X40085 X40090
+## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+##      X40092 X40095 X40100 X40105 X40110 X40115 X40120 X40125 X40130 X40135
+## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+##      X40140 X40145 X40150 X41010 X41015 X41020 X41025 X41030 X41035 X41040
+## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+##      X41045 X41050 X41055 X41060 X41065 X41070 X41075 X41080 X41085 X41090
+## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+##      X41095 X41100 X41105 X41110 X41115 X41120 X41125 X41130 X41135 X41140
+## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+##      X41145 X41150 X41155 X41160
+## 1167     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA</code></pre>
+<p>It's good to first look at your data in plain text format outside of R and then to check it after you've read it into R.</p>
+</div>
+<div id="other-ways-to-read-data-into-r" class="slide section level1">
+<h1>Other ways to read data into R</h1>
+<p>The <em>read.table()</em> family of functions just skims the surface of things...</p>
+<ol style="list-style-type: decimal">
+<li>You can also read in a file as vector of characters, one character string per line of the file with <em>readLines()</em>, and then post-process it.</li>
+<li>You can read fixed width format (constant number of characters per field) with <em>read.fwf()</em>.</li>
+<li><em>read_csv()</em> (and <em>read_lines()</em>, <em>read_fwf()</em>, etc.) in the <em>readr</em> package is a faster, more helpful drop-in replacement for <em>read.csv()</em> that plays well with <em>dplyr</em> (see Module 5).</li>
+<li>the <em>data.table</em> package is great for reading and manipulating large datasets (orders of gigabytes or 10s of gigabytes).</li>
+</ol>
+</div>
 <div id="writing-data-out-from-r" class="slide section level1">
 <h1>Writing data out from R</h1>
 <p>Here you have a number of options.</p>
@@ -324,8 +431,8 @@ x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1
 <p><code>xtable()</code> formats tables for HTML and Latex (the default).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xtable)
 <span class="kw">print</span>(<span class="kw">xtable</span>(<span class="kw">table</span>(gap<span class="op">$</span>year, gap<span class="op">$</span>continent)), <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre></div>
-<pre><code>## &lt;!-- html table generated in R 3.5.1 by xtable 1.8-3 package --&gt;
-## &lt;!-- Tue Aug 13 13:56:46 2019 --&gt;
+<pre><code>## &lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
+## &lt;!-- Wed Aug  5 11:58:42 2020 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; Africa &lt;/th&gt; &lt;th&gt; Americas &lt;/th&gt; &lt;th&gt; Asia &lt;/th&gt; &lt;th&gt; Europe &lt;/th&gt; &lt;th&gt; Oceania &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; 1952 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  25 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  33 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  30 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   2 &lt;/td&gt; &lt;/tr&gt;
@@ -359,7 +466,7 @@ x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1
 <p>In the introductory material, we've already seen how to get a copy of a Github repository on your local machine.</p>
 <p>As you're gathering by now, I've used Git and Github to manage all the content for this workshop.</p>
 <h3 id="making-changes-to-a-repository">Making changes to a repository</h3>
-<p>We'll go through a short example of making changes to the r-bootcamp-fall-2019 repository. In this case you don't have permission to make changes so you'll just have to follow along as I do it. However, you could start your own repository and then you'd be able to do similar things.</p>
+<p>We'll go through a short example of making changes to the r-bootcamp-fall-2020 repository. In this case you don't have permission to make changes so you'll just have to follow along as I do it. However, you could start your own repository and then you'd be able to do similar things.</p>
 <p>Note that there are <a href="https://git-scm.com/downloads/guis">graphical interfaces to Git</a> that you might want to check out, but here I'm just going to do it from the command line on my Mac.</p>
 <p>The basic notion we need is a <em>commit</em>. As we make changes to our files, we want to commit those changes to the repository regularly. A <em>commit</em> is a set of changes recorded with Git. We will often then <em>push</em> those changes to a remote copy of the repository, such as on Github.</p>
 <p>Here's a basic workflow:</p>
