@@ -8,7 +8,10 @@
 
 The GitHub site ([https://github.com/berkeley-scf/r-bootcamp-fall-2020](https://github.com/berkeley-scf/r-bootcamp-fall-2020)) is the main site for the bootcamp. It has information on logistics, software installation, and is the master repository for materials for the modules.
 
-We'll use this [Piazza site](piazza.com/berkeley/fall2020/rbootcampfall2020) for discussion and answering questions during (and before) the bootcamp. 
+We'll use:
+
+ - this [Piazza site](piazza.com/berkeley/fall2020/rbootcampfall2020) for discussion and answering questions during (and before) the bootcamp. 
+ - the [D-Lab virtual frontdesk](dlab.berkeley.edu/frontdesk) for "in-person" questions during the bootcamp.
 
 If you have an administrative question, email r-bootcamp@lists.berkeley.edu.
 
@@ -179,5 +182,5 @@ The building blocks of scientific computing include:
 
 # We want your feedback (even if you leave early)!
 
-During the afternoon break tomorrow, we'll ask everyone to fill out a feedback form, but if you leave early, please also fill it out:
+During a break on Thursday, we'll ask everyone to fill out a feedback form, but if you leave early, please also fill it out:
 [https://berkeley.qualtrics.com/TODO](https://berkeley.qualtrics.com/TODO)
