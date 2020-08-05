@@ -29,16 +29,16 @@ log(100, base = 10)
 
 Think of a mathematical operation you need - can you guess how to do it in R?
 
-* POLL *
+*POLL*
 
 How do I calculate the cosine of 2 pi?
 
-- cosine(2pi)
-- cosine(2*pi)
-- cos(2 * pi)
-- cos(2 x pi)
-- cos(2*pi)
-- cos(2 * 3.14159)
+1) cosine(2pi)
+2) cosine(2*pi)
+3) cos(2 * pi)
+4) cos(2 x pi)
+5) cos(2*pi)
+6) cos(2 * 3.14159)
 
 
 Side note to presenter: turn off R Notebook inline view via RStudio -> Preferences -> R Markdown -> Show output inline ...
