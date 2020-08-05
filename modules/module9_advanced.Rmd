@@ -17,7 +17,7 @@ For some of the topics here, my goal is not to teach you how to fish, but merely
 # Object-oriented programming (OOP) in R
 
 [poll]
-d
+
 Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.
 
 * S3: informal system used for `lm()`, `glm()`, and many other core features in R in the *stats* package
