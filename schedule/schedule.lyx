@@ -143,7 +143,7 @@ Module 0: Introduction, what is R, starting R, why R? why not R? (15 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 1: Basics of R, with Rstudio (90 minutes)
+Module 1: Basics of R, with Rstudio
 \begin_inset Separator latexpar
 \end_inset
 
@@ -275,7 +275,7 @@ Session 2 (Tuesday) (data processing and programming)
 
 \begin_deeper
 \begin_layout Itemize
-Module 4: Calculations 
+Module 4: Calculations and data analysis
 \begin_inset Separator latexpar
 \end_inset
 

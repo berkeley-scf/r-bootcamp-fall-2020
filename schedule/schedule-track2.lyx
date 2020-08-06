@@ -143,7 +143,7 @@ Module 0: Introduction, what is R, starting R, why R? why not R? (15 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 1: Basics of R, with Rstudio (90 minutes)
+Module 1: Basics of R, with Rstudio
 \begin_inset Separator latexpar
 \end_inset
 
@@ -165,10 +165,6 @@ vectors and indexing and subset assignment
 
 \begin_layout Itemize
 some basic functions; help()
-\end_layout
-
-\begin_layout Itemize
-vectorized calculations, comparisons
 \end_layout
 
 \begin_layout Itemize
@@ -244,11 +240,23 @@ dataframes/matrices
 \end_layout
 
 \begin_layout Itemize
-attributes, missing values and factors
+attributes
+\end_layout
+
+\begin_layout Itemize
+missing values
+\end_layout
+
+\begin_layout Itemize
+logical vectors
 \end_layout
 
 \begin_layout Itemize
 subsetting
+\end_layout
+
+\begin_layout Itemize
+strings
 \end_layout
 
 \begin_layout Itemize
@@ -314,7 +322,6 @@ stratified analyses: groupwise operations and split-apply-combine using
  dplyr
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 reshaping and tidying data
 \end_layout
@@ -355,9 +362,8 @@ breakout problems
 
 \end_deeper
 \end_deeper
-\end_deeper
 \begin_layout Itemize
-Session 4 (Thursday) (more advanced topics) 
+Session 4 (Thursday) 
 \begin_inset Separator latexpar
 \end_inset
 
