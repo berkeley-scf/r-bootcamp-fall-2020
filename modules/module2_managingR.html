@@ -269,23 +269,23 @@ length(v1)
 <pre><code>## [1] FALSE
 </code></pre>
 
-<pre><code class="r">## Note that &#39;myList&#39; will only present in your R session if code from module 1 run in this R session.
+<pre><code class="r">myList &lt;- list(3, c(&quot;uganda&quot;, &quot;bulgaria&quot;), matrix(1:4, 2))
 is.list(myList)
 </code></pre>
 
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;myList&#39; not found
+<pre><code>## [1] TRUE
 </code></pre>
 
 <pre><code class="r">is.vector(myList)
 </code></pre>
 
-<pre><code>## Error in is.vector(myList): object &#39;myList&#39; not found
+<pre><code>## [1] TRUE
 </code></pre>
 
 <pre><code class="r">is.data.frame(myList)
 </code></pre>
 
-<pre><code>## Error in is.data.frame(myList): object &#39;myList&#39; not found
+<pre><code>## [1] FALSE
 </code></pre>
 
 <p>[poll]</p>
@@ -302,14 +302,14 @@ z &lt;- list(a = 3, b = c(&#39;sam&#39;, &#39;yang&#39;))
 ls()  # search the user workspace (global environment)
 </code></pre>
 
-<pre><code>## [1] &quot;gap&quot; &quot;v1&quot;  &quot;v2&quot;  &quot;v3&quot;  &quot;x&quot;   &quot;y&quot;   &quot;z&quot;
+<pre><code>## [1] &quot;gap&quot;    &quot;myList&quot; &quot;v1&quot;     &quot;v2&quot;     &quot;v3&quot;     &quot;x&quot;      &quot;y&quot;      &quot;z&quot;
 </code></pre>
 
 <pre><code class="r">rm(x)    # delete a variable
 ls()
 </code></pre>
 
-<pre><code>## [1] &quot;gap&quot; &quot;v1&quot;  &quot;v2&quot;  &quot;v3&quot;  &quot;y&quot;   &quot;z&quot;
+<pre><code>## [1] &quot;gap&quot;    &quot;myList&quot; &quot;v1&quot;     &quot;v2&quot;     &quot;v3&quot;     &quot;y&quot;      &quot;z&quot;
 </code></pre>
 
 <pre><code class="r">ls.str() # list and describe variables
@@ -322,6 +322,10 @@ ls()
 ##  $ continent: chr  &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
+## myList : List of 3
+##  $ : num 3
+##  $ : chr [1:2] &quot;uganda&quot; &quot;bulgaria&quot;
+##  $ : int [1:2, 1:2] 1 2 3 4
 ## v1 :  int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ## v2 :  chr [1:1704] &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; ...
 ## v3 :  num [1:1704] 28.8 30.3 32 34 36.1 ...
@@ -336,7 +340,7 @@ ls()
 <pre><code class="r">ls()
 </code></pre>
 
-<pre><code>## [1] &quot;gap&quot; &quot;v1&quot;  &quot;v2&quot;  &quot;v3&quot;  &quot;y&quot;   &quot;z&quot;
+<pre><code>## [1] &quot;gap&quot;    &quot;myList&quot; &quot;v1&quot;     &quot;v2&quot;     &quot;v3&quot;     &quot;y&quot;      &quot;z&quot;
 </code></pre>
 
 <pre><code class="r">save.image(&#39;module2.Rda&#39;)
@@ -473,7 +477,7 @@ lm(7)
 </code></pre>
 
 <pre><code>## gap$lifeExp ~ gap$gdpPercap
-## &lt;environment: 0x55c45810bad8&gt;
+## &lt;environment: 0x556fa3d979e8&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(gap$lifeExp ~ gap$gdpPercap)
@@ -779,7 +783,7 @@ print(xtable(table(gap$year, gap$continent)), type = &quot;html&quot;)
 </code></pre>
 
 <pre><code>## &lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
-## &lt;!-- Wed Aug  5 11:58:44 2020 --&gt;
+## &lt;!-- Thu Aug  6 16:44:10 2020 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; Africa &lt;/th&gt; &lt;th&gt; Americas &lt;/th&gt; &lt;th&gt; Asia &lt;/th&gt; &lt;th&gt; Europe &lt;/th&gt; &lt;th&gt; Oceania &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; 1952 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  25 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  33 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  30 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   2 &lt;/td&gt; &lt;/tr&gt;
@@ -883,7 +887,7 @@ git push
 
 <h3>Basics</h3>
 
-<p>1) Make sure you are able to install packages from CRAN. E.g., try to install <em>lmtest</em>.</p>
+<p>1) Make sure you are able to install packages from CRAN. E.g., try to install <em>lmtest</em>. And make sure you&#39;ve installed all the packages we need for the bootcamp (see slide 4). </p>
 
 <p>2) Figure out what your current working directory is.</p>
 

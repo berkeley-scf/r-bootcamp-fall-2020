@@ -83,13 +83,13 @@ v3 &lt;-<span class="st"> </span>gap<span class="op">$</span>lifeExp
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.list</span>(v1)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Note that 'myList' will only present in your R session if code from module 1 run in this R session.
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myList &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">3</span>, <span class="kw">c</span>(<span class="st">&quot;uganda&quot;</span>, <span class="st">&quot;bulgaria&quot;</span>), <span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">2</span>))
 <span class="kw">is.list</span>(myList)</code></pre></div>
-<pre><code>## Error in eval(expr, envir, enclos): object 'myList' not found</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.vector</span>(myList)</code></pre></div>
-<pre><code>## Error in is.vector(myList): object 'myList' not found</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.data.frame</span>(myList)</code></pre></div>
-<pre><code>## Error in is.data.frame(myList): object 'myList' not found</code></pre>
+<pre><code>## [1] FALSE</code></pre>
 <p>[poll]</p>
 <p><strong>Question</strong>: What have you learned? Does it make sense?</p>
 </div>
@@ -100,10 +100,10 @@ v3 &lt;-<span class="st"> </span>gap<span class="op">$</span>lifeExp
 y &lt;-<span class="st"> </span><span class="kw">c</span>(5L, 2L, 7L)
 z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">3</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">'sam'</span>, <span class="st">'yang'</span>))
 <span class="kw">ls</span>()  <span class="co"># search the user workspace (global environment)</span></code></pre></div>
-<pre><code>## [1] &quot;gap&quot; &quot;v1&quot;  &quot;v2&quot;  &quot;v3&quot;  &quot;x&quot;   &quot;y&quot;   &quot;z&quot;</code></pre>
+<pre><code>## [1] &quot;gap&quot;    &quot;myList&quot; &quot;v1&quot;     &quot;v2&quot;     &quot;v3&quot;     &quot;x&quot;      &quot;y&quot;      &quot;z&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(x)    <span class="co"># delete a variable</span>
 <span class="kw">ls</span>()</code></pre></div>
-<pre><code>## [1] &quot;gap&quot; &quot;v1&quot;  &quot;v2&quot;  &quot;v3&quot;  &quot;y&quot;   &quot;z&quot;</code></pre>
+<pre><code>## [1] &quot;gap&quot;    &quot;myList&quot; &quot;v1&quot;     &quot;v2&quot;     &quot;v3&quot;     &quot;y&quot;      &quot;z&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls.str</span>() <span class="co"># list and describe variables</span></code></pre></div>
 <pre><code>## gap : 'data.frame':  1704 obs. of  6 variables:
 ##  $ country  : chr  &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; ...
@@ -112,6 +112,10 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 ##  $ continent: chr  &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
+## myList : List of 3
+##  $ : num 3
+##  $ : chr [1:2] &quot;uganda&quot; &quot;bulgaria&quot;
+##  $ : int [1:2, 1:2] 1 2 3 4
 ## v1 :  int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ## v2 :  chr [1:1704] &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; ...
 ## v3 :  num [1:1704] 28.8 30.3 32 34 36.1 ...
@@ -121,7 +125,7 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 ##  $ b: chr [1:2] &quot;sam&quot; &quot;yang&quot;</code></pre>
 <p>Finally we can save the objects in our R session:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
-<pre><code>## [1] &quot;gap&quot; &quot;v1&quot;  &quot;v2&quot;  &quot;v3&quot;  &quot;y&quot;   &quot;z&quot;</code></pre>
+<pre><code>## [1] &quot;gap&quot;    &quot;myList&quot; &quot;v1&quot;     &quot;v2&quot;     &quot;v3&quot;     &quot;y&quot;      &quot;z&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">save.image</span>(<span class="st">'module2.Rda'</span>)
 <span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())
 <span class="kw">ls</span>()</code></pre></div>
@@ -208,7 +212,7 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 <pre><code>## [1] 7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(gap<span class="op">$</span>lifeExp <span class="op">~</span><span class="st"> </span>gap<span class="op">$</span>gdpPercap)</code></pre></div>
 <pre><code>## gap$lifeExp ~ gap$gdpPercap
-## &lt;environment: 0x55c44fabc5d8&gt;</code></pre>
+## &lt;environment: 0x556f9e3895e8&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats<span class="op">::</span><span class="kw">lm</span>(gap<span class="op">$</span>lifeExp <span class="op">~</span><span class="st"> </span>gap<span class="op">$</span>gdpPercap)</code></pre></div>
 <pre><code>## 
 ## Call:
@@ -432,7 +436,7 @@ x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xtable)
 <span class="kw">print</span>(<span class="kw">xtable</span>(<span class="kw">table</span>(gap<span class="op">$</span>year, gap<span class="op">$</span>continent)), <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre></div>
 <pre><code>## &lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
-## &lt;!-- Wed Aug  5 11:58:42 2020 --&gt;
+## &lt;!-- Thu Aug  6 16:44:09 2020 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; Africa &lt;/th&gt; &lt;th&gt; Americas &lt;/th&gt; &lt;th&gt; Asia &lt;/th&gt; &lt;th&gt; Europe &lt;/th&gt; &lt;th&gt; Oceania &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; 1952 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  25 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  33 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  30 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   2 &lt;/td&gt; &lt;/tr&gt;
@@ -508,7 +512,7 @@ x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1
 <h1>Breakout</h1>
 <h3 id="basics">Basics</h3>
 <ol style="list-style-type: decimal">
-<li><p>Make sure you are able to install packages from CRAN. E.g., try to install <em>lmtest</em>.</p></li>
+<li><p>Make sure you are able to install packages from CRAN. E.g., try to install <em>lmtest</em>. And make sure you've installed all the packages we need for the bootcamp (see slide 4).</p></li>
 <li><p>Figure out what your current working directory is.</p></li>
 </ol>
 <h3 id="using-the-ideas">Using the ideas</h3>
