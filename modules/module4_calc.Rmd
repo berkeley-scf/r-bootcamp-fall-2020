@@ -694,23 +694,32 @@ There's lots more packages/functionality for dates/times: see *lubridate* and `?
 
 2) Use `table()` to figure out the number of countries available for each continent.
 
+3) Generate 100 random Poisson values with a population mean of 5. How close is the mean of those 100 values to the value of 5?
+
+4) What is the 95th percentile of a chi-square distribution with 1 degree of freedom?
+
+5) What's the probability of getting a value greater than 5 if you draw from a standard normal distribution? What about a t distribution with 1 degree of freedom?
+
+
 ### Using the ideas
 
-3) Explain the steps of what this code is doing: `tmp <- gap[ , -which(names(gap) == "continent")]`.
+6) Explain the steps of what this code is doing: `tmp <- gap[ , -which(names(gap) == "continent")]`.
 
-4) Compute the number of NAs in each column of the gapminder dataset using `sapply()` and making use of the `is.na()` function. It's possible to do this without writing a function (which is a topic we'll cover in Module 5).
+7) Compute the number of NAs in each column of the gapminder dataset using `sapply()` and making use of the `is.na()` function. It's possible to do this without writing a function (which is a topic we'll cover in Module 5).
 
-5) Discretize gdpPercap into some bins and create a gdpPercap_binned variable. Count the number of values in each bin.
+8) Discretize gdpPercap into some bins and create a gdpPercap_binned variable. Count the number of values in each bin.
 
-6) Create a boxplot of life expectancy by binned gdpPercap.
+9) Create a boxplot of life expectancy by binned gdpPercap.
 
-7) Sort the dataset and find the shortest life expectancy value. Now consider the use of `which.min()` and why using that should be much quicker with large datasets.
+10) Sort the dataset and find the shortest life expectancy value. Now consider the use of `which.min()` and why using that should be much quicker with large datasets.
  
-8) Create a dataframe that has the total population across all the countries for each year.
+11) Create a dataframe that has the total population across all the countries for each year.
 
-9) Merge the info from problem 8 back into the original gapminder dataset. Now plot life expectancy as a function of world population. 
+12) Merge the info from problem 8 back into the original gapminder dataset. Now plot life expectancy as a function of world population. 
 
-10)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
+13) Fit two linear regression models from the gapminder data, where the outcome is `lifeExp` and the explanatory variables are `log(pop)`, `log(gdpPercap)`, and `year`. In one model, treat `year` as a numeric variable. In the other, factorize the `year` variable. How do you interpret each model?
+
+14)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
 
 $$
 \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
@@ -731,23 +740,10 @@ b. How can you construct the *e* matrix? Hint: the numerator of *e* is just an *
 
 ### Advanced 
 
-11) For each combination of year and continent, find the 95th percentile of life expectancy. 
+15) For each combination of year and continent, find the 95th percentile of life expectancy. 
 
-12) Here's a cool trick to pull off a particular element of a list of lists:
+16) Fit a logistic regression model where the outcome is whether `lifeExp` is greater than or less than 60 years, exploring the use of different predictors.
 
-```{r}
-params <- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
-  c = list(mn = 2, sd = 1))
-sapply(params, "[[", 1)
-```
+17) Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the *gap* dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the *times* argument to the `rep()` function. (If you're not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)
 
-Explain what that does and why it works.
 
-Hint:
-```{r}
-test <- list(5, 7, 3)
-test[[2]]
-# `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
-
-# `+`(3, 7)
-```

@@ -403,7 +403,7 @@ You also want to include a short, focused, [reproducible](https://adv-r.had.co.n
 
 ### Basics
 
-1) Make sure you are able to install packages from CRAN. E.g., try to install *lmtest*.
+1) Make sure you are able to install packages from CRAN. E.g., try to install *lmtest*. And make sure you've installed all the packages we need for the bootcamp (see slide 4). 
 
 2) Figure out what your current working directory is.
 

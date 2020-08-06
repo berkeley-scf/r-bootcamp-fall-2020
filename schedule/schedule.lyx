@@ -168,10 +168,6 @@ some basic functions; help()
 \end_layout
 
 \begin_layout Itemize
-vectorized calculations, comparisons
-\end_layout
-
-\begin_layout Itemize
 basic R objects: vectors, matrices, dataframes, lists
 \end_layout
 
@@ -244,11 +240,23 @@ dataframes/matrices
 \end_layout
 
 \begin_layout Itemize
-attributes, missing values and factors
+attributes
+\end_layout
+
+\begin_layout Itemize
+missing values
+\end_layout
+
+\begin_layout Itemize
+logical vectors
 \end_layout
 
 \begin_layout Itemize
 subsetting
+\end_layout
+
+\begin_layout Itemize
+strings
 \end_layout
 
 \begin_layout Itemize
@@ -280,11 +288,11 @@ vectorized calculations and efficiency
 \end_layout
 
 \begin_layout Itemize
-factors (categorical data)
+review of subsetting
 \end_layout
 
 \begin_layout Itemize
-review of subsetting
+factors (categorical data)
 \end_layout
 
 \begin_layout Itemize
@@ -296,7 +304,7 @@ regression
 \end_layout
 
 \begin_layout Itemize
-simulation
+distributions and simulation
 \end_layout
 
 \begin_layout Itemize
@@ -446,7 +454,7 @@ Break (fill out feedback forms) (30 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 9: Advanced topics morsels (Chris) (75 minutes)
+Module 9: Advanced topics morsels
 \begin_inset Separator latexpar
 \end_inset
 
@@ -463,11 +471,11 @@ smoothing (generalized additive models) and optimization
 \end_layout
 
 \begin_layout Itemize
-computing on the language (using R to write and evaluate R code)
+errors and try-catch
 \end_layout
 
 \begin_layout Itemize
-errors and try-catch
+computing on the language (using R to write and evaluate R code)
 \end_layout
 
 \begin_layout Itemize
@@ -484,7 +492,7 @@ parallel processing: foreach, parApply, RNG issues
 
 \end_deeper
 \begin_layout Itemize
-Module 10: Wrapping up (Chris) (15 minutes)
+Module 10: Wrapping up (15 minutes)
 \begin_inset Separator latexpar
 \end_inset
 

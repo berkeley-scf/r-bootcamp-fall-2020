@@ -194,10 +194,22 @@ head(gap$country_year)
 
 ## 2 ##
 table(gap2007$continent)
+
+## 3 ##
+popMean <- 5
+x <- rpois(100, popMean)
+mean(x) - popMean
+
+## 4 ##
+qchisq(0.95, 1)
+
+## 5 ##
+1 - pnorm(5)  # pnorm(5, upper.tail = TRUE)
+1 - pt(5, df = 1)
 ```
 
 ```{r, using_the_ideas4}
-## 3 ##
+## 6 ##
 tmp <- gap[ , -which(names(gap) == "continent")]
 
 # column names
@@ -209,56 +221,84 @@ which(names(gap) == "continent")
 # exclude that column
 gap[ , -which(names(gap) == "continent")] 
 
-## 4 ##
+## 7 ##
 sapply(gap, function(x) sum(is.na(x)))
 
 ## or without writing a function
 colSums(sapply(gap, is.na))
 
-## 5 ##
+## 8 ##
 range(gap$gdpPercap)
 gap$gdp_binned <- cut(gap$gdpPercap,
        breaks = c(0, 1000, 2000, 5000, 10000, 20000, 30000, Inf))
 table(gap$gdp_binned)
 
-## 6 ##
+## 9 ##
 boxplot(lifeExp ~ gdp_binned, data = gap)
 
-## 7 ##
+## 10 ##
 tmp <- gap[order(gap$lifeExp), ]
 tmp[1, ]
 gap[which.min(gap$lifeExp), ]
 # That's actually BEFORE the genocide occurred.
 
-## 8 ##
+## 11 ##
 pop <- aggregate(gap$pop, by = list(year = gap$year),
                  FUN = sum)
 
-## 9 ##
+## 12 ##
 gap2 <- merge(gap, pop, by.x = 'year',
                     by.y = 'year', all.x = TRUE, all.y = FALSE)
 plot(gap2$x, gap2$lifeExp)
 
+## 13 ##
+reg1 <- lm(lifeExp ~ log(gdpPercap) + log(pop) + year, 
+                data=gap)
+## here we assume a linear relationship of gdp with year
+## this is not flexible but allows us to fit the model with less data
 
+reg2 <- lm(lifeExp ~ log(gdpPercap) + log(pop) + factor(year), 
+                data = gap)
+## here we assume a completely arbitrary relationship of gdp with year
+## we need enough data in each year to be able to reasonably estimate the average lifeExp for that year, given the other explanatory variables
 
-## 10 ##
+## 14 ##
 y <- matrix(sample(1:10, 12, replace = TRUE), 
 nrow = 3, ncol = 4)
 
-## 10b ##
+## 14b ##
 yidot <- rowSums(y)
 ydotj <- colSums(y)
 e <- outer(yidot, ydotj) / sum(y)
 
-## 10a ##
+## 14a ##
 chi2 <- sum( (y - e)^2 / e)
 # chi2 <- sum(colSums( (y-e)^2 / e ))
 ```
 
 ```{r, advanced4}
-## 11 ## 
+## 15 ## 
 aggregate(gap$lifeExp, by = list(gap$year, gap$continent),
 quantile, probs = 0.95, na.rm = TRUE)
+
+## 16 ##
+library(dplyr)
+gap2 <- gap %>%
+  mutate(sign = ifelse(lifeExp > 60, 1, 0))
+
+reg_logit <- glm(sign ~ log(gdpPercap) + log(pop),
+                family = binomial(link = "logit"), data = gap2)
+
+## 17 ## 
+nFolds <- 10
+n <- nrow(gap)
+fold_size <- rep(round(n / nFolds), nFolds)
+fold_size[nFolds] <- n - (nFolds - 1)*fold_size[1]
+
+fold <- rep(1:nFolds, times = fold_size)
+table(fold)
+set.seed(1)
+gap$fold <- sample(fold, replace = TRUE)
 
 
 # Module 5: Programming
@@ -279,9 +319,25 @@ out <- lapply(1:length(years), function(yrIdx) {
      return(lm(lifeExp ~ log(gdpPercap), data = sub))
 })
 
-
-
 ## 3 ##
+nBoot <- 500
+vals <- rep(0, nBoot)
+
+for(i in seq_len(nBoot)) { 
+      smp <- sample(seq_len(nrow(gap)), replace = TRUE) 
+      vals[i] <- mean(gap$lifeExp[smp], na.rm = TRUE)
+}
+hist(vals)
+
+## bootstrap based standard error (s.d. of sampling distribution)
+se_boot <- sd(vals)
+
+## standard error using usual sigma/sqrt(n) calculation
+n <- sum(!is.na(gap$lifeExp))
+se_norm <- sd(gap$lifeExp, na.rm = TRUE) / sqrt(n)
+
+
+## 4 ##
 thresh <- function(x, threshold = 0, below = TRUE) {
     if(below) {
        x[ x < threshold ] <- threshold
@@ -291,7 +347,7 @@ thresh <- function(x, threshold = 0, below = TRUE) {
     return(x)
 }
 
-## 4 ##
+## 5 ##
 thresh <- function(x, threshold = 0, below = TRUE) {
     if(!is.numeric(x) || is.list(x)) stop("'x' must be a numeric vector")
     if(below) {
@@ -302,23 +358,25 @@ thresh <- function(x, threshold = 0, below = TRUE) {
     return(x)
 }
 
-## 5 ##
+## 6 ##
 sortByCol <- function(data, col1, col2) {
     ord <- order(data[, col1], data[, col2], decreasing=TRUE)
     sorted <- data[ord, ]
     invisible(sorted)
 }
+
+
 ```
 
 ```{r, advanced6}
-## 6 ##
+## 7 ##
 sortByCol <- function(data, ...) {
     ord <- order(..., decreasing=TRUE)
     sorted <- data[ord, ]
     invisible(sorted)
 }
 
-## 7 ##
+## 8 ##
 sortByCol <- function(data, ..., cols = NULL, decreasing = FALSE) {
    if(is.null(cols)) {
       ord <- order(..., decreasing = decreasing)
@@ -334,7 +392,7 @@ sortByCol <- function(data, ..., cols = NULL, decreasing = FALSE) {
    invisible(sorted)
 }
 
-## 8 ##
+## 9 ##
 funGenerator <- function(x) {
    x <- 10
    g <- function(y) {
@@ -349,6 +407,17 @@ f(1)
 
 ls(environment(f))
 environment(f)$x
+```
+
+## 10 ##
+
+Since operators are functions, this says to take each element of the `params` list and run the function `[[`(params[[i]], 1)`, which is equivalent to doing:
+
+```
+params[[1]][[1]]
+params[[2]][[1]]
+params[[3]][[1]]
+## etc.
 ```
 
 # Module 6: Data manipulation using the tidyverse
@@ -380,101 +449,8 @@ gap_wider <- gap_rel_gdp %>%
 ```
 
 
-# 7) Module 7: Core tools
 
-```{r, basics7}
-## 1 ##
-popMean <- 5
-x <- rpois(100, popMean)
-mean(x) - popMean
-
-## 2 ##
-qchisq(0.95, 1)
-
-## 3 ##
-1 - pnorm(5)  # pnorm(5, upper.tail = TRUE)
-1 - pt(5, df = 1)
-```
-
-```{r, using_the_ideas7}
-
-## 4 ##
-reg1 <- lm(lifeExp ~ log(gdpPercap) + log(pop) + year, 
-                data=gap)
-## here we assume a linear relationship of gdp with year
-## this is not flexible but allows us to fit the model with less data
-
-reg2 <- lm(lifeExp ~ log(gdpPercap) + log(pop) + factor(year), 
-                data = gap)
-## here we assume a completely arbitrary relationship of gdp with year
-## we need enough data in each year to be able to reasonably estimate the average lifeExp for that year, given the other explanatory variables
-
-
-## 5 ##
-nBoot <- 500
-vals <- rep(0, nBoot)
-
-for(i in seq_len(nBoot)) { 
-      smp <- sample(seq_len(nrow(gap)), replace = TRUE) 
-      vals[i] <- mean(gap$lifeExp[smp], na.rm = TRUE)
-}
-hist(vals)
-
-## bootstrap based standard error (s.d. of sampling distribution)
-se_boot <- sd(vals)
-
-## standard error using usual sigma/sqrt(n) calculation
-n <- sum(!is.na(gap$lifeExp))
-se_norm <- sd(gap$lifeExp, na.rm = TRUE) / sqrt(n)
-
-## 6 ##
-mod <- gam(lifeExp ~ s(gdpPercap, k = 30) + s(year, k = 10), data = gap)
-plot(mod)
-summary(mod)
-
-mod <- gam(lifeExp ~ s(gdpPercap, k = 60) + s(year, k = 10), data = gap)
-plot(mod)
-summary(mod)  # edf values are about the same as previously so 'k' is not constraining
-
-mod <- gam(lifeExp ~ s(gdpPercap, k = 4) + s(year, k = 3), data = gap)
-plot(mod)
-# Now the edf is much lower (and R^2 has decreased).
-# Note that uncertainty is decreased under the nearly linear fit for year.
-
-```
-
-```{r, advanced7}
-
-## 7 ##
-library(dplyr)
-gap2 <- gap %>%
-  mutate(sign = ifelse(lifeExp > 60, 1, 0))
-
-reg_logit <- glm(sign ~ log(gdpPercap) + log(pop),
-                family = binomial(link = "logit"), data = gap2)
-
-## 8 ## 
-nFolds <- 10
-n <- nrow(gap)
-fold_size <- rep(round(n / nFolds), nFolds)
-fold_size[nFolds] <- n - (nFolds - 1)*fold_size[1]
-
-fold <- rep(1:nFolds, times = fold_size)
-table(fold)
-set.seed(1)
-gap$fold <- sample(fold, replace = TRUE)
-
-## 9 ##
-n <- 100
-nReps <- 10000
-data <- matrix(rpois(n*nReps, 3), ncol = nReps)
-mns <- colMeans(data)
-par(mfrow = c(1, 2))
-hist(mns)
-qqnorm(mns)
-```
-
-# Module 8: Graphics
+# Module 7: Graphics
 
 ```{r, basics8}
 

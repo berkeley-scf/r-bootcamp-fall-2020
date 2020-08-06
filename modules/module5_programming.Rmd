@@ -633,30 +633,36 @@ for (yrIdx in 1:length(years)) {
 }
 ```
 
-3) Write an R function that will take an input vector and set any value below a
+3) Consider the code where we used `sample()` in module 4.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:
+
+  - resample with replacement a new dataset of the same size as the actual `gap` dataset
+  - assign the value of the mean of the life expectancy for the bootstrap dataset into the storage vector
+  - repeat
+
+4) Write an R function that will take an input vector and set any value below a
 threshold to be the value of threshold. Optionally, the function should instead
 set values above a threshold to the value of the threshold.
 
-4) Augment your function so that it checks that the input is a numeric vector
+5) Augment your function so that it checks that the input is a numeric vector
 and return an error if not. (See the help information for `stop()`.)
 
-5) Figure out what `invisible()` does and why it is useful when writing
+6) Figure out what `invisible()` does and why it is useful when writing
 functions. Use `invisible()` in your function from just above or in the
 `sortByCol()` function.
 
 ### Advanced
 
-6) Extend the `sortByCol()` function to handle an arbitrary number of columns on
+7) Extend the `sortByCol()` function to handle an arbitrary number of columns on
 which to do the sorting. You may need to modify the functionality a bit to use
 full vectors for the sorting rather than column names.
 
-7) Extend the `sortByCol()` function so that it can take either numeric indices or
+8) Extend the `sortByCol()` function so that it can take either numeric indices or
 character strings indicating columns of the input data or take entire vectors to
 use in the sorting of the input data. If information specifying columns is
 given, make sure your function carefully checks that the input refers to
 legitimate columns and returns an error or warning (see `warning()`) if not.
 
-8) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that `funGenerator()` returns a function as the return object,
+9) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that `funGenerator()` returns a function as the return object,
 consistent with the idea that functions are objects in R. This is an example of
 what is called a *closure* in R. Basically, the function contains object(s)
 enclosed with and accessible to the function.
@@ -672,4 +678,23 @@ funGenerator <- function(x) {
 x <- 2
 f <- funGenerator()
 f(1)
+```
+
+10) Here's a cool trick to pull off a particular element of a list of lists:
+
+```{r}
+params <- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
+  c = list(mn = 2, sd = 1))
+sapply(params, "[[", 1)
+```
+
+Explain what that does and why it works.
+
+Hint:
+```{r}
+test <- list(5, 7, 3)
+test[[2]]
+# `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
+
+# `+`(3, 7)
 ```
