@@ -288,9 +288,15 @@ is.list(myList)
 <pre><code>## [1] FALSE
 </code></pre>
 
-<p>[poll]</p>
-
 <p><strong>Question</strong>: What have you learned? Does it make sense? </p>
+
+<p><strong>POLL 2A</strong>: Which of these is true?</p>
+
+<p><code>gap</code> is a data frame
+<code>gap</code> is a matrix
+<code>gap</code> is a vector
+<code>gap</code> is a list
+<code>gap</code> is a function</p>
 
 <h1>Managing and saving the workspace</h1>
 
@@ -477,7 +483,7 @@ lm(7)
 </code></pre>
 
 <pre><code>## gap$lifeExp ~ gap$gdpPercap
-## &lt;environment: 0x556fa3d979e8&gt;
+## &lt;environment: 0x5563ce514c58&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(gap$lifeExp ~ gap$gdpPercap)
@@ -554,7 +560,33 @@ setwd(file.path(&#39;..&#39;, &#39;data&#39;)) # relative path
 
 <p>Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.</p>
 
-<p>[poll]</p>
+<p><strong>POLL 2B</strong>:</p>
+
+<p>Suppose I am on a Mac that has the following directories:</p>
+
+<p>Users
+  paciorek
+    Desktop
+      r-bootcamp-fall-2020
+        data
+    modules
+    schedule
+    Documents</p>
+
+<p>and suppose my current working directory is /Users/paciorek/Desktop/r-bootcamp-fall-2020/modules.
+(Windows users, just think of this as being C:\Users\paciorek\Desktop\r-bootcamp-fall-2020\modules.)
+Which of the following will allow me to change to the &#39;data&#39; subdirectory?</p>
+
+<ul>
+<li>setwd(&#39;Users/paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)</li>
+<li>setwd(&#39;/Users/paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)</li>
+<li>setwd(&#39;data&#39;)</li>
+<li>setwd(&#39;../data&#39;)</li>
+<li>setwd(&#39;~paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)</li>
+<li>setwd(&#39;paciorek&#39;, &#39; Desktop/r-bootcamp-fall-2020/data&#39;)</li>
+<li>setwd(&#39;./data&#39;)</li>
+<li>setwd(&#39;Desktop/r-bootcamp-fall-2020/data&#39;)</li>
+</ul>
 
 <h1>Reading text files into R</h1>
 
@@ -783,7 +815,7 @@ print(xtable(table(gap$year, gap$continent)), type = &quot;html&quot;)
 </code></pre>
 
 <pre><code>## &lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
-## &lt;!-- Thu Aug  6 16:44:10 2020 --&gt;
+## &lt;!-- Fri Aug  7 14:28:40 2020 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; Africa &lt;/th&gt; &lt;th&gt; Americas &lt;/th&gt; &lt;th&gt; Asia &lt;/th&gt; &lt;th&gt; Europe &lt;/th&gt; &lt;th&gt; Oceania &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; 1952 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  25 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  33 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  30 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   2 &lt;/td&gt; &lt;/tr&gt;

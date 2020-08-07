@@ -63,7 +63,7 @@ August 2020, UC Berkeley
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="co"># multiply by a constant</span></code></pre></div>
 <pre><code>## [1] 6.283185</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">7</span> <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>) <span class="co"># add a random number</span></code></pre></div>
-<pre><code>## [1] 7.087569</code></pre>
+<pre><code>## [1] 7.261688</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span><span class="op">^</span><span class="dv">4</span> <span class="co"># powers</span></code></pre></div>
 <pre><code>## [1] 81</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">4</span><span class="op">^</span><span class="dv">4</span>) <span class="co"># functions</span></code></pre></div>
@@ -82,7 +82,7 @@ August 2020, UC Berkeley
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">5e9</span> <span class="op">*</span><span class="st"> </span><span class="fl">1e3</span></code></pre></div>
 <pre><code>## [1] 5e+12</code></pre>
 <p>Think of a mathematical operation you need - can you guess how to do it in R?</p>
-<p><strong>POLL</strong>: How do I calculate the cosine of 2 pi?</p>
+<p><strong>POLL 1A</strong>: How do I calculate the cosine of 2 pi?</p>
 <ol style="list-style-type: decimal">
 <li>cosine(2pi)</li>
 <li>cosine(2*pi)</li>
@@ -151,7 +151,7 @@ countries</code></pre></div>
 nums &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="fl">-5.7</span>)
 devs &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 devs</code></pre></div>
-<pre><code>## [1]  0.4459140 -0.2591014  1.8955855  2.0181949 -0.4872865</code></pre>
+<pre><code>## [1] -1.3188038  0.4400942  0.5060700  1.5566275  0.2395763</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## integer vector
 ints &lt;-<span class="st"> </span><span class="kw">c</span>(1L, 5L, <span class="op">-</span>3L) <span class="co"># force storage as integer not decimal number</span>
 ## 'L' is for 'long integer' (historical)
@@ -232,13 +232,22 @@ vals[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>
 ## How does R process these next subset operations?
 vals[vals <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
 vals[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]</code></pre></div>
-<pre><code>## [1] 0.00000000 0.00000000 0.00000000 0.05305431 1.39054832 0.00000000
-## [7] 0.64258656 1.01019738</code></pre>
+<pre><code>## [1] 0.0000000 0.0000000 0.8654866 0.0000000 0.0000000 0.6689702 0.0000000
+## [8] 0.0000000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wealthy &lt;-<span class="st"> </span>gdp[gdp <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>]
 gdp[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</code></pre></div>
 <pre><code>##  [1] 779.4453 820.8530 853.1007 822.9711 739.9811 786.1134 978.0114
 ##  [8] 852.3959 649.3414 635.3414</code></pre>
-<p>[poll]</p>
+<p><strong>POLL 1B</strong>: Which of these will work to extract a subset of a vector? Assume the vector is created like this: vals &lt;- rnorm(4)</p>
+<ul>
+<li>vals[3]</li>
+<li>vals[2,3]</li>
+<li>vals[c(2,3)]</li>
+<li>vals(2,3)</li>
+<li>vals[c(FALSE, TRUE, TRUE, FALSE)]</li>
+<li>vals[c(f,t,t,f)]</li>
+<li>vals(3)</li>
+</ul>
 </div>
 <div id="vectorized-calculations-and-comparisons" class="slide section level1">
 <h1>Vectorized calculations and comparisons</h1>
@@ -254,7 +263,7 @@ gdpSubset <span class="op">&gt;=</span><span class="st"> </span><span class="fl"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 vec2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 vec1 <span class="op">&gt;</span><span class="st"> </span>vec2</code></pre></div>
-<pre><code>## [1]  TRUE FALSE FALSE  TRUE FALSE</code></pre>
+<pre><code>## [1]  TRUE FALSE  TRUE FALSE  TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 <span class="op">==</span><span class="st"> </span>vec2</code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 <span class="op">!=</span><span class="st"> </span>vec2</code></pre></div>
@@ -281,7 +290,7 @@ gap<span class="op">$</span>lifeExp[<span class="dv">1</span><span class="op">:<
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">median</code></pre></div>
 <pre><code>## function (x, na.rm = FALSE, ...) 
 ## UseMethod(&quot;median&quot;)
-## &lt;bytecode: 0x5586ecb1ba90&gt;
+## &lt;bytecode: 0x559966019a90&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(median)</code></pre></div>
 <pre><code>## [1] &quot;function&quot;</code></pre>
@@ -297,7 +306,7 @@ gap<span class="op">$</span>lifeExp[<span class="dv">1</span><span class="op">:<
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>))</code></pre></div>
 <div class="figure">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAC9FBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrK0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7///+VnsjxAAAACXBIWXMAAAsSAAALEgHS3X78AAAUJ0lEQVR4nO3de3xU5Z3H8ceYCEiAgAMkAYJColwSIdwsGk1J02VrUcICTaji0oZLV2t13UKVBbTtYii7Xttq1m5ZbFkrKOjuVsiKASPBhLa4RQmKiCLILbAhNZdJ8vyzZ85Mhszl98ycZ2bO5Jnn+3m9kvPiPOc3c2ber1wmmQmMIy1j8T4BFJ8Ar2mA1zTAaxrgNQ3wmgZ4TQO8pgFe0wCvaYDXNMBrGuA1DfCaBnhNA7ymAV7TAK9pgNc0wGsa4DUN8JoGeE1TD76VsU+MzRy2sYNF7+zrcpKfszy0lTWEOuQnaRelzifmJQz8ZHYgkktdxAprrM505X3NtflD0pPG+88XpI8pbw7YfpHyaCSnFbtUhuetrZd3Rwj/12y75Zlt7BXe+dTiQcyAd45jhVPYnIAtLx38f5GcV8xSGb6Z9eV8320Dht75geHO2DZ+6YHs1CmbjNXzpUNuqspewL9gjn1Tt/GqrwwYUnyQH88uemLE6Kdqp6bO+sR9Yd0DrvF1rh3ugbPZ07fnDpx75vIB7v2+FzAlw+k6G+aC/x9WxJ2jrjjhv+Vvscfjd18JUhI+b9q0aYPc8OcGJc0rZCNb3xjNfvoZL2JZc65mT3F+Cxs9fQD7iuGVOmro68f7pXztJjaWH2VX9JvI2FU3DGDfcl9Y98Abk9hDh1w73ANfsOQ+k5PZsssHuPf7XMDnbJ55Gfe54H/M1nK+kG3z3/K2pNvidleJUhLenQm/m11/mq+66xPzU/0elnXJeHeN8Tammd9vwhv3Pd9TsoG392MXjjL2ES9gd/EqNs68LO+A8al+h7nHPWC8r+YvshsvH+De73MB29k/mCMm/IPsXzgvZ5X+W86z+sXtrhKlJHyPT/Vn01jSzMdOu7/GP8PuNVYy2Mmn2Q84/5MJ3981c/ixkizGzh1lozgvY7/iDSzbvCzvQA/4/ub7NGPIOMh7gHu/zwVUsl+aIyb8Ay7opewF/y3ns9gl2++jMFIdnp9fPY6xtI888PcZKyPYpxvY33P+ZxPeYex5OyX17sqBLvhrXW6besB7BnrAO7rfN5jwngPc+30u4Pme8I+xNZwvYDv9t64vFk3230mhUx3+9fu28iMz2TMG/LvGN1LXNvO32RD+Ghvfyh/2wj/AVhsf/0HgvQMUvPeAIPA+n+qrWEFXS2bScf8t56P7xuVuCpXq8LvY1aWLUtlefjP79oe8kI2Zl8qe5u1j2fW3MC/8BjZkfsYV7PMAeO8ABe89IAj8iZ7f3BkP324cyxYGbI1v7gricS+FTHV4vmX6oP6TN3P+0rArt/Om+8f2z3c9nDv2VwMnPu+F/8uC1HGbv3XtrwPhvQMUfPcBQeB5vvFwjnvg+Yn56enfaQrc7mXr7b+Pwkg9+HC6cPAI5++yb8b2Wlw/wAnZol76M9vEhD+SfOX6X4xnv47ttXh+ZCvs9FX4ka2d7bw1LTX/hVhfy7bQv6T5aS/9gE9UeBQqwGsa4DUN8JoGeE0DvKYBXtMAr2mA1zTAaxrgNQ3wmgZ4TQO8pgFe0wCvaYDXNMBrGuA1DfCaBnhNA7ymAV7TAK9pgNc0wGsa4DUN8JoGeE0DvKYBXtPCgu9q6or1eSCbCw3fuiYnhSVnr22z4WyQbYWGX1xS0+hsrC1bYsPZINsKDe9oMTcdWbE+Fdt7fpmonfE+vdgWGn6S+++AVefH+lRsb1b9AbrNP4z36cW20PB1GXml5WX5mfU2nI29zRJ9y1qnPTx3VlVWVFY5Y38udgf4UCXowznAC0vch3OAF5a4D+cALyzw4dy2YrNpvfOv84Yf4IWRD+d+9/Pon46tAV4Y+XAO8CoXwcM5wKtcOA/nLpjvA/4KM+BVLjT8BxOSxrzq+o8h/BcAr3Kh4Qs3tO9OrwF8ghUaPq2T8+3j2wGfWIWGz95nvJt/L+ATq9DwWwcWneeN06cCPqEK47v6k9ubOW/futJ/P+BVLoJn2QJe5QBPtGVgsaCMC7adZYwCPNGmGaLRhWeifC62B3giwJMBXuUATwR4MsCrHOCJAE8GeJUDPBHgyQCvcoAnAjwZ4FUO8ESAJwO8ygGeCPBkgFc5wBMBngzwKgd4IsCTAV7lAE8EeDLAqxzgiQBPBniVAzwR4MkAr3KAJwI8GeBVDvBEgCcDvMoBngjwZIBXOcATAZ4M8CoHeCLAkwFe5QBPBHgywKsc4IkATwZ4lQM8EeDJAK9ygCcCPBngVQ7wRIAnA7zKAZ4I8GSAVznAEwGeDPAqB3giwJMBXuUATwR4MsCrHOCJAE8GeJUDPBHgyQCvcoAnAjwZ4FUO8ESAJwO8yoUF39UU7C4CvMqFhm9dk5PCkrPXtvkvAF7lQsMvLqlpdDbWli3xXwC8yoWGd7SYm44s/wXAq1xo+Ek7zE11vv8C4FUuNHxdRl5peVl+Zr3/AuBVLozv6p1VlRWVVc6A/YBXuTAfx59vDtwHeJULDT+nhX84NSll9in/BcCrXGh41syLVra0rZvvvwB4lQsLPs34At85zLtn70qzktWxPDEbArz4iI/5lKOcv5/p3XOqymz1xliemA0BXthtI1PTZvPdjgBmfKpXuXC+q289vJ+/82bAbsCrHH4tSwR4MsCrXGj4hu78FwCvcqHhZ7N+6Wb+C4BXuTA+1S9fEXw/4FUuDPjqiuD7Aa9yif3N3dnnRY0HvFQKwP/+2y8L6t8hGAU8mQrw60WrgwEvFeBVDvBEgCcDvMoBngjwZDrDT7lzoaAXpU7W3gBPJIYfub+R7k8BLzrqhQGeKAT8YcHiMcDHO8CTAZ4I8GSAJwJ83AM8GeCJAE8GeCLAxz3AkwGeCPBkgCcCfNwDPBngiQBPBngiwMc9wJMBngjwZIAnAnzcAzwZ4IkATwZ4IsDHPcCTAZ4I8GSAJwJ83AM8GeCJAE8GeCLAxz3AkwGeCPBkgCcCfNwDPBngiQBPBngiwMc9wJMBngjwZIAnUgn+wZpOy6OAJ1IJfnVu+oog/5mkMMATqQTP+UcbCxz3vNZiYRTwRGrBN7+2fOgNBde8HP4o4IlUgn/i6wOKnzzK+R9HhD8KeCKV4Je80mRunTvCHwU8kUrwzuf28v/6WZulUcATqQR/z4z3+J9nWTthwBOpBJ922nh3YailUcATqQQ/9ojx7uMxlkYBT6QS/G/SH3pq1YhKS6OAJ1IJnh9aW/5IvbVRwBMpBS8R4IlUgn9jZq7R9y2NAp5IJfgx/364oaHhiKVRwBOpBD9XYhTwRCrBb9hlfRTwRCrBF/bJmGh8kbc0CngileAPubM0CngileA57zpndRTwRCrBf1aUmttQcMzSKOCJVIJfuKott/Ofii2NAp5IJfjhTp7LnUOIg7qauoLsBTyRSvB5NQb8HycEO6J1TU4KS85eG/AsDcATqQT/pmORY4nj9WBHLC6paXQ21pYF3BrAE6kEz8/8at0vPw16hMP9lOuOLP8FwBMpBU83yf38y+p8/wXAE6kEX2B2d7Aj6jLySsvL8jMDflsPeCKV4Pfv31/7avFLQQ9xVlVWVAZ5fRXgiVSCN/tyGnEQHs75l1jwx9OCHYGHc0FKGHjXV/iZ/ZYHOyLw4dzZA2br/9mWM4wkwJN54Gtc/W+wT+hBHs69tdJs7sOxP70IAzwZHs4RaQI/yuFudOAReDgXpISB/9Httafq7lh/8WKQQ3r3w7m/LRaUVyYaBbzxEd9svPvyOkujvQP+q6LFH88WrQLeuCEfGO+OZFgaBTyRSvDPpq/b9GjGT4Id0dCd/wLgiVSC5/t+sOB7/x30iNmsX7qZ/wLgiZSCFzzZcvmK4PsBT6QSvOjJltUVwUcBT6QSvLpPtgS8XGE92TJ4gCdSCV7wZEsywBOpBC94siUZ4IlUghc82ZIM8EQKwZ8c12x9FPBECsHzsseD/i5eGOCJVIIv7OOYoObr4wEvl/Kvjwe8XCb8Ncbbby2PAp5IHfhkz5u1AE8EeDsCvFyAJ9IC/sqDBw+63g5aGgU8kTrwju4sjQKeSB14uQBPBHg7ArxcgCcCPBngiQBvR4CXC/BEgCcDPBHg7QjwcgGeCPBkgCcCvB31Qvg/DBe9Zr/gpOiCbQvwRBHA78kRjX7vA9GqbQGeCPBkgCcCvB0BXi7AEwGeDPBEgLcjwMsFeCLAkwGeCPB2BHi5AE8EeDLAEwHejgAvF+CJAE8GeCLA2xHg5QI8EeDJAE8EeDsCvFyAJwI8GeCJAG9HgJcL8ESAJwM8EeDtCPByAZ4I8GSAJwK8HQFeLsATAZ4M8ESAtyPAywV4IsCTAZ4I8HYEeLkATwR4MsATAd6OAC8X4IkATwZ4IsDbEeDlAjwR4I26moL9l8OAJ0oQ+NY1OSksOXttm/8C4IkSBH5xSU2js7G2LOAv8wKeKEHgHS3mpiPLfwHwRAkCP2mHuanO918APFGCwNdl5JWWl+Vn1vsvAJ4oQeC5s6qyorLKGbAf8ESJAu/qfHOPf2xz/8X9vAdjckYWA7xcoeHntPAPpyalzD7lv4CPeKIEgWfNvGhlS9u6+f4LgCdKHPg04wt85zD/BcATJQr8x3zKUc7fz/RfADxRgsDfNjI1bTbf7djovwB4ogSB57z18H7+zpsBuwFPlDDwRIAnArwdAV4uwBMBnswu+L1TRTlEo4AnUwD+xX8VraaJFnsj/PL9jYJaRKPRDPBEMYPPK1hIN2+eaDSaAZ4oZvAT/1Ow2HSHaDSaAZ4I8GSAJwJ8dAJ8LAI8EeDJAE8E+OgE+FgEeCLAkwGeCPDRCfCxCPBEgCcDPBHgoxPgYxHgiQBPBngiwEcnwMciwBMBngzwRICPToCPRYAnAjwZ4IkAH50AH4sATwR4MsATAT46AT4WAZ4I8GSAJwJ8dAJ8LAI8EeDJAE8E+OgE+FgEeCLAkwGeCPDRCfCxCPBEgCcDPBHgw+7GYkGjlolGAS9X74AX/pXCFYtFqwkGP+NlQdv+IrpgawGeKD7wJ1MfF1S0V3TB1gI8UZzgh4tG/xHwlwO8XIAnAjwZ4IkAH3aA9wT4HgG+O8D3CPByAZ4I8GSAJwJ82AHeE+B7BPjuAN8jwMsFeCLAkwGeCPBhB3hPgO8R4Ltbulz02/odotGAAE/UG+Fv/Y7o+Tm3ikYDAjxRr4R/VrQqvBMDAjwR4MkATwT4sAO8J8D3CPDdAb5HgO8O8JcDPBngiQBPBngiwIcd4D0BvkeA7w7wPQJ8dzGA72rqCrLXH36C8EXuN4hWB4uuHfDd2QvfuiYnhSVnr23zX/CHF15xySrRqlAP8N3ZC7+4pKbR2VhbtsR/AfBECQLvaDE3HVnePVXLzIof8T1w9DJB1+aLVvuKFidcLz06fZRotc9SweKsYaLR/qWCxTsHiUYHf0OweHc/0WhGgWg12r+Pn+R+Zkd1vndP4wGzfed9Dzx8QFBNrWi1WrRY+4706P63RatviRbr9khfa71wdU+9aFV4TnvfFa1+FmX4uoy80vKy/Mx6S5eLenlhfFfvrKqsqKxyxv5ckI1F8DgeqRzgNQ3wmgZ4TQO8pgFe0wCvaYDXNMBrGuA1zS74x6aLnoghbGq+9OhNedKjt4yXHi3MkR4tuk56tPgWSyB2wT+xXXpU/F+TCPv9eunRuh9Kjx4LeOpC2EXyP1TY9pw7SwE+rADfI8CHF+AvB3gywBMBPjoBPqwSD/7p16VHt/yb9OiuDdKjB1ZKj37yXenR5rnSo7zY0tF2wbfIP3WrrVV6tONL6dGuS9KjvEmBUfzkTtMAr2mA1zTAaxrgNQ3wmgZ4TQO8ptkF/1xW2h1nJGe35aTNEr0eXdiMBqmx+vyh90j/4EjyOiO6pVbvYJvgj1z94fk5K+RmTw18p7NiotzsnqVMCsGZsf3LuWvsvc6IbqnlO9gm+M1f59ziX9L3tr2I8/akC1KzFSv6SSFU5XFec73UVUpfZ0S31PIdbNvX+I73Fz8sN9l8nvPdY2SvN10KobKU88aUYH/yKXbXGeEttXgH2wb/av/MU9LDO4a/Ijsqh1BRbny6Z7K/MZGF55HcUot3sA3wL2Rnv2xs2ionS842LhhXI321kh/xZcZHfLLdH/GSt9STtTvYpo/45zZzfvFKuV/Nts/4u3b5a5ZDqMrnvDbb3uuM6JZavoNtgn8172zX+pvlZrdObTWSvWY5BGdmdceitfZeZ0S31PIdbNfX+Ecyh33jmNzoKubqouQVSyLUTx4l/zheFj6SW2r1DsZP7jQN8JoGeE0DvKYBXtMAr2mA1zTAaxrgNQ3wmgZ4TQO8pgFe0wCvaYDXNMBrGuA1DfCaBnhNA7ymAd7bM7u45/WOnldM+mxe+m28zy+66QR/UrindVaX5/WOnldM+m7av9pp35nakDbwhwoXjTtUuGFu9k7OX8q55m/OmHsaCn5UePOusuvu5/wXT3S/3tHziknfDV/9H/G+CVFNH/g+6y8d6rOTb5rJPxpc37Zikbmnge3n35zoPJ10gd9+0HWY6ynxnldM+m747rvifAuimz7wji5+KIPzw7l843c5P923y7WnYQTnjzzM+YgTfLT5pyxd8J5XTPpu+PH8ENegVvrATzDeJnLekMsfetT4d99zrj0N44zP4Y9zPvJE83DzMPMj3v2KSd8N70xLqC/y+sDnut8M+J8t5fzcVZ3mv7zwl9LNw1zwnldM+m54V1pHnG9CVNMRvmHIe857F3Bf+B6f6j2vmPTd8E8lXuXdi9MO/sj3Od+SPbTktA/8vCZ++3uuw8zXO3peMem7eeuu+N6AKKcNfMh+/qR4fc0We87DpgDfnesHOILwA5yE7dldotXf/cau87AnwGsa4DUN8JoGeE0DvKYBXtMAr2mA1zTAaxrgNQ3wmgZ4TQO8pgFe0wCvaYDXtP8HdsGhbDIgyx0AAAAASUVORK5CYII=" />
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAC6FBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpcXFxdXV1eXl5fX19hYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV3d3d4eHh5eXl6enp7e3t8fHx+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqcnJydnZ2fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrK1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7///8A4jvaAAAACXBIWXMAAAsSAAALEgHS3X78AAAT+klEQVR4nO3df3wUdX7H8a8xUZCAOQyaBAgeBAVJhPDDE0VyYK60HlewwCXUQ3pRafU8LVf8BWjPYjha9bzzNN5Ze2cVUNC2SiqiF4EDe8U7lETBiqKIQqAhNT82yfffzs5Ohuxmd2e+M9+d+X7zeb8ej2Qezme+O5N9PrLJJllkHJGMhX0BKJwATzTAEw3wRAM80QBPNMATDfBEAzzRAE80wBMN8EQDPNEATzTAEw3wRAM80QBPNMATDfBEAzzRAE80wBNNP/h2xj4yNvPZhi4m7+r3jM9+QnjRJtbodMiP8055up6MN2Dgp7C3/dzqUlbRILqmp+za6Oa/sh4x3n+6uGBsTWu/7ec59/u5rMylMzxvbz+z2yf8n7Itwms2sxd496PLzmcGfGQCq5jK5vfb8qqv/a+f68pYOsO3skGc75w9dMSfv2e4M7aZn76jJHfq08b0RNXwb9SXLOafs/yd0zbz+iuHDq/cxw+XzH145JhHd03LnfNR7MZ6F0SXr43uiC34smTGltJhC744c0Bsf/wNTC2MRK+GReH/k83lkdFnHUnc8tfZQ+HdV2nSEr5s+vTp58fgj5+fdX0FG9X+yhj24Cd8Liuefx57lPOr2ZgZQ9mVhlfu6BEvHx6cc+032Dh+kJ01eBJj51w6lH03dmO9C16ZzFbuj+6ILficZZ87JZvdfOaA2P64G/iUXW/exm1R+L9nazhfwjYnbnlH1uzQ7qp0aQkfy4Tfzi45xu+64SPzof4NVnzaeHeB8Ta2ld9uwhv3PX9j4XreOZidPMjYB3wWu4HXswnmbdkLjIf6reae2ALj/Q7+L+zyMwfE9sfdwBb2I3OJCX8n+yfOa1hd4pbz4sGh3VXp0hK+z0P9l3ksa+YDx2Jf4x9jtxqTQvbZT9kPOf9vE35IdM2BBxYWM3b8IBvNeTX7JW9kJeZt2Qv6wA8x3+cZi4yD7ANi++NuoI79wlxiwt8Rhb6JPZW45XwOOx30XeQm3eH5ifsmMJb3gQV/mzEZyT5ez/6W8z+a8PnGnt/m5H6vblgU/uKo29N94K0FfeDze983mvDWAbH9cTfwZF/4B9hqzhezVxO30S8WLcHfSc7pDv/ybZt400z2mAH/O+MbqYtb+W/ZcP4Sm9jO77Hh72D3GZ//SeDtBang7QOSwMc91NezWT1tRVmHE7ecjxkUyt3klO7w29h5VUtz2Zv8KvaX7/MKNvb6XPZT3jmOXXI1s+HXs+GLCs9in/aDtxekgrcPSAJ/pO83d8bTt8vHsSX9tsY3d7PCuJcc0x2ePzvj/CFTnuH8uQvP3sJbbh83pDz6dO7DPxk26Ukb/v8W50545rsX/6o/vL0gFXzvAUngebnxdI5b8PzIooKCv2rpv32TrQv+PnKRfvBuOrmvifPfsW9n9izRH+A4tlTRn9kOTPim7LPXPT6R/SqzZ7F+ZJu2Y+fgR7ZB9uo1ebnlT2X6LJudf0nzoKKf8AMVHjkFeKIBnmiAJxrgiQZ4ogGeaIAnGuCJBniiAZ5ogCca4IkGeKIBnmiu4HtaejJ9HSjgnOHbV4/PYdklazoCuBoUWM7wyxY2NEead1UvD+BqUGA5w+e3mZuu4kxfCgoyZ/jJsb873lGe6UtBQeYMv6ewrKqmurxobwBXgwLLxXf1kfq62rr6SOavBQUYns4RDU/niIanc0Tz8nTuD0+arX8jY1eFMp6Xp3NNG83ufDBjV4Uyno+nc8//PCNXhALJx9M5wOucm6dzJ833/V71CXidc4Z/77KssS9G/yGKxAHgdc4ZvmJ95/aCBsAPsJzh87o53zKxE/ADK2f4kp3Gu0W3An5g5Qy/adjcE7x5xrQBD/93N6fv8bAvUGouvqv/bEsr552bViXuH2jw099OX0XYFyg1H39lO9Dgv+lzrleAtwO8ywCvc4C3A7zLAK9zgLcDvMsAr3OAtwO8ywCvc4C3A7zLAK9zgLcDvMsAr3OAtwO8ywCvc4C3A7zLAK9zgLcDvMsAr3OAtwO8ywCvc4C3A7zLAK9zgLcDvMsAr3OAtwO8ywCvc4C3A7zLdIP/kcOrYS9xWA94K93grzyUvjyH9YC30g3eCQ7wLgO8zgHeDvAuA7zOAd4O8C4DvM4B3g7wLgO8zgHeDvAuA7zOAd4O8C4DvM4B3g7wLgO8zgHeDvAuA7zOAd4O8C4DvM4B3g7wLgO8zgHeDvAuUw3++0vSN9ZhPeBdphr8rOb0OcEC3mWqwft9KAe8ywCvc4B3PQe8FeB1DvCu54C3ArzOAd71HPBWgNc5wLueA94K8DoHeNdzwFsBXucA73oOeCvA6xzgXc8Jwve09CTZC3idc4ZvXz0+h2WXrOlIHABe55zhly1saI4076penjgAvM45w+e3mZuu4sQB4HXOGX7yVnOzozxxQA1+/EPp2yRwreHnDL+nsKyqprq8aG/igBp8bn36Zgtca/i5+K4+Ul9XW1cf6befGvzA+lLg8nn8idb++wAvdn61coaf38bfn5aVM+9o4gDwYudXK2d41srnrmrrWLvI3nP8bbN1/5jJCxMP8CK5gs8zvsB3X2jveX2V2YK7M3lh4gFeJBfwh/jUg5y/W5Q4wEO92PnVyhl+9qjcvHl8e/6GxAHgxc6vVm6+q28/sJu/9Vq/3YAXO79a4dey0uaADynAi+QM39hb4gDwYudXK2f4eWxwgVniAPBi51crFw/1t6xIvh/wYudXKxfwO2qT7we82PnVCt/cSZsDPqQALxLgpc0BH1KAFwnw0uaADynAiwR4aXPAhxTgRQK8tDngQwrwIgFe2hzwIQV4kQAvbQ74kAK8SICXNgd8SAFeJMBLmwM+pAAvEuClzQEfUoAXCfDS5oAPKcCLBHhpc8CHFOBFAry0OeBDCvAiAV7aHPAhBXiRAC9tDviQArxIgJc2B3xIAV4kwEubAz6kAC8S4KXNAR9SgBcJ8NLmgA8pwIsEeGlzwIcU4EUCvLQ54EMK8CIBXtoc8CEFeJEAL20O+JACvEiAlzYHfEgBXiTAS5sDPqQALxLgpc0BH1KAFwnw0uaADynAi2TB39nQLbwU8GLnVysL/r7SghX1EbGlgBc7v1rZD/UfbJiVf+NLbQJLAS92frWy4VtfumXEpbMu2Oh+KeDFzq9WFvzD3xpa+chBzn8/0v1SwIudX60s+OUvtJjbyFb3SwEvdn61suAjT7zJ/+0nHUJLAS92frWy4G+84h3+xznLhZYCXuz8amXB5x0z3p0cIbQU8GLnVysLflyT8e7QWKGlgBc7v1pZ8L8uWPnoXSPrhJYCXuz8atX7PH7/mpp794otBbzY+dUKv6SRNtcS/pWZpUY/EFoKeLHzq5UFP/afDzQ2NjalOKinpSfJXsCLnV+tLPgFqY9oXz0+h2WXrOn30x3Ai51frSz49dtSHrFsYUNzpHlXdb+f7gBe7PxqZcFXnFs4yfgin+yI/NivaruKEweAFzu/Wlnw+2MlO2Jy7Pc2O8oTB4AXO79a2U/neo6nOGJPYVlVTXV5Ub9n+YAXO79aWfCfzM0tbZz1YdJDIvV1tXVJ/i4L8GLnVysLfsldHaXd/1CZ4iA8nXMz1xL+oggv5ZHhyY7A0zmXcy3hyxoM+N9fluwIPJ1zOdcS/rX8pfnL819OdkT/p3ObK80uX5n5yxMJ8CL1flf/xS/X/uLjpEfg6ZzLuZ7wqcPTOZdzLeFnmX0v6SF4OuduriX87t27d71Y+ZzQUsCLnV+t+j7UfzVdaCngxc6vVn3hDyf90Bp7SxwAXuz8atXna/zMwbckO2IeG1xgljgAvNj51cqCb4j2h2Q/mOX8lhXJlwJe7Pxq5eKPLXfUJt8PeLHzq5UFPzo/1hiBpYAXO79aWfB3X7fr6J7vrDt1SmAp4MXOr1a9n/Gtxruvvi60FPBi51crC37Ue8a7pkKhpYAXO79aWfA/K1j79P2FPxZaCnix86tV73f1O3+4+K//XWwp4MXOr1bOf2yZMsCLnV+tXPyxZaoAL3Z+tXL1x5bJA7zY+dXK+Y8tUwZ4sfOrlfMfW6YM8GLnVyvnP7ZMWdDw11amr8hhPeD75vzHlikLGj7sz2in+TXN6et0WB9sMfjPJrSKLwV8fIOWpG+Ow/pgsz7jqx9K/rv4dAFebK7WlwL79fH5l6V4fXzKAC82VxI+zevjUwZ4sbmC8BcYb78RXgp4sbmC8NnWm1iAF5sD3mOAlxngA5srCH/2vn37om/7hJYCXmyuIHx+b0JLAS82VxDeW4AXmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADmwPeY4CXGeADm2sI39OS7P9DCXixuW7w7avH57DskjUdiQPAi811g1+2sKE50ryrenniAPBic93g89vMTVdx4gDwYnPd4CdvNTc7yhMHgBeb6wa/p7Csqqa6vGhv4gDwYnPd4Hmkvq62rj5yZsfz08zGrszcZSUL8DJz+Tz+RGv/ffiMF5vrBj+/jb8/LStn3tHEAeDF5rrBs1Y+d1Vbx9pFiQPAi801hM8zvsB3X5g4ALzYXDv4Q3zqQc7fLUocAF5srhv87FG5efP49vwNiQPAi811g+e8/cBu/tZr/XYDXmyuH3yKAC82B7zHAC8zwAc2B7zHAC8zwAc2n/hk+v7DYb3cAB/YfMjG9M12WC83wCszD/ZLAeCVmQM+RYCXGeCVmQM+RYCXGeCVmQM+RYCXGeCVmQM+RYCXGeCVmQM+RYCXGeCVmQM+RYCXGeCVmZOFf2BV+i51WB82HOA9Nv3t9IUNA3gr2fAD/aEc8CkCfJABXpk54FMUNgzgrQAvdw74FIUNA3grwMudAz5FYcMA3grwcueAT1HYMIC3Arzc+QyHH1n/j8N6sQCvzHywwy+p5L62DvDazOV+KQC8NnPAE50Dnugc8ETngCc6BzzROeCJzgFPdA54onPAE50DnuhcW/iW5vRd47A+7Ds+7Lm28KOXpC/sO1b1ubbweCj3Nwc80Tngic4BT3QOeKJzwBOdA57oHPBE54AnOgc80Tngic4BT3QOeKJzwBOdA57oHPBE54AnOgc80Tngic4BT3SuLHxpZfpGONxe2Hes6nNl4fEZndk54InOAU90Dniic8ATnY+6OX2POKyPD/DazIcdSl+Fw/r4AD9g5mJfCgA/YOYZgO9p6UmyF/BqzWXDt68en8OyS9Z0JA4Ar9ZcNvyyhQ3NkeZd1csTB4BXay4bPr/N3HQV23vqY08fKu+NP3CMw9ONQZhndC72z5o7w0/eam52lNt7mmP/cP7OE/EHHnD4h/Zfxzyj808kw+8pLKuqqS4v2it0u0jxXHxXH6mvq62rj2T+WlCA+Xgej3QO8EQDPNEATzTAEw3wRAM80QBPNMATDfBEkwg/0eGVNE6NwXpfXR0WvN8//8X6INcDnuh6wBNdD3ii6wFPdD3gia6XCF+J9RqtlwjfgvUarcdP7ogGeKIBnmiAJxrgiQZ4ogGeaIAnmkT4J4rzvvOFj/Wbx+fNOeDrCq5o9L52b/mIG9tDO7v/j1703pcH33Te+yfmr/C+/uiwt7prJ/m4gDduYt7v+kjhlq8WrA7r7P4/euF7Xx78M9/ifOM13tdvmct5Z9ZJ7zdQu2Kw97u+vozzhku8n9zf2f1/9ML3vsyv8V3vLrvH++rWE5xvH+vrAgq83/V1VZw35yT7N56COLuMj17w3pcJ/+KQoqO+bmDrRS/4Wu/jrq+tMR7uma/fk/iC574/esF7Xw78UyUlG41NR90UH+ubF09o8Hd+P5/x1cZnfHZ4n/F+PnorsXtf3mf8E89wfups7/9wRucVf9Pp8xJ83PX15ZzvKgnr7P4/euF7Xx78i2Vf9qy7yvv6TdPajXxdgo+7PlK0o2vpmrDO7v+jF773JX6Nv7fowj/70Pvyu1i0U36uwM9dv3fKaJ/P433B+/7oRe99/OSOaIAnGuCJBniiAZ5ogCca4IkGeKIBnmiAJxrgiQZ4ogGeaIAnGuCJBniiAZ5ogCca4IkGeKIB3u6xbdx65aP1Asq4zXO/Cfv65EYJ/rO0e9rn9FivfLReQBm/6fxmd3BXGkBk4PdXLJ2wv2L9gpJXOX9u/AV/8YW5p3HW3RVXbav++u2cP/5w7ysfrRdQxm/4ff8a9ocgNTrw5647vf/cV/nTM/kHX9vbsWKpuaeR7ebfnhQ5lnWSX7cvelj0j+OtF1DGb/j2G0K9ftnRgc/v4fsLOT9Qyjd8n/Njg3qiexpHcn7vPZyPPMLHnI4eFoW3XkAZv+GHyx3OoFd04C8z3iZx3ljKV95v/Peg49E9jROMx/CHOB91pPUi8zDzMz72Asr4De/OG1Bf5OnAl8beDPif3MT58XO6zf+y4U8XmIdF4a0XUMZveE9eV8gfgtQowjcOfydy62IeD9/nod56AWX8hn/s8SXgikYOvukHnD9bMmLhsTj461v4de9EDzNf+Wi9gDJ+8zq+uRuY/fyR9PPVzwZzHQEF+N6iP8BJE36AM2D72bZ00+d/HdR1BBPgiQZ4ogGeaIAnGuCJBniiAZ5ogCca4IkGeKIBnmiAJxrgiQZ4ogGeaIAn2v8DfS3C10bKJ00AAAAASUVORK5CYII=" />
 
 </div>
 </div>
@@ -391,7 +400,18 @@ myList</code></pre></div>
 <span class="kw">names</span>(myList)</code></pre></div>
 <pre><code>## [1] &quot;stuff&quot;     &quot;mat&quot;       &quot;moreStuff&quot; &quot;&quot;          &quot;newOne&quot;</code></pre>
 <p>Lists can be used as vectors of complicated objects. E.g., suppose you have a linear regression for each value of a stratifying variable. You could have a list of regression fits. Each regression fit will itself be a list, so you'll have a list of lists.</p>
-<p>[poll]</p>
+<p><strong>POLL 1C</strong>: How would you extract &quot;china&quot; from this list?</p>
+<pre><code>myList &lt;- list(stuff = 3, mat = matrix(1:4, nrow = 2), 
+   moreStuff = c(&quot;china&quot;, &quot;japan&quot;), list(5, &quot;bear&quot;))</code></pre>
+<ul>
+<li>myList$moreStuff[1]</li>
+<li>myList$moreStuff[[1]]</li>
+<li>myList[[1]]</li>
+<li>myList[[3]][2]</li>
+<li>myList[[3]][1]</li>
+<li>myList[3][1]</li>
+<li>myList[['moreStuff']][1]</li>
+</ul>
 </div>
 <div id="converting-between-different-types-of-objects" class="slide section level1">
 <h1>Converting between different types of objects</h1>
@@ -407,7 +427,24 @@ myList</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">indices &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="fl">2.3</span>)
 ints[indices]</code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
-<p>[poll]</p>
+<p><strong>POLL 1D</strong>:</p>
+<ol style="list-style-type: lower-alpha">
+<li>What do you think this will do?</li>
+</ol>
+<p>ints &lt;- 1:5 ints[0.9999]</p>
+<ul>
+<li>return an error</li>
+<li>return 1</li>
+<li>return an empty vector</li>
+</ul>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What does the code do when it tries to use 0.9999 to subset?</li>
+</ol>
+<ul>
+<li>round the 0.9999 to 1</li>
+<li>truncate the 0.9999 to 0</li>
+<li>return an error</li>
+</ul>
 </div>
 <div id="a-bit-on-plotting" class="slide section level1">
 <h1>A bit on plotting</h1>
