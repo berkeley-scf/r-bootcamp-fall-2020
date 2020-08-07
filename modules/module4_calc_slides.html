@@ -68,7 +68,7 @@ gdpSubset <span class="op">&gt;=</span><span class="st"> </span><span class="dv"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 vec2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 vec1 <span class="op">&gt;</span><span class="st"> </span>vec2</code></pre></div>
-<pre><code>## [1] FALSE FALSE  TRUE FALSE  TRUE</code></pre>
+<pre><code>## [1]  TRUE FALSE FALSE  TRUE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 <span class="op">==</span><span class="st"> </span>vec2</code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 <span class="op">!=</span><span class="st"> </span>vec2</code></pre></div>
@@ -89,17 +89,17 @@ gap<span class="op">$</span>gdpPercap[<span class="dv">1</span><span class="op">
 vec3 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">3</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 vec5 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 vec10</code></pre></div>
-<pre><code>##  [1] 6 2 2 5 2 4 1 5 7 4</code></pre>
+<pre><code>##  [1]  7  2  3  5  1  2  5 10  1 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec3</code></pre></div>
-<pre><code>## [1] 6 3 1</code></pre>
+<pre><code>## [1] 3 4 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec5</code></pre></div>
-<pre><code>## [1] 7 8 8 8 8</code></pre>
+<pre><code>## [1]  5 10  8 10  5</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec10 <span class="op">+</span><span class="st"> </span>vec5</code></pre></div>
-<pre><code>##  [1] 13 10 10 13 10 11  9 13 15 12</code></pre>
+<pre><code>##  [1] 12 12 11 15  6  7 15 18 11 15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec10 <span class="op">+</span><span class="st"> </span>vec3</code></pre></div>
 <pre><code>## Warning in vec10 + vec3: longer object length is not a multiple of shorter
 ## object length</code></pre>
-<pre><code>##  [1] 12  5  3 11  5  5  7  8  8 10</code></pre>
+<pre><code>##  [1] 10  6  6  8  5  5  8 14  4 13</code></pre>
 <p>[poll]</p>
 <p><strong>Question</strong>: Tell me what's going on. What choices were made by the R developers?</p>
 </div>
@@ -120,10 +120,10 @@ chi2_df1000 &lt;-<span class="st"> </span><span class="kw">sum</span>(chi2vals)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e6</span>)
 <span class="kw">system.time</span>(trunc &lt;-<span class="st"> </span><span class="kw">ifelse</span>(vals <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, vals, <span class="dv">0</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.032   0.008   0.041</code></pre>
+##   0.029   0.012   0.041</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(vals &lt;-<span class="st"> </span>vals <span class="op">*</span><span class="st"> </span>(vals <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.006   0.000   0.007</code></pre>
+##   0.007   0.000   0.006</code></pre>
 <p><strong>Question</strong>: What am I doing with <code>vals * (vals &gt; 0)</code> ? What happens behind the scenes in R?</p>
 <p>If you use a trick like this, having a comment in your code is a good idea.</p>
 <p>Lots of functions in R are vectorized, such as some we've already used.</p>
@@ -221,7 +221,7 @@ n &lt;-<span class="st"> </span><span class="dv">50000</span>
       vals &lt;-<span class="st"> </span><span class="kw">c</span>(vals, i)
 })</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   2.677   0.032   2.710</code></pre>
+##   2.687   0.003   2.690</code></pre>
 <p>The same holds for using <code>rbind()</code>, <code>cbind()</code>, or adding to a list, one element at a time.</p>
 <p>Note that we'll discuss for loops in Module 5, but many of you are probably familiar with syntax like this either in R or in other languages.</p>
 <p><strong>Question</strong>: Thoughts on why this are so slow? Think about what R might be doing behind the scenes</p>
@@ -237,7 +237,7 @@ vals &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">
       vals[i] &lt;-<span class="st"> </span>i
 })</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.030   0.000   0.031</code></pre>
+##    0.03    0.00    0.03</code></pre>
 <p>Here's how to pre-allocate an empty list:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals &lt;-<span class="st"> </span><span class="kw">list</span>(); <span class="kw">length</span>(vals) &lt;-<span class="st"> </span>n
 <span class="kw">head</span>(vals)</code></pre></div>
@@ -351,10 +351,10 @@ gap<span class="op">$</span>gdpPercap[wealthy]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">20</span>)
 vec[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">12</span><span class="op">:</span><span class="dv">14</span>)] &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
 vec</code></pre></div>
-<pre><code>##  [1] -1.6329163 -0.8054698  1.0000000  1.9376790  2.0000000 -1.5306303
-##  [7] -0.6705672  1.0160595 -0.0105710 -1.1188385 -0.8380774  3.0000000
-## [13]  4.0000000  5.0000000 -2.1316155 -1.6081215  1.3213516 -1.5479010
-## [19]  1.4385060  1.4489331</code></pre>
+<pre><code>##  [1] -0.49232287  0.84233306  1.00000000  1.44386495  2.00000000
+##  [6]  0.07375581 -0.37777854  0.64557730 -1.42708799 -0.72326677
+## [11] -3.37152569  3.00000000  4.00000000  5.00000000  0.07245229
+## [16] -0.30946799 -1.82470834  0.14440634  0.14560218 -0.30229157</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Here's a complicated bit of assignment syntax:
 mat[<span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">3</span>)
 mat[mat[,<span class="dv">1</span>] <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, ] &lt;-<span class="st"> </span><span class="op">-</span><span class="ot">Inf</span>
@@ -1285,11 +1285,11 @@ summ_reg<span class="op">$</span>coefficients</code></pre></div>
 <p>[poll]</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rmultinom</span>(<span class="dv">1</span>, <span class="dv">100</span>, <span class="dt">prob =</span> <span class="kw">c</span>(.<span class="dv">1</span>, <span class="fl">.1</span>, <span class="fl">.2</span>, <span class="fl">.3</span>, <span class="fl">.25</span>, <span class="fl">.05</span>)) </code></pre></div>
 <pre><code>##      [,1]
-## [1,]   10
-## [2,]   13
-## [3,]   17
-## [4,]   24
-## [5,]   32
+## [1,]    3
+## [2,]   15
+## [3,]   27
+## [4,]   25
+## [5,]   26
 ## [6,]    4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">length =</span> <span class="dv">100</span>)
 <span class="kw">plot</span>(x, <span class="kw">dchisq</span>(x, <span class="dt">df =</span> <span class="dv">1</span>), <span class="dt">type =</span> <span class="st">'l'</span>)
@@ -1303,8 +1303,8 @@ summ_reg<span class="op">$</span>coefficients</code></pre></div>
 <h1>Other types of simulation and sampling</h1>
 <p>We can draw a sample with or without replacement.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(gap), <span class="dv">20</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>##  [1] 1632  941  516  664  476 1507 1118  634  628  771 1075 1110  166  328
-## [15]  468 1057  970  646  638 1484</code></pre>
+<pre><code>##  [1]  560 1600 1367 1295 1207 1646  852  529 1453  990 1186  341  331 1610
+## [15]  628 1702  241   17 1043  610</code></pre>
 <p>Here's an example of some code that would be part of coding up a bootstrap. As I mentioned previously, this would be a weird dataset to do formal statistical inference on given it includes most of the countries in the world, though one could think about fitting models for the variation over time, treating short-term fluctuations as random.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># actual mean</span>
 <span class="kw">mean</span>(gap<span class="op">$</span>lifeExp, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
@@ -1312,7 +1312,7 @@ summ_reg<span class="op">$</span>coefficients</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># here's a bootstrap sample:</span>
 smp &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">nrow</span>(gap)), <span class="dt">replace =</span> <span class="ot">TRUE</span>) 
 <span class="kw">mean</span>(gap<span class="op">$</span>lifeExp[smp], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## [1] 59.5211</code></pre>
+<pre><code>## [1] 59.17633</code></pre>
 <p>It's a good idea to use <code>seq_along()</code> and <code>seq_len()</code> and not syntax like <code>1:length(gap)</code> in <code>sample()</code> because the outcome of <code>length()</code> might in some cases be unexpected (e.g., if you're taking subsets of a dataset). Similar reasoning holds when setting up for loops: e.g.,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_len</span>(<span class="kw">nrow</span>(gap))) {
 <span class="co"># blah</span>
@@ -1451,9 +1451,12 @@ d2 &lt;-<span class="st"> </span><span class="kw">chron</span>(<span class="st">
 <ol style="list-style-type: decimal">
 <li><p>Create a vector that concatenates the country and year to create a 'country-year' variable in a vectorized way using the string processing functions.</p></li>
 <li><p>Use <code>table()</code> to figure out the number of countries available for each continent.</p></li>
+<li><p>Generate 100 random Poisson values with a population mean of 5. How close is the mean of those 100 values to the value of 5?</p></li>
+<li><p>What is the 95th percentile of a chi-square distribution with 1 degree of freedom?</p></li>
+<li><p>What's the probability of getting a value greater than 5 if you draw from a standard normal distribution? What about a t distribution with 1 degree of freedom?</p></li>
 </ol>
 <h3 id="using-the-ideas">Using the ideas</h3>
-<ol start="3" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li><p>Explain the steps of what this code is doing: <code>tmp &lt;- gap[ , -which(names(gap) == &quot;continent&quot;)]</code>.</p></li>
 <li><p>Compute the number of NAs in each column of the gapminder dataset using <code>sapply()</code> and making use of the <code>is.na()</code> function. It's possible to do this without writing a function (which is a topic we'll cover in Module 5).</p></li>
 <li><p>Discretize gdpPercap into some bins and create a gdpPercap_binned variable. Count the number of values in each bin.</p></li>
@@ -1461,6 +1464,7 @@ d2 &lt;-<span class="st"> </span><span class="kw">chron</span>(<span class="st">
 <li><p>Sort the dataset and find the shortest life expectancy value. Now consider the use of <code>which.min()</code> and why using that should be much quicker with large datasets.</p></li>
 <li><p>Create a dataframe that has the total population across all the countries for each year.</p></li>
 <li><p>Merge the info from problem 8 back into the original gapminder dataset. Now plot life expectancy as a function of world population.</p></li>
+<li><p>Fit two linear regression models from the gapminder data, where the outcome is <code>lifeExp</code> and the explanatory variables are <code>log(pop)</code>, <code>log(gdpPercap)</code>, and <code>year</code>. In one model, treat <code>year</code> as a numeric variable. In the other, factorize the <code>year</code> variable. How do you interpret each model?</p></li>
 <li><p>Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is:</p></li>
 </ol>
 <p><br /><img style="vertical-align:middle" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAAA1BAMAAADlrfmeAAAAMFBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv3aB7AAAAD3RSTlMAVGbNMiJEmd12iRCru+/oK7SQAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEgElEQVRYCbVXXYgbVRQ+M8kkM5kkplFYFcQRKdrdLc2LL744IPig6IYWqojYIOiDCI370odSdikiSBBHBaWoEP/Bis4q0vUHmwcRxELjYxXpUtAXobvqtoq1O54zM3fm3pk7O5PYHsi95/vud8+d3Hvn5AQg0z5/b8aNBxHtvTGGV8KzNmutOI61aYz1GBbw2u/niMrjuh1LEPVWY5jvaU59uL3KcJqcwHB0d4Zh02FeRm8AlDvqOGM0pOv2U/tjRd1ehW8tNhTzcs/sI18bygcZ24CvLOYDNOBeOGaH+JWYz/DayK+6GYP5dCdXUkLFN7mqLIFiZY1EPF5Aw+5GcEKnkT+zMoInwJkwbiTH21WeAaUfEcxRbolirmmeN2T8pD2+cCtNu+EoFp49b9/hY+PxjpHb4PlJ/X0AvQVo2sl56jK8y7jfmCPv17fOk617ntcDaHo+Oo/oIunvxs+HsEAuWeVnMgtA/2FXjwiyQdCxNpk39lwORrR5D7+vSg3Z3tM+TynjWXgD5kF9x+fD5mQXtSOYtRGvhVzQpfJGw7NCwYkL6Jz9I0TmEsYAPGTzEpxRdXdOSLAnccwaqCtD7NfwE1sqb5jrFNc3SkBfexSXzL86JRcPUduEfeA+HdBBq9twndYxqy0AbcwPoJ/MGwf/ZoIaRqt4ywweR8fACLOzG/AWwB2Mp157s+3WLCh1cacsfgD9ZN6oeX1e8fFfPNJGiIw+DKzETiCtf0I7CA18LMFSeeOu3/nxkocPHdtPUOo1u7DYLY9jMvCqO+F+9B5J8Om8EW87SbkzIfgg1GGRHMOhNmHHEB9OcOm8oXgdXnPznzyqtNRd9JUM2u6kOXguqh2xyq02aI9L8sbSP5EGnaqYWMK4jRd5TeifwaW1mNeqHVBDWD1FNgyQTu9wbC/473CMi3vlC2DJ1JonpJMDW65MVYR7TpGr9vzL86o3YvAazEnFLJjx9n1sptjXhYsKp3Frp7MFm80TzgBKQ8b7/Z0CmgQcsOTqUwJdHwmwINC+R+HrY6na6Aj0ywIqCsrn8GVRNqTy612eVgY8Ku7jBXoNxMMMJ5d/EaI80BVgYaCA0oUjpkT/aI8ntV95NIHfgnsAPn1JMuMo42rk6BaDQ+YU61tZskYU6DaS/Mh0ap95/7M/wuafoBxUHYfQXOqxAb5v38CjIn54R839u7011Id39LPHzm7JZtedSk9JFmEyYcwdjHPNkH6SIxNyONPfDrVJL9mrhyJz8VWJwKHkL5W/xvPt/D8M7GGm6U0qcZJF2DSBsuaYG/gbmSzCssRT8c+AYieLsLxAiuUrVtj9DHrzJum8h3fMpYowqTBN7ugInHKtAHkgK8L48QxfExfAajTLZEVYlpb4+WCQLeBX5EhlL5BRhAVh0q2qf/kBmhsugBX5FwiPb7eAtAhLR2ZM+KjhAn5FTkPbfANpEcbCpXuszMnYFrEScZsFggmF28FcsEXLwYwmBFv0UOEAecLFrq948lzQU0WOVvloZ+Bc8ZYq8qtpVJFfVaOKfEr7D8EdR/XMcq8bAAAAAElFTkSuQmCC" alt="
@@ -1478,23 +1482,11 @@ d2 &lt;-<span class="st"> </span><span class="kw">chron</span>(<span class="st">
 <li>How can you construct the <em>e</em> matrix? Hint: the numerator of <em>e</em> is just an <em>outer product</em> for which the <code>outer()</code> function can be used.</li>
 </ol>
 <h3 id="advanced">Advanced</h3>
-<ol start="11" style="list-style-type: decimal">
+<ol start="15" style="list-style-type: decimal">
 <li><p>For each combination of year and continent, find the 95th percentile of life expectancy.</p></li>
-<li><p>Here's a cool trick to pull off a particular element of a list of lists:</p></li>
+<li><p>Fit a logistic regression model where the outcome is whether <code>lifeExp</code> is greater than or less than 60 years, exploring the use of different predictors.</p></li>
+<li><p>Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the <em>gap</em> dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the <em>times</em> argument to the <code>rep()</code> function. (If you're not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)</p></li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">params &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">list</span>(<span class="dt">mn =</span> <span class="dv">7</span>, <span class="dt">sd =</span> <span class="dv">3</span>), <span class="dt">b =</span> <span class="kw">list</span>(<span class="dt">mn =</span> <span class="dv">6</span>,<span class="dt">sd =</span> <span class="dv">1</span>), 
-  <span class="dt">c =</span> <span class="kw">list</span>(<span class="dt">mn =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">1</span>))
-<span class="kw">sapply</span>(params, <span class="st">&quot;[[&quot;</span>, <span class="dv">1</span>)</code></pre></div>
-<pre><code>## a b c 
-## 7 6 2</code></pre>
-<p>Explain what that does and why it works.</p>
-<p>Hint:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">3</span>)
-test[[<span class="dv">2</span>]]</code></pre></div>
-<pre><code>## [1] 7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># `[[`(test, 2)  # need it commented or R Markdown processing messes it up...</span>
-
-<span class="co"># `+`(3, 7)</span></code></pre></div>
 </div>
 </body>
 </html>

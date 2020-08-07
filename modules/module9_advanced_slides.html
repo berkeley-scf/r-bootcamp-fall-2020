@@ -62,7 +62,8 @@ August 2020, UC Berkeley
 </div>
 <div id="object-oriented-programming-oop-in-r" class="slide section level1">
 <h1>Object-oriented programming (OOP) in R</h1>
-<p>[poll] d Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.</p>
+<p>[poll]</p>
+<p>Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.</p>
 <ul>
 <li>S3: informal system used for <code>lm()</code>, <code>glm()</code>, and many other core features in R in the <em>stats</em> package</li>
 <li>S4: more formal system, used with <em>lme4</em></li>
@@ -177,7 +178,7 @@ mod2<span class="op">$</span>residuals[<span class="dv">1</span><span class="op"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predict</code></pre></div>
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x560eb53c0200&gt;
+## &lt;bytecode: 0x55fe40356210&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># predict.glm</span></code></pre></div>
 <p>When <code>predict()</code> is called on a GLM object, it first calls the generic <code>predict()</code>, which then recognizes that the first argument is of the class <em>glm</em> and immediately calls the right class-specific method, <code>predict.glm()</code> in this case.</p>

@@ -330,7 +330,7 @@ system.time(trunc &lt;- ifelse(vals &gt; 0, vals, 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.031   0.008   0.039
+##   0.034   0.005   0.039
 </code></pre>
 
 <pre><code class="r">system.time(vals &lt;- vals * (vals &gt; 0))
@@ -488,7 +488,7 @@ for(i in 1:n)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   2.677   0.032   2.710
+##   2.687   0.003   2.690
 </code></pre>
 
 <p>The same holds for using <code>rbind()</code>, <code>cbind()</code>, or adding to a list, one element at a time.</p>
@@ -511,7 +511,7 @@ for(i in 1:n)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##    0.03    0.00    0.03
+##   0.029   0.000   0.030
 </code></pre>
 
 <p>Here&#39;s how to pre-allocate an empty list: </p>
@@ -675,10 +675,10 @@ vec[c(3, 5, 12:14)] &lt;- 1:5
 vec
 </code></pre>
 
-<pre><code>##  [1] -1.6329163 -0.8054698  1.0000000  1.9376790  2.0000000 -1.5306303
-##  [7] -0.6705672  1.0160595 -0.0105710 -1.1188385 -0.8380774  3.0000000
-## [13]  4.0000000  5.0000000 -2.1316155 -1.6081215  1.3213516 -1.5479010
-## [19]  1.4385060  1.4489331
+<pre><code>##  [1] -0.49232287  0.84233306  1.00000000  1.44386495  2.00000000
+##  [6]  0.07375581 -0.37777854  0.64557730 -1.42708799 -0.72326677
+## [11] -3.37152569  3.00000000  4.00000000  5.00000000  0.07245229
+## [16] -0.30946799 -1.82470834  0.14440634  0.14560218 -0.30229157
 </code></pre>
 
 <pre><code class="r">## Here&#39;s a complicated bit of assignment syntax:
@@ -1836,11 +1836,11 @@ lines(x, dt(x, df = 1), col = &#39;red&#39;)
 </code></pre>
 
 <pre><code>##      [,1]
-## [1,]   10
-## [2,]   13
-## [3,]   17
-## [4,]   24
-## [5,]   32
+## [1,]    3
+## [2,]   15
+## [3,]   27
+## [4,]   25
+## [5,]   26
 ## [6,]    4
 </code></pre>
 
@@ -1858,8 +1858,8 @@ lines(x, dchisq(x, df = 2), col = &#39;red&#39;)
 <pre><code class="r">sample(1:nrow(gap), 20, replace = FALSE)
 </code></pre>
 
-<pre><code>##  [1] 1632  941  516  664  476 1507 1118  634  628  771 1075 1110  166  328
-## [15]  468 1057  970  646  638 1484
+<pre><code>##  [1]  560 1600 1367 1295 1207 1646  852  529 1453  990 1186  341  331 1610
+## [15]  628 1702  241   17 1043  610
 </code></pre>
 
 <p>Here&#39;s an example of some code that would be part of coding up a bootstrap. As I mentioned previously, this would be a weird dataset to do formal statistical inference on given it includes most of the countries in the world, though one could think about fitting models for the variation over time, treating short-term fluctuations as random.</p>
@@ -1876,7 +1876,7 @@ smp &lt;- sample(seq_len(nrow(gap)), replace = TRUE)
 mean(gap$lifeExp[smp], na.rm = TRUE)
 </code></pre>
 
-<pre><code>## [1] 59.5211
+<pre><code>## [1] 59.17633
 </code></pre>
 
 <p>It&#39;s a good idea to use <code>seq_along()</code> and <code>seq_len()</code> and not syntax like <code>1:length(gap)</code> in <code>sample()</code> because the outcome of <code>length()</code> might in some cases be unexpected (e.g., if you&#39;re taking subsets of a dataset). Similar reasoning holds when setting up for loops: e.g., </p>
@@ -2125,23 +2125,31 @@ class(d1)
 
 <p>2) Use <code>table()</code> to figure out the number of countries available for each continent.</p>
 
+<p>3) Generate 100 random Poisson values with a population mean of 5. How close is the mean of those 100 values to the value of 5?</p>
+
+<p>4) What is the 95th percentile of a chi-square distribution with 1 degree of freedom?</p>
+
+<p>5) What&#39;s the probability of getting a value greater than 5 if you draw from a standard normal distribution? What about a t distribution with 1 degree of freedom?</p>
+
 <h3>Using the ideas</h3>
 
-<p>3) Explain the steps of what this code is doing: <code>tmp &lt;- gap[ , -which(names(gap) == &quot;continent&quot;)]</code>.</p>
+<p>6) Explain the steps of what this code is doing: <code>tmp &lt;- gap[ , -which(names(gap) == &quot;continent&quot;)]</code>.</p>
 
-<p>4) Compute the number of NAs in each column of the gapminder dataset using <code>sapply()</code> and making use of the <code>is.na()</code> function. It&#39;s possible to do this without writing a function (which is a topic we&#39;ll cover in Module 5).</p>
+<p>7) Compute the number of NAs in each column of the gapminder dataset using <code>sapply()</code> and making use of the <code>is.na()</code> function. It&#39;s possible to do this without writing a function (which is a topic we&#39;ll cover in Module 5).</p>
 
-<p>5) Discretize gdpPercap into some bins and create a gdpPercap_binned variable. Count the number of values in each bin.</p>
+<p>8) Discretize gdpPercap into some bins and create a gdpPercap_binned variable. Count the number of values in each bin.</p>
 
-<p>6) Create a boxplot of life expectancy by binned gdpPercap.</p>
+<p>9) Create a boxplot of life expectancy by binned gdpPercap.</p>
 
-<p>7) Sort the dataset and find the shortest life expectancy value. Now consider the use of <code>which.min()</code> and why using that should be much quicker with large datasets.</p>
+<p>10) Sort the dataset and find the shortest life expectancy value. Now consider the use of <code>which.min()</code> and why using that should be much quicker with large datasets.</p>
 
-<p>8) Create a dataframe that has the total population across all the countries for each year.</p>
+<p>11) Create a dataframe that has the total population across all the countries for each year.</p>
 
-<p>9) Merge the info from problem 8 back into the original gapminder dataset. Now plot life expectancy as a function of world population. </p>
+<p>12) Merge the info from problem 8 back into the original gapminder dataset. Now plot life expectancy as a function of world population. </p>
 
-<p>10)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: </p>
+<p>13) Fit two linear regression models from the gapminder data, where the outcome is <code>lifeExp</code> and the explanatory variables are <code>log(pop)</code>, <code>log(gdpPercap)</code>, and <code>year</code>. In one model, treat <code>year</code> as a numeric variable. In the other, factorize the <code>year</code> variable. How do you interpret each model?</p>
+
+<p>14)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: </p>
 
 <p>\[
 \chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
@@ -2162,34 +2170,11 @@ b. How can you construct the <em>e</em> matrix? Hint: the numerator of <em>e</em
 
 <h3>Advanced</h3>
 
-<p>11) For each combination of year and continent, find the 95th percentile of life expectancy. </p>
+<p>15) For each combination of year and continent, find the 95th percentile of life expectancy. </p>
 
-<p>12) Here&#39;s a cool trick to pull off a particular element of a list of lists:</p>
+<p>16) Fit a logistic regression model where the outcome is whether <code>lifeExp</code> is greater than or less than 60 years, exploring the use of different predictors.</p>
 
-<pre><code class="r">params &lt;- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
-  c = list(mn = 2, sd = 1))
-sapply(params, &quot;[[&quot;, 1)
-</code></pre>
-
-<pre><code>## a b c 
-## 7 6 2
-</code></pre>
-
-<p>Explain what that does and why it works.</p>
-
-<p>Hint:</p>
-
-<pre><code class="r">test &lt;- list(5, 7, 3)
-test[[2]]
-</code></pre>
-
-<pre><code>## [1] 7
-</code></pre>
-
-<pre><code class="r"># `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
-
-# `+`(3, 7)
-</code></pre>
+<p>17) Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the <em>gap</em> dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the <em>times</em> argument to the <code>rep()</code> function. (If you&#39;re not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)</p>
 
 </body>
 

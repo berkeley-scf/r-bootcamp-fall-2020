@@ -54,7 +54,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 August 2020, UC Berkeley
   </p>
-  <p class="date">Chris Paciorek, with contributions from <a href="http://nimahejazi.org">Nima Hejazi</a></p>
+  <p class="date">Chris Paciorek</p>
 </div>
 <div id="apply" class="slide section level1">
 <h1>apply</h1>
@@ -72,16 +72,15 @@ col_sum &lt;-<span class="st"> </span><span class="kw">colSums</span>(mat)</code
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myList &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">rnorm</span>(<span class="dv">3</span>), <span class="kw">rnorm</span>(<span class="dv">3</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>))
 <span class="kw">lapply</span>(myList, min)</code></pre></div>
 <pre><code>## [[1]]
-## [1] -1.074084
+## [1] -2.958287
 ## 
 ## [[2]]
-## [1] -1.60744
+## [1] -1.064579
 ## 
 ## [[3]]
-## [1] -1.014419</code></pre>
+## [1] -0.8739151</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(myList, min)</code></pre></div>
-<pre><code>## [1] -1.074084 -1.607440 -1.014419</code></pre>
-<p>[poll]</p>
+<pre><code>## [1] -2.9582873 -1.0645794 -0.8739151</code></pre>
 <p>Note that we don't generally want to use <code>apply()</code> on a data frame.</p>
 <p>Recall that a dataframe is a list:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(gap, class)</code></pre></div>
@@ -91,38 +90,39 @@ col_sum &lt;-<span class="st"> </span><span class="kw">colSums</span>(mat)</code
 <div id="lapply-and-sapply-with-vectors" class="slide section level1">
 <h1><code>lapply()</code> and <code>sapply()</code> with vectors</h1>
 <p>You can use <code>lapply()</code> and <code>sapply()</code> on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
-   <span class="kw">rnorm</span>(x)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(i) {
+   <span class="kw">max</span>(<span class="kw">rnorm</span>(<span class="dv">100</span>))
 }   
 
 out &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, myfun)
 out</code></pre></div>
 <pre><code>## [[1]]
-## [1] -0.1860651
+## [1] 3.547493
 ## 
 ## [[2]]
-## [1] -0.3131162 -1.2473008
+## [1] 2.200237
 ## 
 ## [[3]]
-## [1] 2.1469623 0.5202324 1.0030598
+## [1] 2.352827
 ## 
 ## [[4]]
-## [1]  0.04612235  0.64035563  1.16925939 -0.67534466
+## [1] 2.54014
 ## 
 ## [[5]]
-## [1]  0.89420361 -0.04633484  0.11771720  0.09933934 -0.80253743
+## [1] 2.957045
 ## 
 ## [[6]]
-## [1] -0.26342462  0.99427808  0.53755254 -0.09932736  0.56183680  0.05703823</code></pre>
+## [1] 2.122963</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Or, 'in-line' the function:
-out &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="cf">function</span>(x) <span class="kw">rnorm</span>(x))</code></pre></div>
+out &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="cf">function</span>(i) <span class="kw">max</span>(<span class="kw">rnorm</span>(<span class="dv">100</span>)))</code></pre></div>
+<p>[poll]</p>
 </div>
 <div id="and-more-applys" class="slide section level1">
 <h1>And more <code>apply()</code>s</h1>
 <p>There are a bunch of <code>apply()</code> variants, as well as parallelized versions of them:</p>
 <ul>
 <li><code>tapply()</code>, <code>vapply()</code>, <code>mapply()</code>, <code>rapply()</code>, <code>eapply()</code></li>
-<li>for parallelized versions see Module 10 or <code>?clusterApply</code></li>
+<li>for parallelized versions see Module 9 or <code>?clusterApply</code></li>
 </ul>
 </div>
 <div id="loops" class="slide section level1">
@@ -250,17 +250,17 @@ out[[<span class="st">'2007'</span>]]</code></pre></div>
 <p>Here's a simple example to illustrate the syntax. Note that the <em>then</em> is implicit.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] 0.4745759</code></pre>
+<pre><code>## [1] -1.437125</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>)
 } <span class="cf">else</span> {
   <span class="kw">print</span>(<span class="st">&quot;val is positive&quot;</span>)
 }</code></pre></div>
-<pre><code>## [1] &quot;val is positive&quot;</code></pre>
+<pre><code>## [1] &quot;val is negative&quot;</code></pre>
 <p>We can chain together <code>if</code> statements as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] -1.073466</code></pre>
+<pre><code>## [1] 0.009395223</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">-1</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is more than one standard deviation below the mean.&quot;</span>)
 } <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">abs</span>(val) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) {
@@ -268,10 +268,10 @@ val</code></pre></div>
 } <span class="cf">else</span> {
   <span class="kw">print</span>(<span class="st">&quot;val is more than one standard deviation above the mean.&quot;</span>)
 }</code></pre></div>
-<pre><code>## [1] &quot;val is more than one standard deviation below the mean.&quot;</code></pre>
+<pre><code>## [1] &quot;val is within one standard deviation of the mean.&quot;</code></pre>
 <p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions, but R will complain when an <code>else</code> starts a line of code, so generally using the <code>{</code> is good practice. That said, this <em>works just fine</em>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>) <span class="cf">else</span> <span class="kw">print</span>(<span class="st">&quot;val is positive&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;val is negative&quot;</code></pre>
+<pre><code>## [1] &quot;val is positive&quot;</code></pre>
 </div>
 <div id="the-condition-in-an-if-statement" class="slide section level1">
 <h1>The condition in an if statement</h1>
@@ -505,11 +505,11 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(y) {
 <p>And what about indexing?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">100</span>), <span class="dv">10</span>)
 x[ , <span class="dv">2</span>]</code></pre></div>
-<pre><code>##  [1] 0.1296580 0.1914006 0.5362198 0.6769867 0.4799206 0.5539856 0.5882901
-##  [8] 0.8046420 0.5090792 0.2277254</code></pre>
+<pre><code>##  [1] 0.66308844 0.68512194 0.04318926 0.29581483 0.79328090 0.01535976
+##  [7] 0.13859315 0.57376752 0.97683403 0.71254762</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">'['</span>(x , , <span class="dv">2</span>)</code></pre></div>
-<pre><code>##  [1] 0.1296580 0.1914006 0.5362198 0.6769867 0.4799206 0.5539856 0.5882901
-##  [8] 0.8046420 0.5090792 0.2277254</code></pre>
+<pre><code>##  [1] 0.66308844 0.68512194 0.04318926 0.29581483 0.79328090 0.01535976
+##  [7] 0.13859315 0.57376752 0.97683403 0.71254762</code></pre>
 <p>Also yes!</p>
 <p>This holds more generally - one can investigate and see the same thing in terms of a <code>for</code> loop.</p>
 <h3 id="what-does-the-1st-principle-mean">What does the 1st principle mean?</h3>
@@ -609,12 +609,20 @@ gm_tidy &lt;-<span class="st"> </span>gap <span class="op">%&gt;%</span>
      out[[yrIdx]] &lt;-<span class="st"> </span><span class="kw">lm</span>(lifeExp <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(gdpPercap), <span class="dt">data =</span> sub)
 }</code></pre></div>
 <ol start="3" style="list-style-type: decimal">
+<li>Consider the code where we used <code>sample()</code> in module 4. Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:</li>
+</ol>
+<ul>
+<li>resample with replacement a new dataset of the same size as the actual <code>gap</code> dataset</li>
+<li>assign the value of the mean of the life expectancy for the bootstrap dataset into the storage vector</li>
+<li>repeat</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Write an R function that will take an input vector and set any value below a threshold to be the value of threshold. Optionally, the function should instead set values above a threshold to the value of the threshold.</p></li>
 <li><p>Augment your function so that it checks that the input is a numeric vector and return an error if not. (See the help information for <code>stop()</code>.)</p></li>
 <li><p>Figure out what <code>invisible()</code> does and why it is useful when writing functions. Use <code>invisible()</code> in your function from just above or in the <code>sortByCol()</code> function.</p></li>
 </ol>
 <h3 id="advanced">Advanced</h3>
-<ol start="6" style="list-style-type: decimal">
+<ol start="7" style="list-style-type: decimal">
 <li><p>Extend the <code>sortByCol()</code> function to handle an arbitrary number of columns on which to do the sorting. You may need to modify the functionality a bit to use full vectors for the sorting rather than column names.</p></li>
 <li><p>Extend the <code>sortByCol()</code> function so that it can take either numeric indices or character strings indicating columns of the input data or take entire vectors to use in the sorting of the input data. If information specifying columns is given, make sure your function carefully checks that the input refers to legitimate columns and returns an error or warning (see <code>warning()</code>) if not.</p></li>
 <li><p>Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object, consistent with the idea that functions are objects in R. This is an example of what is called a <em>closure</em> in R. Basically, the function contains object(s) enclosed with and accessible to the function.</p></li>
@@ -631,6 +639,22 @@ x &lt;-<span class="st"> </span><span class="dv">2</span>
 f &lt;-<span class="st"> </span><span class="kw">funGenerator</span>()
 <span class="kw">f</span>(<span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] 11</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Here's a cool trick to pull off a particular element of a list of lists:</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">params &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="kw">list</span>(<span class="dt">mn =</span> <span class="dv">7</span>, <span class="dt">sd =</span> <span class="dv">3</span>), <span class="dt">b =</span> <span class="kw">list</span>(<span class="dt">mn =</span> <span class="dv">6</span>,<span class="dt">sd =</span> <span class="dv">1</span>), 
+  <span class="dt">c =</span> <span class="kw">list</span>(<span class="dt">mn =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">1</span>))
+<span class="kw">sapply</span>(params, <span class="st">&quot;[[&quot;</span>, <span class="dv">1</span>)</code></pre></div>
+<pre><code>## a b c 
+## 7 6 2</code></pre>
+<p>Explain what that does and why it works.</p>
+<p>Hint:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">3</span>)
+test[[<span class="dv">2</span>]]</code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># `[[`(test, 2)  # need it commented or R Markdown processing messes it up...</span>
+
+<span class="co"># `+`(3, 7)</span></code></pre></div>
 </div>
 </body>
 </html>

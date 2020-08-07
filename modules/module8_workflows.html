@@ -378,7 +378,7 @@ execution, and reporting.  For more information, see Bioconductor&#39;s <a href=
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.700   0.031   0.732
+##   0.702   0.034   0.737
 </code></pre>
 
 <pre><code class="r">library(rbenchmark)
@@ -389,8 +389,8 @@ benchmark(ifelse(x &lt; 0, x, 0),
 </code></pre>
 
 <pre><code>##   replications elapsed
-## 1            5   1.658
-## 2            5   0.196
+## 1            5   1.648
+## 2            5   0.192
 </code></pre>
 
 <h1>Profiling your code</h1>
@@ -439,7 +439,7 @@ hotPaths(pd1)
 
 <pre><code>##  path                  total.pct self.pct
 ##  lr_slow               100.00     0.00   
-##  . %*% (&lt;text&gt;:2)       41.89    41.89   
+##  . %*% (&lt;text&gt;:2)       40.54    40.54   
 ##  . solve (&lt;text&gt;:4)     28.38     0.00   
 ##  . . standardGeneric    28.38     0.00   
 ##  . . . solve            28.38     0.00   
@@ -452,7 +452,8 @@ hotPaths(pd1)
 ##  . t (&lt;text&gt;:2)          2.70     0.00   
 ##  . . standardGeneric     2.70     0.00   
 ##  . . . t                 2.70     0.00   
-##  . . . . t.default       2.70     2.70
+##  . . . . t.default       2.70     2.70   
+##  . %*% (&lt;text&gt;:3)        1.35     1.35
 </code></pre>
 
 <pre><code class="r">hotPaths(pd1, value = &#39;time&#39;)
@@ -460,7 +461,7 @@ hotPaths(pd1)
 
 <pre><code>##  path                  total.time self.time
 ##  lr_slow               1.48       0.00     
-##  . %*% (&lt;text&gt;:2)      0.62       0.62     
+##  . %*% (&lt;text&gt;:2)      0.60       0.60     
 ##  . solve (&lt;text&gt;:4)    0.42       0.00     
 ##  . . standardGeneric   0.42       0.00     
 ##  . . . solve           0.42       0.00     
@@ -473,7 +474,8 @@ hotPaths(pd1)
 ##  . t (&lt;text&gt;:2)        0.04       0.00     
 ##  . . standardGeneric   0.04       0.00     
 ##  . . . t               0.04       0.00     
-##  . . . . t.default     0.04       0.04
+##  . . . . t.default     0.04       0.04     
+##  . %*% (&lt;text&gt;:3)      0.02       0.02
 </code></pre>
 
 <pre><code class="r">pd1 &lt;- profileExpr(lr_medium(y, x))
@@ -485,15 +487,14 @@ hotPaths(pd1)
 ##  . solve (&lt;text&gt;:11)      50.00     0.00   
 ##  . . standardGeneric      50.00     0.00   
 ##  . . . solve              50.00     0.00   
-##  . . . . solve.default    50.00    45.24   
-##  . . . . . diag            4.76     4.76   
-##  . crossprod (&lt;text&gt;:9)   42.86     0.00   
-##  . . crossprod            42.86     0.00   
-##  . . . base::crossprod    42.86    42.86   
+##  . . . . solve.default    50.00    47.62   
+##  . . . . . diag            2.38     2.38   
+##  . crossprod (&lt;text&gt;:9)   45.24     0.00   
+##  . . crossprod            45.24     0.00   
+##  . . . base::crossprod    45.24    45.24   
 ##  . crossprod (&lt;text&gt;:10)   4.76     0.00   
 ##  . . crossprod             4.76     0.00   
-##  . . . base::crossprod     4.76     4.76   
-##  . %*% (&lt;text&gt;:12)         2.38     2.38
+##  . . . base::crossprod     4.76     4.76
 </code></pre>
 
 <pre><code class="r">hotPaths(pd1, value = &#39;time&#39;)
@@ -504,15 +505,14 @@ hotPaths(pd1)
 ##  . solve (&lt;text&gt;:11)     0.42       0.00     
 ##  . . standardGeneric     0.42       0.00     
 ##  . . . solve             0.42       0.00     
-##  . . . . solve.default   0.42       0.38     
-##  . . . . . diag          0.04       0.04     
-##  . crossprod (&lt;text&gt;:9)  0.36       0.00     
-##  . . crossprod           0.36       0.00     
-##  . . . base::crossprod   0.36       0.36     
+##  . . . . solve.default   0.42       0.40     
+##  . . . . . diag          0.02       0.02     
+##  . crossprod (&lt;text&gt;:9)  0.38       0.00     
+##  . . crossprod           0.38       0.00     
+##  . . . base::crossprod   0.38       0.38     
 ##  . crossprod (&lt;text&gt;:10) 0.04       0.00     
 ##  . . crossprod           0.04       0.00     
-##  . . . base::crossprod   0.04       0.04     
-##  . %*% (&lt;text&gt;:12)       0.02       0.02
+##  . . . base::crossprod   0.04       0.04
 </code></pre>
 
 <pre><code class="r">pd3 &lt;- profileExpr(lr_fast(y, x))
@@ -520,40 +520,36 @@ hotPaths(pd3)
 </code></pre>
 
 <pre><code>##  path                    total.pct self.pct
-##  lr_fast                 100        0      
-##  . crossprod (&lt;text&gt;:16)  72        0      
-##  . . crossprod            72        0      
-##  . . . base::crossprod    72       72      
-##  . chol (&lt;text&gt;:18)       16        0      
-##  . . standardGeneric      16        0      
-##  . . . chol               16        0      
-##  . . . . chol.default     16       16      
-##  . crossprod (&lt;text&gt;:17)   8        0      
-##  . . crossprod             8        0      
-##  . . . base::crossprod     8        8      
-##  . backsolve (&lt;text&gt;:20)   4        0      
-##  . . backsolve             4        0      
-##  . . . base::backsolve     4        4
+##  lr_fast                 100.00     0.00   
+##  . crossprod (&lt;text&gt;:16)  78.57     0.00   
+##  . . crossprod            78.57     0.00   
+##  . . . base::crossprod    78.57    78.57   
+##  . chol (&lt;text&gt;:18)       10.71     0.00   
+##  . . standardGeneric      10.71     0.00   
+##  . . . chol               10.71     0.00   
+##  . . . . chol.default     10.71    10.71   
+##  . crossprod (&lt;text&gt;:17)   7.14     0.00   
+##  . . crossprod             7.14     0.00   
+##  . . . base::crossprod     7.14     7.14   
+##  . backsolve (&lt;text&gt;:19)   3.57     3.57
 </code></pre>
 
 <pre><code class="r">hotPaths(pd3, value = &#39;time&#39;)
 </code></pre>
 
 <pre><code>##  path                    total.time self.time
-##  lr_fast                 0.50       0.00     
-##  . crossprod (&lt;text&gt;:16) 0.36       0.00     
-##  . . crossprod           0.36       0.00     
-##  . . . base::crossprod   0.36       0.36     
-##  . chol (&lt;text&gt;:18)      0.08       0.00     
-##  . . standardGeneric     0.08       0.00     
-##  . . . chol              0.08       0.00     
-##  . . . . chol.default    0.08       0.08     
+##  lr_fast                 0.56       0.00     
+##  . crossprod (&lt;text&gt;:16) 0.44       0.00     
+##  . . crossprod           0.44       0.00     
+##  . . . base::crossprod   0.44       0.44     
+##  . chol (&lt;text&gt;:18)      0.06       0.00     
+##  . . standardGeneric     0.06       0.00     
+##  . . . chol              0.06       0.00     
+##  . . . . chol.default    0.06       0.06     
 ##  . crossprod (&lt;text&gt;:17) 0.04       0.00     
 ##  . . crossprod           0.04       0.00     
 ##  . . . base::crossprod   0.04       0.04     
-##  . backsolve (&lt;text&gt;:20) 0.02       0.00     
-##  . . backsolve           0.02       0.00     
-##  . . . base::backsolve   0.02       0.02
+##  . backsolve (&lt;text&gt;:19) 0.02       0.02
 </code></pre>
 
 <p>You might also check out <em>profvis</em> for an alternative to displaying profiling information
@@ -594,7 +590,7 @@ gc()
 
 <pre><code>##             used  (Mb) gc trigger   (Mb)  max used  (Mb)
 ## Ncells    699458  37.4    1310808   70.1   1310808  70.1
-## Vcells 101301485 772.9  156435147 1193.6 111967017 854.3
+## Vcells 101301457 772.9  156435071 1193.6 111967024 854.3
 </code></pre>
 
 <pre><code class="r">rm(x)
@@ -603,7 +599,7 @@ gc()
 
 <pre><code>##           used (Mb) gc trigger  (Mb)  max used  (Mb)
 ## Ncells  699371 37.4    1310808  70.1   1310808  70.1
-## Vcells 1301352 10.0  125148118 954.9 111967017 854.3
+## Vcells 1301324 10.0  125148057 954.9 111967024 854.3
 </code></pre>
 
 <p>[poll]</p>

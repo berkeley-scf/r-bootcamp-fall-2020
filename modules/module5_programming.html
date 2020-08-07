@@ -225,22 +225,20 @@ lapply(myList, min)
 </code></pre>
 
 <pre><code>## [[1]]
-## [1] -0.6674449
+## [1] -0.1622883
 ## 
 ## [[2]]
-## [1] -1.711923
+## [1] -1.029894
 ## 
 ## [[3]]
-## [1] -0.6011271
+## [1] -0.6602942
 </code></pre>
 
 <pre><code class="r">sapply(myList, min)
 </code></pre>
 
-<pre><code>## [1] -0.6674449 -1.7119227 -0.6011271
+<pre><code>## [1] -0.1622883 -1.0298943 -0.6602942
 </code></pre>
-
-<p>[poll]</p>
 
 <p>Note that we don&#39;t generally want to use <code>apply()</code> on a data frame. </p>
 
@@ -257,8 +255,8 @@ lapply(myList, min)
 
 <p>You can use <code>lapply()</code> and <code>sapply()</code> on regular vectors, such as vectors of indices, which can come in handy. This is a bit silly but it illustrates the idea:</p>
 
-<pre><code class="r">myfun &lt;- function(x) {
-   rnorm(x)
+<pre><code class="r">myfun &lt;- function(i) {
+   max(rnorm(100))
 }   
 
 out &lt;- lapply(1:6, myfun)
@@ -266,27 +264,29 @@ out
 </code></pre>
 
 <pre><code>## [[1]]
-## [1] -1.404907
+## [1] 2.400596
 ## 
 ## [[2]]
-## [1] -1.372779  1.703289
+## [1] 1.857913
 ## 
 ## [[3]]
-## [1]  0.2890017 -1.6020022  1.7442200
+## [1] 3.087771
 ## 
 ## [[4]]
-## [1]  2.075242632  1.636561682 -1.537066978  0.007424092
+## [1] 2.185754
 ## 
 ## [[5]]
-## [1] -1.5679124  0.1555465  0.9033354  0.3376203  0.7821198
+## [1] 2.820798
 ## 
 ## [[6]]
-## [1] -1.4931432  1.0053042  0.2068449 -1.4187320 -1.7076984 -1.4277637
+## [1] 2.150429
 </code></pre>
 
 <pre><code class="r">## Or, &#39;in-line&#39; the function:
-out &lt;- lapply(1:6, function(x) rnorm(x))
+out &lt;- lapply(1:6, function(i) max(rnorm(100)))
 </code></pre>
+
+<p>[poll]</p>
 
 <h1>And more <code>apply()</code>s</h1>
 
@@ -294,7 +294,7 @@ out &lt;- lapply(1:6, function(x) rnorm(x))
 
 <ul>
 <li><code>tapply()</code>, <code>vapply()</code>, <code>mapply()</code>, <code>rapply()</code>, <code>eapply()</code></li>
-<li>for parallelized versions see Module 10 or <code>?clusterApply</code></li>
+<li>for parallelized versions see Module 9 or <code>?clusterApply</code></li>
 </ul>
 
 <h1>Loops</h1>
@@ -463,7 +463,7 @@ implicit.</p>
 val
 </code></pre>
 
-<pre><code>## [1] -0.2582507
+<pre><code>## [1] -0.3370902
 </code></pre>
 
 <pre><code class="r">if (val &lt; 0) {
@@ -482,7 +482,7 @@ val
 val
 </code></pre>
 
-<pre><code>## [1] 1.338085
+<pre><code>## [1] -1.382163
 </code></pre>
 
 <pre><code class="r">if (val &lt; -1) {
@@ -494,7 +494,7 @@ val
 }
 </code></pre>
 
-<pre><code>## [1] &quot;val is more than one standard deviation above the mean.&quot;
+<pre><code>## [1] &quot;val is more than one standard deviation below the mean.&quot;
 </code></pre>
 
 <p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions,
@@ -504,7 +504,7 @@ but R will complain when an <code>else</code> starts a line of code, so generall
 <pre><code class="r">if (val &lt; 0) print(&quot;val is negative&quot;) else print(&quot;val is positive&quot;)
 </code></pre>
 
-<pre><code>## [1] &quot;val is positive&quot;
+<pre><code>## [1] &quot;val is negative&quot;
 </code></pre>
 
 <h1>The condition in an if statement</h1>
@@ -914,15 +914,15 @@ talk</a></p></li>
 x[ , 2]
 </code></pre>
 
-<pre><code>##  [1] 0.42248465 0.57634571 0.78868322 0.05575988 0.22454313 0.63958543
-##  [7] 0.86900436 0.44942773 0.86091752 0.36952503
+<pre><code>##  [1] 0.72663701 0.65380960 0.03670573 0.45279775 0.40409967 0.78605361
+##  [7] 0.39667586 0.07542339 0.24974503 0.46079644
 </code></pre>
 
 <pre><code class="r">&#39;[&#39;(x , , 2)
 </code></pre>
 
-<pre><code>##  [1] 0.42248465 0.57634571 0.78868322 0.05575988 0.22454313 0.63958543
-##  [7] 0.86900436 0.44942773 0.86091752 0.36952503
+<pre><code>##  [1] 0.72663701 0.65380960 0.03670573 0.45279775 0.40409967 0.78605361
+##  [7] 0.39667586 0.07542339 0.24974503 0.46079644
 </code></pre>
 
 <p>Also yes!</p>
@@ -1098,30 +1098,38 @@ values in the vector to zero.</p>
 }
 </code></pre>
 
-<p>3) Write an R function that will take an input vector and set any value below a
+<p>3) Consider the code where we used <code>sample()</code> in module 4.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:</p>
+
+<ul>
+<li>resample with replacement a new dataset of the same size as the actual <code>gap</code> dataset</li>
+<li>assign the value of the mean of the life expectancy for the bootstrap dataset into the storage vector</li>
+<li>repeat</li>
+</ul>
+
+<p>4) Write an R function that will take an input vector and set any value below a
 threshold to be the value of threshold. Optionally, the function should instead
 set values above a threshold to the value of the threshold.</p>
 
-<p>4) Augment your function so that it checks that the input is a numeric vector
+<p>5) Augment your function so that it checks that the input is a numeric vector
 and return an error if not. (See the help information for <code>stop()</code>.)</p>
 
-<p>5) Figure out what <code>invisible()</code> does and why it is useful when writing
+<p>6) Figure out what <code>invisible()</code> does and why it is useful when writing
 functions. Use <code>invisible()</code> in your function from just above or in the
 <code>sortByCol()</code> function.</p>
 
 <h3>Advanced</h3>
 
-<p>6) Extend the <code>sortByCol()</code> function to handle an arbitrary number of columns on
+<p>7) Extend the <code>sortByCol()</code> function to handle an arbitrary number of columns on
 which to do the sorting. You may need to modify the functionality a bit to use
 full vectors for the sorting rather than column names.</p>
 
-<p>7) Extend the <code>sortByCol()</code> function so that it can take either numeric indices or
+<p>8) Extend the <code>sortByCol()</code> function so that it can take either numeric indices or
 character strings indicating columns of the input data or take entire vectors to
 use in the sorting of the input data. If information specifying columns is
 given, make sure your function carefully checks that the input refers to
 legitimate columns and returns an error or warning (see <code>warning()</code>) if not.</p>
 
-<p>8) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object,
+<p>9) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object,
 consistent with the idea that functions are objects in R. This is an example of
 what is called a <em>closure</em> in R. Basically, the function contains object(s)
 enclosed with and accessible to the function.</p>
@@ -1140,6 +1148,33 @@ f(1)
 </code></pre>
 
 <pre><code>## [1] 11
+</code></pre>
+
+<p>10) Here&#39;s a cool trick to pull off a particular element of a list of lists:</p>
+
+<pre><code class="r">params &lt;- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
+  c = list(mn = 2, sd = 1))
+sapply(params, &quot;[[&quot;, 1)
+</code></pre>
+
+<pre><code>## a b c 
+## 7 6 2
+</code></pre>
+
+<p>Explain what that does and why it works.</p>
+
+<p>Hint:</p>
+
+<pre><code class="r">test &lt;- list(5, 7, 3)
+test[[2]]
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<pre><code class="r"># `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
+
+# `+`(3, 7)
 </code></pre>
 
 </body>
