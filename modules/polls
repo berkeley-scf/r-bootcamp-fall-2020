@@ -20,6 +20,7 @@ vals[2,3]
 vals[c(2,3)]
 vals(2,3)
 vals[c(FALSE, TRUE, TRUE, FALSE)]
+vals[c(f,t,t,f)]
 vals(3)
 
 

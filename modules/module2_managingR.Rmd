@@ -37,9 +37,18 @@ is.vector(myList)
 is.data.frame(myList)
 ```
 
-[poll]
-
 **Question**: What have you learned? Does it make sense? 
+
+
+**POLL 2A**: Which of these is true?
+
+`gap` is a data frame
+`gap` is a matrix
+`gap` is a vector
+`gap` is a list
+`gap` is a function
+
+
 
 # Managing and saving the workspace
 
@@ -214,7 +223,32 @@ setwd(file.path('..', 'data')) # relative path
 ```
 Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.
 
-[poll]
+**POLL 2B**:
+
+Suppose I am on a Mac that has the following directories:
+
+Users
+  paciorek
+    Desktop
+      r-bootcamp-fall-2020
+        data
+	modules
+	schedule
+    Documents
+
+and suppose my current working directory is /Users/paciorek/Desktop/r-bootcamp-fall-2020/modules.
+(Windows users, just think of this as being C:\Users\paciorek\Desktop\r-bootcamp-fall-2020\modules.)
+Which of the following will allow me to change to the 'data' subdirectory?
+
+- setwd('Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
+- setwd('/Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
+- setwd('data')
+- setwd('../data')
+- setwd('~paciorek/Desktop/r-bootcamp-fall-2020/data')
+- setwd('paciorek', ' Desktop/r-bootcamp-fall-2020/data')
+- setwd('./data')
+- setwd('Desktop/r-bootcamp-fall-2020/data')
+
 
 # Reading text files into R
 

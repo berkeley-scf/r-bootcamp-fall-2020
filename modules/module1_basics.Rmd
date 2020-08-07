@@ -29,7 +29,7 @@ log(100, base = 10)
 
 Think of a mathematical operation you need - can you guess how to do it in R?
 
-**POLL**: How do I calculate the cosine of 2 pi?
+**POLL 1A**: How do I calculate the cosine of 2 pi?
 
 1) cosine(2pi)
 2) cosine(2*pi)
@@ -181,7 +181,17 @@ wealthy <- gdp[gdp > 100000]
 gdp[1:10]
 ```
 
-[poll]
+**POLL 1B**: Which of these will work to extract a subset of a vector?
+Assume the vector is created like this: vals <- rnorm(4)
+
+- vals[3]
+- vals[2,3]
+- vals[c(2,3)]
+- vals(2,3)
+- vals[c(FALSE, TRUE, TRUE, FALSE)]
+- vals[c(f,t,t,f)]
+- vals(3)
+
 
 # Vectorized calculations and comparisons
 
@@ -292,7 +302,22 @@ names(myList)
 
 Lists can be used as vectors of complicated objects. E.g., suppose you have a linear regression for each value of a stratifying variable. You could have a list of regression fits. Each regression fit will itself be a list, so you'll have a list of lists.
 
-[poll]
+
+**POLL 1C**: How would you extract "china" from this list?
+
+```
+myList <- list(stuff = 3, mat = matrix(1:4, nrow = 2), 
+   moreStuff = c("china", "japan"), list(5, "bear"))
+```
+
+- myList$moreStuff[1]
+- myList$moreStuff[[1]]
+- myList[[1]]
+- myList[[3]][2]
+- myList[[3]][1]
+- myList[3][1]
+- myList[['moreStuff']][1]
+
 
 # Converting between different types of objects
 
@@ -312,7 +337,24 @@ indices <- c(1.7, 2.3)
 ints[indices]
 ```
 
-[poll]
+**POLL 1D**:
+
+a) What do you think this will do?
+
+ints <- 1:5
+ints[0.9999]
+
+- return an error
+- return 1
+- return an empty vector
+
+
+b) What does the code do when it tries to use 0.9999 to subset?
+
+- round the 0.9999 to 1
+- truncate the 0.9999 to 0
+- return an error
+
 
 # A bit on plotting
 

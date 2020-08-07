@@ -61,7 +61,16 @@ out
 out <- lapply(1:6, function(i) max(rnorm(100)))
 ```
 
-[poll]
+** POLL 5A**
+
+What do you think this will return:
+
+sapply(1:6, function(n) rnorm(n))
+
+- a list, like lapply
+- a vector of 21 (1+2+3+4+5+6) elements
+- an error
+
 
 # And more `apply()`s
 
@@ -123,9 +132,26 @@ for (yr in years) {
 }
 ```
 
-[poll]
+**POLL 5B**
 
-[poll]
+Which of these give exactly this result: pi, 2*pi, 3*pi, ...?
+
+- (1:n)*pi
+- out <- rep(0, n); for(x in 1:n) out <- x*pi
+- sapply(1:n, function(x) x*pi)
+- out <- rep(0, n); for(x in 1:n) out[i] <- x*pi
+- lapply(1:n, function(x) x*pi)
+- sapply(1:n, `*`, pi)
+- 1:n*pi
+
+**POLL 5C**
+
+Which of these do you think will be fastest for a long vector, x?
+
+- x <- exp(x)
+- x <- sapply(x, exp)
+- for(i in 1:length(x)) x[i] <- exp(x[i])
+
 
 # While loop
 
@@ -225,7 +251,20 @@ for (i in seq_along(continents)) {
 }
 ```
 
-[poll]
+**POLL 5D**:
+
+What will this return?
+
+```
+if(sqrt(-1) == 0i) {
+   print('i')
+} else print('not i')
+```
+
+- 'i'
+- an error
+- 'not i'
+
 
 # Flow control: `next` and `break` statements
 
