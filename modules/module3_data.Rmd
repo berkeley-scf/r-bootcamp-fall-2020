@@ -47,11 +47,11 @@ arr
 as.matrix(gap)
 ```
 
-- it will convert to a matrix with no changes
-- all numeric columns will be converted to character strings
-- R will throw an error
-- all character columns will be converted to numeric values
-- R will drop some of the columns
+1) it will convert to a matrix with no changes
+2) all numeric columns will be converted to character strings
+3) R will throw an error
+4) all character columns will be converted to numeric values
+5) R will drop some of the columns
 
 # Attributes
 
@@ -72,21 +72,23 @@ Now let's do a bit of manipulation and see if you can infer how R represents mat
 
 **POLL 3B**: Consider our matrix 'mat':
 
+```
 mat <- matrix(1:16, nrow = 4, ncol = 4)
      [,1] [,2] [,3] [,4]
 [1,]    1    5    9   13
 [2,]    2    6   10   14
 [3,]    3    7   11   15
 [4,]    4    8   12   16
+```
 
 Suppose I run this code: mat[4]
 What do you think will be returned?
 
-- 13
-- 4
-- 13, 14, 15, 16
-- 4, 8, 12, 16
-- an error
+1) 13
+2) 4
+3) 13, 14, 15, 16
+4) 4, 8, 12, 16
+5) an error
 
 
 
@@ -170,47 +172,55 @@ myList
 
 **POLL 3C**
 
-(1) Consider the following vector:
+*Question 1*: Consider the following vector:
 
+```
 vec <- c(3, NA, 7)
+```
 
 What is vec[2]:
 
-- NA
-- 7
+1) NA
+2) 7
 
-(2) Consider this vector:
+*Question 2*: Consider this vector:
 
+```
 vec <- c(3, NULL, 7)
+```
 
 What is vec[2]:
 
-- NULL
-- NA
-- 7
-- 3
+1) NULL
+2) NA
+3) 7
+4) 3
 
-(3) Consider this list:
+*Question 3*: Consider this list:
 
+```
 mylist <- list(3, NULL, 7)
+```
 
 What is mylist[[2]]:
 
-- 7
-- NULL
-- NA
-- 3
+1) 7
+2) NULL
+3) NA
+4) 3
 
-(4) Consider this code:
+*Question 4*: Consider this code:
 
+```
 mylist <- list(3, 5, 7)
 mylist[[2]] <- NULL
+```
 
 What is length(mylist):
 
-- 3
-- 2
-- 1
+1) 3
+2) 2
+3) 1
 
 
 # Logical vectors
@@ -358,32 +368,34 @@ mat
 
 **POLL 3D**
 
-1) Suppose I want to select the 3rd elements from the 2nd and 4th columns of a matrix or dataframe. Which syntax will work?
+*Question 1*: Suppose I want to select the 3rd elements from the 2nd and 4th columns of a matrix or dataframe. Which syntax will work?
 Here's a test matrix:
 
+```
 mat <- matrix(1:16, nrow = 4, ncol = 4)
+```
 
-- mat[3, (2, 4)]
-- mat[c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)]
-- mat[c(FALSE, FALSE, TRUE, FALSE), c(2, 4)]
-- mat[3, c(2, 4)]
-- mat(3, c(2, 4))
-- mat[3, ][c(2, 4)]
-- mat[ , c(2, 4)][3, ]
-- mat[ , c(2, 4)][3]
-- mat[c(2, 4)][3, ]
+1) mat[3, (2, 4)]
+2) mat[c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)]
+3) mat[c(FALSE, FALSE, TRUE, FALSE), c(2, 4)]
+4) mat[3, c(2, 4)]
+5) mat(3, c(2, 4))
+6) mat[3, ][c(2, 4)]
+7) mat[ , c(2, 4)][3, ]
+8) mat[ , c(2, 4)][3]
+9) mat[c(2, 4)][3, ]
 
-2) (Advanced) One of those answers won't work with a matrix but will work with a dataframe. Which one?
+*Question 2*: (Advanced) One of those answers won't work with a matrix but will work with a dataframe. Which one?
 
-- mat[3, (2, 4)]
-- mat[c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)]
-- mat[c(FALSE, FALSE, TRUE, FALSE), c(2, 4)]
-- mat[3, c(2, 4)]
-- mat(3, c(2, 4))
-- mat[3, ][c(2, 4)]
-- mat[ , c(2, 4)][3, ]
-- mat[ , c(2, 4)][3]
-- mat[c(2, 4)][3, ]
+1) mat[3, (2, 4)]
+2) mat[c(FALSE, FALSE, TRUE, FALSE), c(FALSE, TRUE, FALSE, TRUE)]
+3) mat[c(FALSE, FALSE, TRUE, FALSE), c(2, 4)]
+4) mat[3, c(2, 4)]
+5) mat(3, c(2, 4))
+6) mat[3, ][c(2, 4)]
+7) mat[ , c(2, 4)][3, ]
+8) mat[ , c(2, 4)][3]
+9) mat[c(2, 4)][3, ]
 
 # Strings
 
