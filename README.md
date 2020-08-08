@@ -31,14 +31,18 @@ Time:
 
 The 1 pm ending time is tentative. We may end a bit before 1 pm on some days.
 
-
 We'll start formally on Monday morning at 8:30 am, but please plan to arrive in the Zoom room by 8:20 so you can  get settled. And if you need help with any software installation please come at 8 am. (Actually it would be even better if you email us in advance if you have installation problems.
+
+In general, please keep your microphone off and (if possible) your camera on.
+
+We'll be using the Zoom polling feature to have some interactivity during the presentations. Please answer the questions based on examining the code, rather than just running the code and seeing which answers work. Then once you've answered the poll feel free to try the code in R.
 
 ## Course Discussion and Questions
 
-We'll have an active [online discussion forum on Piazza](https://piazza.com/berkeley/fall2020/rbootcampfall2020) during the event. 
+Please ask questions both during the presentations and during the breakout sessions, using either:
 
-We'll also have in-person help using a Zoom virtual front desk (see email for link).
+- The [online discussion forum on Piazza](https://piazza.com/berkeley/fall2020/rbootcampfall2020) at any time during the week of August 10 (though questions will be primarily answered during the event hours).
+- The [Zoom virtual front desk](https://dlab.berkeley.edu/frontdesk) for 'in-person' help during the hours of the event.
 
 If you need to contact us directly with an administrative question you can email r-bootcamp@lists.berkeley.edu.
 
