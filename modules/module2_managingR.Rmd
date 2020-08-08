@@ -42,11 +42,11 @@ is.data.frame(myList)
 
 **POLL 2A**: Which of these is true?
 
-`gap` is a data frame
-`gap` is a matrix
-`gap` is a vector
-`gap` is a list
-`gap` is a function
+1) `gap` is a data frame
+2) `gap` is a matrix
+3) `gap` is a vector
+4) `gap` is a list
+5) `gap` is a function
 
 
 
@@ -228,26 +228,26 @@ Many errors and much confusion result from you and R not being on the same page 
 Suppose I am on a Mac that has the following directories:
 
 Users
-  paciorek
-    Desktop
-      r-bootcamp-fall-2020
-        data
-	modules
-	schedule
-    Documents
+--paciorek
+----Desktop
+------r-bootcamp-fall-2020
+--------data
+--------modules
+--------schedule
+----Documents
 
 and suppose my current working directory is /Users/paciorek/Desktop/r-bootcamp-fall-2020/modules.
 (Windows users, just think of this as being C:\Users\paciorek\Desktop\r-bootcamp-fall-2020\modules.)
 Which of the following will allow me to change to the 'data' subdirectory?
 
-- setwd('Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
-- setwd('/Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
-- setwd('data')
-- setwd('../data')
-- setwd('~paciorek/Desktop/r-bootcamp-fall-2020/data')
-- setwd('paciorek', ' Desktop/r-bootcamp-fall-2020/data')
-- setwd('./data')
-- setwd('Desktop/r-bootcamp-fall-2020/data')
+1) setwd('Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
+2) setwd('/Users/paciorek/Desktop/r-bootcamp-fall-2020/data')
+3) setwd('data')
+4) setwd('../data')
+5) setwd('~paciorek/Desktop/r-bootcamp-fall-2020/data')
+6) setwd('paciorek', ' Desktop/r-bootcamp-fall-2020/data')
+7) setwd('./data')
+8) setwd('Desktop/r-bootcamp-fall-2020/data')
 
 
 # Reading text files into R

@@ -343,7 +343,7 @@ ints[indices]
 
 **POLL 1D**:
 
-a) What do you think this will do?
+*Question 1*: What do you think this will do?
 
 ```
 ints <- 1:5
@@ -354,8 +354,7 @@ ints[0.9999]
 2) return 1
 3) return an empty vector
 
-
-b) What does the code do when it tries to use 0.9999 to subset?
+*Question 2*: What does the code do when it tries to use 0.9999 to subset?
 
 1) round the 0.9999 to 1
 2) truncate the 0.9999 to 0
@@ -370,7 +369,7 @@ R has several different plotting systems:
 - *lattice* graphics
 - *ggplot2* (an add-on package)
 
-We'll see a little bit of *base* graphics here and then *lattice* and *ggplot2* tomorrow in Module 8.
+We'll see a little bit of *base* graphics here and then *lattice* and *ggplot2* on Wednesday in Module 7.
 
 ```{r basic_plots, fig.cap =""}
 hist(gap$lifeExp)
