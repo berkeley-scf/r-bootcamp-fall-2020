@@ -292,11 +292,11 @@ is.list(myList)
 
 <p><strong>POLL 2A</strong>: Which of these is true?</p>
 
-<p><code>gap</code> is a data frame
-<code>gap</code> is a matrix
-<code>gap</code> is a vector
-<code>gap</code> is a list
-<code>gap</code> is a function</p>
+<p>1) <code>gap</code> is a data frame
+2) <code>gap</code> is a matrix
+3) <code>gap</code> is a vector
+4) <code>gap</code> is a list
+5) <code>gap</code> is a function</p>
 
 <h1>Managing and saving the workspace</h1>
 
@@ -483,7 +483,7 @@ lm(7)
 </code></pre>
 
 <pre><code>## gap$lifeExp ~ gap$gdpPercap
-## &lt;environment: 0x5563ce514c58&gt;
+## &lt;environment: 0x5623762cec58&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(gap$lifeExp ~ gap$gdpPercap)
@@ -565,28 +565,26 @@ setwd(file.path(&#39;..&#39;, &#39;data&#39;)) # relative path
 <p>Suppose I am on a Mac that has the following directories:</p>
 
 <p>Users
-  paciorek
-    Desktop
-      r-bootcamp-fall-2020
-        data
-    modules
-    schedule
-    Documents</p>
+&ndash;paciorek
+&mdash;-Desktop
+&mdash;&mdash;r-bootcamp-fall-2020
+&mdash;&mdash;&ndash;data
+&mdash;&mdash;&ndash;modules
+&mdash;&mdash;&ndash;schedule
+&mdash;-Documents</p>
 
 <p>and suppose my current working directory is /Users/paciorek/Desktop/r-bootcamp-fall-2020/modules.
 (Windows users, just think of this as being C:\Users\paciorek\Desktop\r-bootcamp-fall-2020\modules.)
 Which of the following will allow me to change to the &#39;data&#39; subdirectory?</p>
 
-<ul>
-<li>setwd(&#39;Users/paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)</li>
-<li>setwd(&#39;/Users/paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)</li>
-<li>setwd(&#39;data&#39;)</li>
-<li>setwd(&#39;../data&#39;)</li>
-<li>setwd(&#39;~paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)</li>
-<li>setwd(&#39;paciorek&#39;, &#39; Desktop/r-bootcamp-fall-2020/data&#39;)</li>
-<li>setwd(&#39;./data&#39;)</li>
-<li>setwd(&#39;Desktop/r-bootcamp-fall-2020/data&#39;)</li>
-</ul>
+<p>1) setwd(&#39;Users/paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)
+2) setwd(&#39;/Users/paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)
+3) setwd(&#39;data&#39;)
+4) setwd(&#39;../data&#39;)
+5) setwd(&#39;~paciorek/Desktop/r-bootcamp-fall-2020/data&#39;)
+6) setwd(&#39;paciorek&#39;, &#39; Desktop/r-bootcamp-fall-2020/data&#39;)
+7) setwd(&#39;./data&#39;)
+8) setwd(&#39;Desktop/r-bootcamp-fall-2020/data&#39;)</p>
 
 <h1>Reading text files into R</h1>
 
@@ -815,7 +813,7 @@ print(xtable(table(gap$year, gap$continent)), type = &quot;html&quot;)
 </code></pre>
 
 <pre><code>## &lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
-## &lt;!-- Fri Aug  7 14:28:40 2020 --&gt;
+## &lt;!-- Sat Aug  8 09:42:02 2020 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; Africa &lt;/th&gt; &lt;th&gt; Americas &lt;/th&gt; &lt;th&gt; Asia &lt;/th&gt; &lt;th&gt; Europe &lt;/th&gt; &lt;th&gt; Oceania &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; 1952 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  25 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  33 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  30 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   2 &lt;/td&gt; &lt;/tr&gt;
