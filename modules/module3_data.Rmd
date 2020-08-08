@@ -94,6 +94,7 @@ What do you think will be returned?
 
 
 ```{r what_is_a_matrix}
+mat <- matrix(rnorm(16), nrow = 4, ncol = 4)
 mat[4]
 attributes(mat) <- NULL
 mat
