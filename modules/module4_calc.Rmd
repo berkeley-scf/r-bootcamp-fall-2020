@@ -66,6 +66,9 @@ vec10 + vec5
 vec10 + vec3
 ```
 
+**Question**: Tell me what's going on. What choices were made by the R developers?
+
+
 **POLL 4B**: What will this return?
 
 ```
@@ -80,7 +83,7 @@ vec1 + vec2
 4) an error
 
 
-**Question**: Tell me what's going on. What choices were made by the R developers?
+
 
 # Vectorized calculations
 

@@ -65,11 +65,13 @@ out <- lapply(1:6, function(i) max(rnorm(100)))
 
 What do you think this will return:
 
+```
 sapply(1:6, function(n) rnorm(n))
+```
 
-- a list, like lapply
-- a vector of 21 (1+2+3+4+5+6) elements
-- an error
+1) a list, like lapply
+2) a vector of 21 (1+2+3+4+5+6) elements
+3) an error
 
 
 # And more `apply()`s
@@ -136,21 +138,21 @@ for (yr in years) {
 
 Which of these give exactly this result: pi, 2*pi, 3*pi, ...?
 
-- (1:n)*pi
-- out <- rep(0, n); for(x in 1:n) out <- x*pi
-- sapply(1:n, function(x) x*pi)
-- out <- rep(0, n); for(x in 1:n) out[i] <- x*pi
-- lapply(1:n, function(x) x*pi)
-- sapply(1:n, `*`, pi)
-- 1:n*pi
+1) (1:n)*pi
+2) out <- rep(0, n); for(x in 1:n) out <- x*pi
+3) sapply(1:n, function(x) x*pi)
+4) out <- rep(0, n); for(x in 1:n) out[i] <- x*pi
+5) lapply(1:n, function(x) x*pi)
+6) sapply(1:n, `*`, pi)
+7) 1:n*pi
 
 **POLL 5C**
 
 Which of these do you think will be fastest for a long vector, x?
 
-- x <- exp(x)
-- x <- sapply(x, exp)
-- for(i in 1:length(x)) x[i] <- exp(x[i])
+1) x <- exp(x)
+2) x <- sapply(x, exp)
+3) for(i in 1:length(x)) x[i] <- exp(x[i])
 
 
 # While loop
@@ -261,9 +263,9 @@ if(sqrt(-1) == 0i) {
 } else print('not i')
 ```
 
-- 'i'
-- an error
-- 'not i'
+1) 'i'
+2) an error
+3) 'not i'
 
 
 # Flow control: `next` and `break` statements

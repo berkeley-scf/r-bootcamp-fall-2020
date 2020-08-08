@@ -68,7 +68,7 @@ gdpSubset <span class="op">&gt;=</span><span class="st"> </span><span class="dv"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 vec2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 vec1 <span class="op">&gt;</span><span class="st"> </span>vec2</code></pre></div>
-<pre><code>## [1]  TRUE FALSE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>## [1]  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 <span class="op">==</span><span class="st"> </span>vec2</code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec1 <span class="op">!=</span><span class="st"> </span>vec2</code></pre></div>
@@ -98,17 +98,18 @@ gap<span class="op">$</span>gdpPercap[<span class="dv">1</span><span class="op">
 vec3 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">3</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 vec5 &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 vec10</code></pre></div>
-<pre><code>##  [1] 6 4 2 1 1 9 1 9 8 1</code></pre>
+<pre><code>##  [1]  9  8  6 10  2  6  2  7  4  8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec3</code></pre></div>
-<pre><code>## [1] 1 7 9</code></pre>
+<pre><code>## [1] 10  1  7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec5</code></pre></div>
-<pre><code>## [1]  7  6 10  5 10</code></pre>
+<pre><code>## [1] 6 7 5 3 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec10 <span class="op">+</span><span class="st"> </span>vec5</code></pre></div>
-<pre><code>##  [1] 13 10 12  6 11 16  7 19 13 11</code></pre>
+<pre><code>##  [1] 15 15 11 13  5 12  9 12  7 11</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec10 <span class="op">+</span><span class="st"> </span>vec3</code></pre></div>
 <pre><code>## Warning in vec10 + vec3: longer object length is not a multiple of shorter
 ## object length</code></pre>
-<pre><code>##  [1]  7 11 11  2  8 18  2 16 17  2</code></pre>
+<pre><code>##  [1] 19  9 13 20  3 13 12  8 11 18</code></pre>
+<p><strong>Question</strong>: Tell me what's going on. What choices were made by the R developers?</p>
 <p><strong>POLL 4B</strong>: What will this return?</p>
 <pre><code>vec1 &lt;- c(1,2,3,4)
 vec2 &lt;- c(1,2)
@@ -119,7 +120,6 @@ vec1 + vec2</code></pre>
 <li>2, 4, 4, 6</li>
 <li>an error</li>
 </ol>
-<p><strong>Question</strong>: Tell me what's going on. What choices were made by the R developers?</p>
 </div>
 <div id="vectorized-calculations" class="slide section level1">
 <h1>Vectorized calculations</h1>
@@ -138,10 +138,10 @@ chi2_df1000 &lt;-<span class="st"> </span><span class="kw">sum</span>(chi2vals)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e6</span>)
 <span class="kw">system.time</span>(trunc &lt;-<span class="st"> </span><span class="kw">ifelse</span>(vals <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, vals, <span class="dv">0</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.049   0.004   0.054</code></pre>
+##   0.048   0.020   0.068</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(vals &lt;-<span class="st"> </span>vals <span class="op">*</span><span class="st"> </span>(vals <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.007   0.004   0.011</code></pre>
+##   0.008   0.004   0.012</code></pre>
 <p><strong>Question</strong>: What am I doing with <code>vals * (vals &gt; 0)</code> ? What happens behind the scenes in R?</p>
 <p>If you use a trick like this, having a comment in your code is a good idea.</p>
 <p>Lots of functions in R are vectorized, such as some we've already used.</p>
@@ -255,7 +255,7 @@ vals &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">
       vals[i] &lt;-<span class="st"> </span>i
 })</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.069   0.000   0.128</code></pre>
+##   0.026   0.004   0.030</code></pre>
 <p>Here's how to pre-allocate an empty list:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals &lt;-<span class="st"> </span><span class="kw">list</span>(); <span class="kw">length</span>(vals) &lt;-<span class="st"> </span>n
 <span class="kw">head</span>(vals)</code></pre></div>

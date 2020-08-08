@@ -311,6 +311,8 @@ vec10
 <pre><code>##  [1] 19 10 11 13 15 17 20 15 11 14
 </code></pre>
 
+<p><strong>Question</strong>: Tell me what&#39;s going on. What choices were made by the R developers?</p>
+
 <p><strong>POLL 4B</strong>: What will this return?</p>
 
 <pre><code>vec1 &lt;- c(1,2,3,4)
@@ -322,8 +324,6 @@ vec1 + vec2
 2) 2, 4, 5, 6
 3) 2, 4, 4, 6
 4) an error</p>
-
-<p><strong>Question</strong>: Tell me what&#39;s going on. What choices were made by the R developers?</p>
 
 <h1>Vectorized calculations</h1>
 
@@ -350,14 +350,14 @@ system.time(trunc &lt;- ifelse(vals &gt; 0, vals, 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.047   0.021   0.068
+##   0.046   0.009   0.055
 </code></pre>
 
 <pre><code class="r">system.time(vals &lt;- vals * (vals &gt; 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.007   0.000   0.007
+##   0.005   0.000   0.005
 </code></pre>
 
 <p><strong>Question</strong>: What am I doing with <code>vals * (vals &gt; 0)</code> ? What happens behind the scenes in R?</p>
@@ -531,7 +531,7 @@ for(i in 1:n)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.071   0.000   0.071
+##   0.032   0.000   0.033
 </code></pre>
 
 <p>Here&#39;s how to pre-allocate an empty list: </p>
