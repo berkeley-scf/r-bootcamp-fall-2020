@@ -146,9 +146,9 @@ getwd()
 ##
 ## setwd('/Users/paciorek/Desktop/r-bootcamp-fall-2020/modules')
 ##
-## replace '/Users/paciorek/Desktop' with whatever directory you put the R part of the Bridge
+## replace '/Users/paciorek/Desktop' with whatever directory you put the bootcamp
 ## materials in.
-## On Windows, it would look somethign like this:
+## On Windows, it would look something like this:
 ## setwd('C:\\Users\\sarah\\r-bootcamp-fall-2020\\modules')
 ##
 ## If you've done that correctly, then the next command reads
@@ -182,15 +182,19 @@ gdp[1:10]
 ```
 
 **POLL 1B**: Which of these will work to extract a subset of a vector?
-Assume the vector is created like this: vals <- rnorm(4)
+Assume the vector is created like this:
 
-- vals[3]
-- vals[2,3]
-- vals[c(2,3)]
-- vals(2,3)
-- vals[c(FALSE, TRUE, TRUE, FALSE)]
-- vals[c(f,t,t,f)]
-- vals(3)
+```
+vals <- rnorm(4)
+```
+
+1) vals[3]
+2) vals[2,3]
+3) vals[c(2,3)]
+4) vals(2,3)
+5) vals[c(FALSE, TRUE, TRUE, FALSE)]
+6) vals[c(f,t,t,f)]
+7) vals(3)
 
 
 # Vectorized calculations and comparisons
@@ -310,13 +314,13 @@ myList <- list(stuff = 3, mat = matrix(1:4, nrow = 2),
    moreStuff = c("china", "japan"), list(5, "bear"))
 ```
 
-- myList$moreStuff[1]
-- myList$moreStuff[[1]]
-- myList[[1]]
-- myList[[3]][2]
-- myList[[3]][1]
-- myList[3][1]
-- myList[['moreStuff']][1]
+1) myList$moreStuff[1]
+2) myList$moreStuff[[1]]
+3) myList[[1]]
+4) myList[[3]][2]
+5) myList[[3]][1]
+6) myList[3][1]
+7) myList[['moreStuff']][1]
 
 
 # Converting between different types of objects
@@ -341,19 +345,21 @@ ints[indices]
 
 a) What do you think this will do?
 
+```
 ints <- 1:5
 ints[0.9999]
+```
 
-- return an error
-- return 1
-- return an empty vector
+1) return an error
+2) return 1
+3) return an empty vector
 
 
 b) What does the code do when it tries to use 0.9999 to subset?
 
-- round the 0.9999 to 1
-- truncate the 0.9999 to 0
-- return an error
+1) round the 0.9999 to 1
+2) truncate the 0.9999 to 0
+3) return an error
 
 
 # A bit on plotting
