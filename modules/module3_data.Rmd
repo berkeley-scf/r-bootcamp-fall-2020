@@ -82,6 +82,7 @@ mat <- matrix(1:16, nrow = 4, ncol = 4)
 ```
 
 Suppose I run this code: mat[4]
+
 What do you think will be returned?
 
 1) 13
@@ -369,6 +370,7 @@ mat
 **POLL 3D**
 
 *Question 1*: Suppose I want to select the 3rd elements from the 2nd and 4th columns of a matrix or dataframe. Which syntax will work?
+
 Here's a test matrix:
 
 ```
