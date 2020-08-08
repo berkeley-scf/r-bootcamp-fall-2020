@@ -227,6 +227,7 @@ Many errors and much confusion result from you and R not being on the same page 
 
 Suppose I am on a Mac that has the following directories:
 
+```
 Users
 --paciorek
 ----Desktop
@@ -235,6 +236,7 @@ Users
 --------modules
 --------schedule
 ----Documents
+```
 
 and suppose my current working directory is /Users/paciorek/Desktop/r-bootcamp-fall-2020/modules.
 (Windows users, just think of this as being C:\Users\paciorek\Desktop\r-bootcamp-fall-2020\modules.)
