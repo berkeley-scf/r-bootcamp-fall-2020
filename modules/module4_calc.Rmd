@@ -41,15 +41,16 @@ gap$gdpPercap[1:10] >= 100000 & gap$continent[1:10] == "Asia"
 ```
 
 **POLL 4A**: 2^3 is raising 2 to the power 3, so you get 8. 
+
 What will this return?
 
 `(1:4)^(1:4)`
 
-- an error
-- 1, 2, 3, 4
-- 1, 4, 27, 256
-- 1, 4, 9, 16
-- 1, 16, 81, 256
+1) an error
+2) 1, 2, 3, 4
+3) 1, 4, 27, 256
+4) 1, 4, 9, 16
+5) 1, 16, 81, 256
 
 
 An important related concept is that of recycling
@@ -73,10 +74,10 @@ vec2 <- c(1,2)
 vec1 + vec2
 ```
 
-- 2, 4
-- 2, 4, 5, 6
-- 2, 4, 4, 6
-- an error
+1) 2, 4
+2) 2, 4, 5, 6
+3) 2, 4, 4, 6
+4) an error
 
 
 **Question**: Tell me what's going on. What choices were made by the R developers?
@@ -383,11 +384,11 @@ Obviously, we'd want to iterate to improve that plot given the outlier.
 split, e.g., subsets <- split(gap,  gap$year)
 ```
 
-- a dataframe
-- a list
-- a list of lists
-- a list of dataframes
-- some new kind of object we haven't encountered yet
+1) a dataframe
+2) a list
+3) a list of lists
+4) a list of dataframes
+5) some new kind of object we haven't encountered yet
 
 
 
@@ -505,22 +506,25 @@ reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year,
 **POLL 4D**:
 
 Consider this regression model:
+
+```
 reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
                 data = gap)
+```
 
-1) 'continent' could be:
+*Question 1*: 'continent' could be:
 
- - numeric
- - character
- - factor
- - none of the above
+1) numeric
+2) character
+3) factor
+4) none of the above
 
-2) 'year' should be:
+*Question 2*: 'year' should be:
 
- - numeric
- - factor
- - character
- - none of the above
+1) numeric
+2) factor
+3) character
+4) none of the above
 
 # Regression output
 
@@ -539,17 +543,20 @@ plot(reg)
 
 **POLL 4E** Suppose you see this syntax when using the output of a regression:
 
+```
 reg$coefficients
+```
 
 The `reg` object is:
 
- - a list
- - a numeric vector
- - a dataframe
- - something else
+1) a list
+2) a numeric vector
+3) a dataframe
+4) something else
 
 
 - R has a helpful summary method for regression objects
+
 ```{r}
 summary(reg)
 ```
@@ -620,12 +627,12 @@ lines(x, dt(x, df = 1), col = 'red')
 
 **POLL 4F**:  Suppose you want know the probability of getting 4 or fewer heads when flipping a coin 10 times. Which of the following will work?
 
- - dbinom(4, size = 10, prob = 0.5)
- - pbinom(4, size = 10, prob = 0.5)
- - qbinom(4, size = 10, prob = 0.5)
- - pbinom(5, size = 10, prob = 0.5)
- - sum(dbinom(0:4, size = 10, prob = 0.5)
- - rbinom(1, size = 10, prob = 0.5)
+1) dbinom(4, size = 10, prob = 0.5)
+2) pbinom(4, size = 10, prob = 0.5)
+3) qbinom(4, size = 10, prob = 0.5)
+4) pbinom(5, size = 10, prob = 0.5)
+5) sum(dbinom(0:4, size = 10, prob = 0.5)
+6) rbinom(1, size = 10, prob = 0.5)
 
 
 ```{r, fig.cap = ""}

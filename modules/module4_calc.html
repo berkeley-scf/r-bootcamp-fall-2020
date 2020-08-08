@@ -260,18 +260,17 @@ gap$gdpPercap[1:10] &gt;= 100000 &amp; gap$continent[1:10] == &quot;Asia&quot;
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 </code></pre>
 
-<p><strong>POLL 4A</strong>: 2<sup>3</sup> is raising 2 to the power 3, so you get 8. 
-What will this return?</p>
+<p><strong>POLL 4A</strong>: 2<sup>3</sup> is raising 2 to the power 3, so you get 8. </p>
+
+<p>What will this return?</p>
 
 <p><code>(1:4)^(1:4)</code></p>
 
-<ul>
-<li>an error</li>
-<li>1, 2, 3, 4</li>
-<li>1, 4, 27, 256</li>
-<li>1, 4, 9, 16</li>
-<li>1, 16, 81, 256</li>
-</ul>
+<p>1) an error
+2) 1, 2, 3, 4
+3) 1, 4, 27, 256
+4) 1, 4, 9, 16
+5) 1, 16, 81, 256</p>
 
 <p>An important related concept is that of recycling</p>
 
@@ -319,12 +318,10 @@ vec2 &lt;- c(1,2)
 vec1 + vec2
 </code></pre>
 
-<ul>
-<li>2, 4</li>
-<li>2, 4, 5, 6</li>
-<li>2, 4, 4, 6</li>
-<li>an error</li>
-</ul>
+<p>1) 2, 4
+2) 2, 4, 5, 6
+3) 2, 4, 4, 6
+4) an error</p>
 
 <p><strong>Question</strong>: Tell me what&#39;s going on. What choices were made by the R developers?</p>
 
@@ -353,14 +350,14 @@ system.time(trunc &lt;- ifelse(vals &gt; 0, vals, 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.039   0.000   0.038
+##   0.047   0.021   0.068
 </code></pre>
 
 <pre><code class="r">system.time(vals &lt;- vals * (vals &gt; 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.005   0.000   0.005
+##   0.007   0.000   0.007
 </code></pre>
 
 <p><strong>Question</strong>: What am I doing with <code>vals * (vals &gt; 0)</code> ? What happens behind the scenes in R?</p>
@@ -534,7 +531,7 @@ for(i in 1:n)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.031   0.000   0.031
+##   0.071   0.000   0.071
 </code></pre>
 
 <p>Here&#39;s how to pre-allocate an empty list: </p>
@@ -1070,13 +1067,11 @@ abline(h = 0, col = &#39;grey&#39;)
 <pre><code>split, e.g., subsets &lt;- split(gap,  gap$year)
 </code></pre>
 
-<ul>
-<li>a dataframe</li>
-<li>a list</li>
-<li>a list of lists</li>
-<li>a list of dataframes</li>
-<li>some new kind of object we haven&#39;t encountered yet</li>
-</ul>
+<p>1) a dataframe
+2) a list
+3) a list of lists
+4) a list of dataframes
+5) some new kind of object we haven&#39;t encountered yet</p>
 
 <h1>Stratified analyses II</h1>
 
@@ -1385,27 +1380,25 @@ dim(gapSave)
 
 <p><strong>POLL 4D</strong>:</p>
 
-<p>Consider this regression model:
-reg &lt;- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
-                data = gap)</p>
+<p>Consider this regression model:</p>
 
-<p>1) &#39;continent&#39; could be:</p>
+<pre><code>reg &lt;- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
+                data = gap)
+</code></pre>
 
-<ul>
-<li>numeric</li>
-<li>character</li>
-<li>factor</li>
-<li>none of the above</li>
-</ul>
+<p><em>Question 1</em>: &#39;continent&#39; could be:</p>
 
-<p>2) &#39;year&#39; should be:</p>
+<p>1) numeric
+2) character
+3) factor
+4) none of the above</p>
 
-<ul>
-<li>numeric</li>
-<li>factor</li>
-<li>character</li>
-<li>none of the above</li>
-</ul>
+<p><em>Question 2</em>: &#39;year&#39; should be:</p>
+
+<p>1) numeric
+2) factor
+3) character
+4) none of the above</p>
 
 <h1>Regression output</h1>
 
@@ -1448,19 +1441,18 @@ plot(reg)
 
 <p><strong>POLL 4E</strong> Suppose you see this syntax when using the output of a regression:</p>
 
-<p>reg$coefficients</p>
+<pre><code>reg$coefficients
+</code></pre>
 
 <p>The <code>reg</code> object is:</p>
 
-<ul>
-<li>a list</li>
-<li>a numeric vector</li>
-<li>a dataframe</li>
-<li><p>something else</p>
+<p>1) a list
+2) a numeric vector
+3) a dataframe
+4) something else</p>
 
 <ul>
 <li>R has a helpful summary method for regression objects</li>
-</ul></li>
 </ul>
 
 <pre><code class="r">summary(reg)
@@ -1899,14 +1891,12 @@ lines(x, dt(x, df = 1), col = &#39;red&#39;)
 
 <p><strong>POLL 4F</strong>:  Suppose you want know the probability of getting 4 or fewer heads when flipping a coin 10 times. Which of the following will work?</p>
 
-<ul>
-<li>dbinom(4, size = 10, prob = 0.5)</li>
-<li>pbinom(4, size = 10, prob = 0.5)</li>
-<li>qbinom(4, size = 10, prob = 0.5)</li>
-<li>pbinom(5, size = 10, prob = 0.5)</li>
-<li>sum(dbinom(0:4, size = 10, prob = 0.5)</li>
-<li>rbinom(1, size = 10, prob = 0.5)</li>
-</ul>
+<p>1) dbinom(4, size = 10, prob = 0.5)
+2) pbinom(4, size = 10, prob = 0.5)
+3) qbinom(4, size = 10, prob = 0.5)
+4) pbinom(5, size = 10, prob = 0.5)
+5) sum(dbinom(0:4, size = 10, prob = 0.5)
+6) rbinom(1, size = 10, prob = 0.5)</p>
 
 <pre><code class="r">rmultinom(1, 100, prob = c(.1, .1, .2, .3, .25, .05)) 
 </code></pre>
