@@ -72,15 +72,15 @@ col_sum &lt;-<span class="st"> </span><span class="kw">colSums</span>(mat)</code
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myList &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">rnorm</span>(<span class="dv">3</span>), <span class="kw">rnorm</span>(<span class="dv">3</span>), <span class="kw">rnorm</span>(<span class="dv">5</span>))
 <span class="kw">lapply</span>(myList, min)</code></pre></div>
 <pre><code>## [[1]]
-## [1] -1.397841
+## [1] -2.325252
 ## 
 ## [[2]]
-## [1] -0.6331249
+## [1] 0.5870819
 ## 
 ## [[3]]
-## [1] -2.009431</code></pre>
+## [1] -1.603811</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(myList, min)</code></pre></div>
-<pre><code>## [1] -1.3978407 -0.6331249 -2.0094306</code></pre>
+<pre><code>## [1] -2.3252523  0.5870819 -1.6038112</code></pre>
 <p>Note that we don't generally want to use <code>apply()</code> on a data frame.</p>
 <p>Recall that a dataframe is a list:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(gap, class)</code></pre></div>
@@ -97,25 +97,25 @@ col_sum &lt;-<span class="st"> </span><span class="kw">colSums</span>(mat)</code
 out &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, myfun)
 out</code></pre></div>
 <pre><code>## [[1]]
-## [1] 3.485098
+## [1] 2.663195
 ## 
 ## [[2]]
-## [1] 1.953869
+## [1] 2.625207
 ## 
 ## [[3]]
-## [1] 2.74613
+## [1] 2.101109
 ## 
 ## [[4]]
-## [1] 2.2133
+## [1] 2.607728
 ## 
 ## [[5]]
-## [1] 2.386317
+## [1] 2.329852
 ## 
 ## [[6]]
-## [1] 1.816431</code></pre>
+## [1] 2.111558</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Or, 'in-line' the function:
 out &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="cf">function</span>(i) <span class="kw">max</span>(<span class="kw">rnorm</span>(<span class="dv">100</span>)))</code></pre></div>
-<p>** POLL 5A**</p>
+<p><strong>POLL 5A</strong></p>
 <p>What do you think this will return:</p>
 <pre><code>sapply(1:6, function(n) rnorm(n))</code></pre>
 <ol style="list-style-type: decimal">
@@ -273,17 +273,17 @@ out[[<span class="st">'2007'</span>]]</code></pre></div>
 <p>Here's a simple example to illustrate the syntax. Note that the <em>then</em> is implicit.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] 0.2860359</code></pre>
+<pre><code>## [1] -1.601566</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>)
 } <span class="cf">else</span> {
   <span class="kw">print</span>(<span class="st">&quot;val is positive&quot;</span>)
 }</code></pre></div>
-<pre><code>## [1] &quot;val is positive&quot;</code></pre>
+<pre><code>## [1] &quot;val is negative&quot;</code></pre>
 <p>We can chain together <code>if</code> statements as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] 0.07073281</code></pre>
+<pre><code>## [1] 0.6560218</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (val <span class="op">&lt;</span><span class="st"> </span><span class="dv">-1</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is more than one standard deviation below the mean.&quot;</span>)
 } <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">abs</span>(val) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) {
@@ -537,11 +537,11 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(y) {
 <p>And what about indexing?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">100</span>), <span class="dv">10</span>)
 x[ , <span class="dv">2</span>]</code></pre></div>
-<pre><code>##  [1] 0.83536788 0.01973811 0.04229822 0.80915206 0.97307083 0.31710210
-##  [7] 0.17530309 0.21563453 0.46317846 0.05014761</code></pre>
+<pre><code>##  [1] 0.703433003 0.497370157 0.345149956 0.825742869 0.076277642
+##  [6] 0.144403554 0.763619395 0.237777180 0.004187319 0.826691950</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">'['</span>(x , , <span class="dv">2</span>)</code></pre></div>
-<pre><code>##  [1] 0.83536788 0.01973811 0.04229822 0.80915206 0.97307083 0.31710210
-##  [7] 0.17530309 0.21563453 0.46317846 0.05014761</code></pre>
+<pre><code>##  [1] 0.703433003 0.497370157 0.345149956 0.825742869 0.076277642
+##  [6] 0.144403554 0.763619395 0.237777180 0.004187319 0.826691950</code></pre>
 <p>Also yes!</p>
 <p>This holds more generally - one can investigate and see the same thing in terms of a <code>for</code> loop.</p>
 <h3 id="what-does-the-1st-principle-mean">What does the 1st principle mean?</h3>

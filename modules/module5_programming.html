@@ -225,19 +225,19 @@ lapply(myList, min)
 </code></pre>
 
 <pre><code>## [[1]]
-## [1] 0.5646875
+## [1] 0.2472411
 ## 
 ## [[2]]
-## [1] -1.21186
+## [1] -2.199791
 ## 
 ## [[3]]
-## [1] -0.9137426
+## [1] -2.036889
 </code></pre>
 
 <pre><code class="r">sapply(myList, min)
 </code></pre>
 
-<pre><code>## [1]  0.5646875 -1.2118598 -0.9137426
+<pre><code>## [1]  0.2472411 -2.1997909 -2.0368890
 </code></pre>
 
 <p>Note that we don&#39;t generally want to use <code>apply()</code> on a data frame. </p>
@@ -264,29 +264,29 @@ out
 </code></pre>
 
 <pre><code>## [[1]]
-## [1] 2.680297
+## [1] 2.201339
 ## 
 ## [[2]]
-## [1] 3.15931
+## [1] 1.86736
 ## 
 ## [[3]]
-## [1] 2.068606
+## [1] 2.01885
 ## 
 ## [[4]]
-## [1] 2.48126
+## [1] 2.244763
 ## 
 ## [[5]]
-## [1] 2.886051
+## [1] 3.761125
 ## 
 ## [[6]]
-## [1] 2.465507
+## [1] 2.377087
 </code></pre>
 
 <pre><code class="r">## Or, &#39;in-line&#39; the function:
 out &lt;- lapply(1:6, function(i) max(rnorm(100)))
 </code></pre>
 
-<p>** POLL 5A**</p>
+<p><strong>POLL 5A</strong></p>
 
 <p>What do you think this will return:</p>
 
@@ -488,7 +488,7 @@ implicit.</p>
 val
 </code></pre>
 
-<pre><code>## [1] 0.7202147
+<pre><code>## [1] -0.4792725
 </code></pre>
 
 <pre><code class="r">if (val &lt; 0) {
@@ -498,7 +498,7 @@ val
 }
 </code></pre>
 
-<pre><code>## [1] &quot;val is positive&quot;
+<pre><code>## [1] &quot;val is negative&quot;
 </code></pre>
 
 <p>We can chain together <code>if</code> statements as follows.</p>
@@ -507,7 +507,7 @@ val
 val
 </code></pre>
 
-<pre><code>## [1] 0.528816
+<pre><code>## [1] 0.3188635
 </code></pre>
 
 <pre><code class="r">if (val &lt; -1) {
@@ -950,15 +950,15 @@ talk</a></p></li>
 x[ , 2]
 </code></pre>
 
-<pre><code>##  [1] 0.2219628 0.7118653 0.0570003 0.3796589 0.4704557 0.5064338 0.6253018
-##  [8] 0.8428591 0.8409877 0.7428672
+<pre><code>##  [1] 0.93613845 0.36096869 0.55821818 0.96233175 0.39041191 0.55529610
+##  [7] 0.53792272 0.02059144 0.40329671 0.92888481
 </code></pre>
 
 <pre><code class="r">&#39;[&#39;(x , , 2)
 </code></pre>
 
-<pre><code>##  [1] 0.2219628 0.7118653 0.0570003 0.3796589 0.4704557 0.5064338 0.6253018
-##  [8] 0.8428591 0.8409877 0.7428672
+<pre><code>##  [1] 0.93613845 0.36096869 0.55821818 0.96233175 0.39041191 0.55529610
+##  [7] 0.53792272 0.02059144 0.40329671 0.92888481
 </code></pre>
 
 <p>Also yes!</p>

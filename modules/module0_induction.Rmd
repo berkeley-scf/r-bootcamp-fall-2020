@@ -182,8 +182,6 @@ The building blocks of scientific computing include:
 
 # We want your feedback (even if you leave early)!
 
-During a break on Thursday, we'll ask everyone to fill out a feedback form, but if you leave early, please also fill it out:
+During a break on Thursday, we'll ask everyone to fill out a feedback form, but if you leave early, please also fill it out: [https://berkeley.qualtrics.com/jfe/form/SV_afxFnDutFrq5yLP](https://berkeley.qualtrics.com/jfe/form/SV_afxFnDutFrq5yLP)
 
-Main track: [https://berkeley.qualtrics.com/jfe/form/SV_afxFnDutFrq5yLP](https://berkeley.qualtrics.com/jfe/form/SV_afxFnDutFrq5yLP)
-
-Second track: [https://berkeley.qualtrics.com/jfe/form/SV_aVJO1X1zcAHR37L](https://berkeley.qualtrics.com/jfe/form/SV_aVJO1X1zcAHR37L)
+If you participate in the second track on Tuesday/Thursday, please also fill out this survey: [https://berkeley.qualtrics.com/jfe/form/SV_aVJO1X1zcAHR37L](https://berkeley.qualtrics.com/jfe/form/SV_aVJO1X1zcAHR37L)

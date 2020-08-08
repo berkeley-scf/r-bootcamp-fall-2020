@@ -61,7 +61,7 @@ out
 out <- lapply(1:6, function(i) max(rnorm(100)))
 ```
 
-** POLL 5A**
+**POLL 5A**
 
 What do you think this will return:
 
