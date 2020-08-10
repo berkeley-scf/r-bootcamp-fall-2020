@@ -29,10 +29,6 @@ mat
 ## Let's convert the gapminder dataframe to a matrix:
 gm_mat <- as.matrix(gap[ , c('lifeExp', 'gdpPercap')])
 head(gm_mat)
-
-## What do you think will happen?
-gm_mat <- as.matrix(gap)
-head(gm_mat)
 ```
 
 Arrays are like matrices but can have more or fewer than two dimensions.
