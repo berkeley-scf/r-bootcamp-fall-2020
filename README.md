@@ -44,6 +44,8 @@ Please ask questions both during the presentations and during the breakout sessi
 - The [online discussion forum on Piazza](https://piazza.com/berkeley/fall2020/rbootcampfall2020) at any time during the week of August 10 (though questions will be primarily answered during the event hours).
 - The [Zoom virtual front desk](https://dlab.berkeley.edu/frontdesk) for 'in-person' help during the hours of the event.
 
+I'll make announcements (e.g., what time we'll resume after a given break) on Piazza.
+
 If you need to contact us directly with an administrative question you can email r-bootcamp@lists.berkeley.edu.
 
 ## Zoom Recordings
