@@ -13,6 +13,8 @@ We'll use:
  - this [Piazza site](piazza.com/berkeley/fall2020/rbootcampfall2020) for discussion and answering questions during (and before) the bootcamp. 
  - the [D-Lab virtual frontdesk](dlab.berkeley.edu/frontdesk) for "in-person" questions during the bootcamp.
 
+I'll make announcements (e.g., about when a break will end and we'll resume the live session) via Piazza.
+
 If you have an administrative question, email r-bootcamp@lists.berkeley.edu.
 
 # How we'll operate
