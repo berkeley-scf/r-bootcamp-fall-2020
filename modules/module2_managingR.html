@@ -483,7 +483,7 @@ lm(7)
 </code></pre>
 
 <pre><code>## gap$lifeExp ~ gap$gdpPercap
-## &lt;environment: 0x55c06e3c0408&gt;
+## &lt;environment: 0x55e3f4f287b0&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(gap$lifeExp ~ gap$gdpPercap)
@@ -649,8 +649,9 @@ head(vote)
 
 <p>You&#39;ve already seen a bit of this, but let&#39;s work through a more involved example, so you can see some of the steps and tricks involved in reading data into R.</p>
 
-<pre><code class="r">## First try:
-rta &lt;- read.table(&quot;../data/RTAData.csv&quot;, sep = &quot;,&quot;, head = TRUE)
+<pre><code class="r">## First try using `stringsAsFactors=FALSE` as is the default in R versions 3.6 and older:
+rta &lt;- read.table(&quot;../data/RTAData.csv&quot;, sep = &quot;,&quot;,
+  head = TRUE, stringsAsFactors = TRUE)
 rta[1:5, 1:5]
 </code></pre>
 
@@ -696,14 +697,25 @@ rta2[3,3]
 </code></pre>
 
 <pre><code class="r">## Third try:
-## let&#39;s delve more deeply
+## let&#39;s delve more deeply by looking at the levels of the categorical variable
 levels(rta[ , 2])[c(1:5, 3041:3044)]
 </code></pre>
 
 <pre><code>## [1] &quot;&quot;     &quot;1000&quot; &quot;1001&quot; &quot;1002&quot; &quot;1003&quot; &quot;997&quot;  &quot;998&quot;  &quot;999&quot;  &quot;x&quot;
 </code></pre>
 
-<pre><code class="r">rta3 &lt;- read.table(&quot;../data/RTAData.csv&quot;, sep = &quot;,&quot;, head = TRUE, 
+<pre><code class="r">## alternatively we could look at the unique values in the character variable
+unique(rta2[ , 2])[2780:2800]
+</code></pre>
+
+<pre><code>##  [1] &quot;3856&quot; &quot;4231&quot; &quot;4914&quot; &quot;4699&quot; &quot;3781&quot; &quot;5385&quot; &quot;6005&quot; &quot;1920&quot; &quot;3805&quot; &quot;3040&quot;
+## [11] &quot;x&quot;    &quot;2858&quot; &quot;3573&quot; &quot;5084&quot; &quot;5836&quot; &quot;4557&quot; &quot;2137&quot; &quot;3117&quot; &quot;2776&quot; &quot;3161&quot;
+## [21] &quot;2860&quot;
+</code></pre>
+
+<pre><code class="r">## Once we realize that the &#39;x&#39; values are messing things up, we can
+## use `help(read.table)` to find an argument that allows us to fix things.
+rta3 &lt;- read.table(&quot;../data/RTAData.csv&quot;, sep = &quot;,&quot;, head = TRUE, 
       stringsAsFactors = FALSE, na.strings = c(&#39;NA&#39;, &#39;x&#39;))
 unlist(lapply(rta3, class))[1:5]
 </code></pre>
@@ -774,6 +786,26 @@ missing[1:5]
 ## 1172     NA     NA     NA     NA
 </code></pre>
 
+<pre><code class="r">## Of course the code above assumes you know where to look for the &#39;x&#39; value.
+## Here&#39;s some code that uses functionality we haven&#39;t seen yet to figure that out:
+uniqs &lt;- unique(rta2[ , 2])
+numUniqs &lt;- as.numeric(uniqs)
+</code></pre>
+
+<pre><code>## Warning: NAs introduced by coercion
+</code></pre>
+
+<pre><code class="r">uniqs[which(is.na(numUniqs))]
+</code></pre>
+
+<pre><code>## [1] &quot;&quot;  &quot;x&quot;
+</code></pre>
+
+<pre><code class="r">## `which()` picks out the index values corresponding to the elements that are TRUE
+## so it allows us to figure out which of the elements of `uniqs` can&#39;t be converted to
+## numeric values
+</code></pre>
+
 <p>It&#39;s good to first look at your data in plain text format outside of R and then to check it after you&#39;ve read it into R.</p>
 
 <h1>Other ways to read data into R</h1>
@@ -814,7 +846,7 @@ print(xtable(table(gap$year, gap$continent)), type = &quot;html&quot;)
 </code></pre>
 
 <pre><code>## &lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
-## &lt;!-- Sat Aug  8 09:44:20 2020 --&gt;
+## &lt;!-- Mon Aug 10 15:35:36 2020 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; Africa &lt;/th&gt; &lt;th&gt; Americas &lt;/th&gt; &lt;th&gt; Asia &lt;/th&gt; &lt;th&gt; Europe &lt;/th&gt; &lt;th&gt; Oceania &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; 1952 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  25 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  33 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  30 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   2 &lt;/td&gt; &lt;/tr&gt;

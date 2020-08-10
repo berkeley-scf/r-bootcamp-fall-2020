@@ -292,8 +292,9 @@ The workhorse for reading into a data frame is *read.table()*, which allows any 
 You've already seen a bit of this, but let's work through a more involved example, so you can see some of the steps and tricks involved in reading data into R.
 
 ```{r, cache=TRUE}
-## First try:
-rta <- read.table("../data/RTAData.csv", sep = ",", head = TRUE)
+## First try using `stringsAsFactors=FALSE` as is the default in R versions 3.6 and older:
+rta <- read.table("../data/RTAData.csv", sep = ",",
+  head = TRUE, stringsAsFactors = TRUE)
 rta[1:5, 1:5]
 dim(rta)
 ## great, we're all set, right?
@@ -309,8 +310,13 @@ rta2[3,3]
 unlist(lapply(rta2, class))[1:5]
 
 ## Third try:
-## let's delve more deeply
+## let's delve more deeply by looking at the levels of the categorical variable
 levels(rta[ , 2])[c(1:5, 3041:3044)]
+## alternatively we could look at the unique values in the character variable
+unique(rta2[ , 2])[2780:2800]
+
+## Once we realize that the 'x' values are messing things up, we can
+## use `help(read.table)` to find an argument that allows us to fix things.
 rta3 <- read.table("../data/RTAData.csv", sep = ",", head = TRUE, 
       stringsAsFactors = FALSE, na.strings = c('NA', 'x'))
 unlist(lapply(rta3, class))[1:5]
@@ -319,6 +325,15 @@ unlist(lapply(rta3, class))[1:5]
 missing <- which(rta[ , 2] == "")
 missing[1:5]
 rta3[head(missing), ]
+
+## Of course the code above assumes you know where to look for the 'x' value.
+## Here's some code that uses functionality we haven't seen yet to figure that out:
+uniqs <- unique(rta2[ , 2])
+numUniqs <- as.numeric(uniqs)
+uniqs[which(is.na(numUniqs))]
+## `which()` picks out the index values corresponding to the elements that are TRUE
+## so it allows us to figure out which of the elements of `uniqs` can't be converted to
+## numeric values
 ```
 
 It's good to first look at your data in plain text format outside of R and then to check it after you've read it into R.

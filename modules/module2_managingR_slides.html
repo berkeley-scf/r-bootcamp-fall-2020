@@ -219,7 +219,7 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 <pre><code>## [1] 7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lm</span>(gap<span class="op">$</span>lifeExp <span class="op">~</span><span class="st"> </span>gap<span class="op">$</span>gdpPercap)</code></pre></div>
 <pre><code>## gap$lifeExp ~ gap$gdpPercap
-## &lt;environment: 0x55c06e4bf5e8&gt;</code></pre>
+## &lt;environment: 0x55e3f50175c8&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats<span class="op">::</span><span class="kw">lm</span>(gap<span class="op">$</span>lifeExp <span class="op">~</span><span class="st"> </span>gap<span class="op">$</span>gdpPercap)</code></pre></div>
 <pre><code>## 
 ## Call:
@@ -341,8 +341,9 @@ vote &lt;-<span class="st"> </span><span class="kw">read.dta</span>(<span class=
 <p>Remember that you'll need to know the current working directory so that you know where R is looking for files.</p>
 <p>The workhorse for reading into a data frame is <em>read.table()</em>, which allows any separator (CSV, tab-delimited, etc.). <em>read.csv()</em> is a special case of <em>read.table()</em> for CSV files.</p>
 <p>You've already seen a bit of this, but let's work through a more involved example, so you can see some of the steps and tricks involved in reading data into R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## First try:
-rta &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../data/RTAData.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">head =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## First try using `stringsAsFactors=FALSE` as is the default in R versions 3.6 and older:
+rta &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../data/RTAData.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>,
+  <span class="dt">head =</span> <span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">TRUE</span>)
 rta[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>##               time X40010 X40015 X40020 X40025
 ## 1 2010-03-01 14:58    821    209    828    258
@@ -368,10 +369,17 @@ rta2[<span class="dv">3</span>,<span class="dv">3</span>]</code></pre></div>
 <pre><code>##        time      X40010      X40015      X40020      X40025 
 ## &quot;character&quot; &quot;character&quot; &quot;character&quot; &quot;character&quot; &quot;character&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Third try:
-## let's delve more deeply
+## let's delve more deeply by looking at the levels of the categorical variable
 <span class="kw">levels</span>(rta[ , <span class="dv">2</span>])[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">3041</span><span class="op">:</span><span class="dv">3044</span>)]</code></pre></div>
 <pre><code>## [1] &quot;&quot;     &quot;1000&quot; &quot;1001&quot; &quot;1002&quot; &quot;1003&quot; &quot;997&quot;  &quot;998&quot;  &quot;999&quot;  &quot;x&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rta3 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../data/RTAData.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">head =</span> <span class="ot">TRUE</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## alternatively we could look at the unique values in the character variable
+<span class="kw">unique</span>(rta2[ , <span class="dv">2</span>])[<span class="dv">2780</span><span class="op">:</span><span class="dv">2800</span>]</code></pre></div>
+<pre><code>##  [1] &quot;3856&quot; &quot;4231&quot; &quot;4914&quot; &quot;4699&quot; &quot;3781&quot; &quot;5385&quot; &quot;6005&quot; &quot;1920&quot; &quot;3805&quot; &quot;3040&quot;
+## [11] &quot;x&quot;    &quot;2858&quot; &quot;3573&quot; &quot;5084&quot; &quot;5836&quot; &quot;4557&quot; &quot;2137&quot; &quot;3117&quot; &quot;2776&quot; &quot;3161&quot;
+## [21] &quot;2860&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Once we realize that the 'x' values are messing things up, we can
+## use `help(read.table)` to find an argument that allows us to fix things.
+rta3 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../data/RTAData.csv&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">head =</span> <span class="ot">TRUE</span>, 
       <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">na.strings =</span> <span class="kw">c</span>(<span class="st">'NA'</span>, <span class="st">'x'</span>))
 <span class="kw">unlist</span>(<span class="kw">lapply</span>(rta3, class))[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
 <pre><code>##        time      X40010      X40015      X40020      X40025 
@@ -430,6 +438,16 @@ missing[<span class="dv">1</span><span class="op">:</span><span class="dv">5</sp
 ## 1170     NA     NA     NA     NA
 ## 1171     NA     NA     NA     NA
 ## 1172     NA     NA     NA     NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Of course the code above assumes you know where to look for the 'x' value.
+## Here's some code that uses functionality we haven't seen yet to figure that out:
+uniqs &lt;-<span class="st"> </span><span class="kw">unique</span>(rta2[ , <span class="dv">2</span>])
+numUniqs &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(uniqs)</code></pre></div>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">uniqs[<span class="kw">which</span>(<span class="kw">is.na</span>(numUniqs))]</code></pre></div>
+<pre><code>## [1] &quot;&quot;  &quot;x&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## `which()` picks out the index values corresponding to the elements that are TRUE
+## so it allows us to figure out which of the elements of `uniqs` can't be converted to
+## numeric values</code></pre></div>
 <p>It's good to first look at your data in plain text format outside of R and then to check it after you've read it into R.</p>
 </div>
 <div id="other-ways-to-read-data-into-r" class="slide section level1">
@@ -463,7 +481,7 @@ x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xtable)
 <span class="kw">print</span>(<span class="kw">xtable</span>(<span class="kw">table</span>(gap<span class="op">$</span>year, gap<span class="op">$</span>continent)), <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre></div>
 <pre><code>## &lt;!-- html table generated in R 3.6.1 by xtable 1.8-4 package --&gt;
-## &lt;!-- Sat Aug  8 09:44:19 2020 --&gt;
+## &lt;!-- Mon Aug 10 15:35:35 2020 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; Africa &lt;/th&gt; &lt;th&gt; Americas &lt;/th&gt; &lt;th&gt; Asia &lt;/th&gt; &lt;th&gt; Europe &lt;/th&gt; &lt;th&gt; Oceania &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; 1952 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  25 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  33 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  30 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   2 &lt;/td&gt; &lt;/tr&gt;
