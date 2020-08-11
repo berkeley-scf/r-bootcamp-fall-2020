@@ -62,7 +62,15 @@ August 2020, UC Berkeley
 </div>
 <div id="object-oriented-programming-oop-in-r" class="slide section level1">
 <h1>Object-oriented programming (OOP) in R</h1>
-<p>[poll]</p>
+<p><strong>POLL 9A</strong>: Have you used object-oriented programming techniques in the past?</p>
+<ol style="list-style-type: decimal">
+<li>Yes, I've done it in R (S3, S4, ReferenceClasses, or R6)</li>
+<li>Yes, in Python</li>
+<li>Yes, in Java</li>
+<li>Yes, in C++</li>
+<li>Yes, in some other language</li>
+<li>No</li>
+</ol>
 <p>Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.</p>
 <ul>
 <li>S3: informal system used for <code>lm()</code>, <code>glm()</code>, and many other core features in R in the <em>stats</em> package</li>
@@ -178,7 +186,7 @@ mod2<span class="op">$</span>residuals[<span class="dv">1</span><span class="op"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predict</code></pre></div>
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x55fe40356210&gt;
+## &lt;bytecode: 0x55c3e9f25210&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># predict.glm</span></code></pre></div>
 <p>When <code>predict()</code> is called on a GLM object, it first calls the generic <code>predict()</code>, which then recognizes that the first argument is of the class <em>glm</em> and immediately calls the right class-specific method, <code>predict.glm()</code> in this case.</p>
@@ -715,7 +723,15 @@ popularR &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(db, <s
 <span class="st">   tag = 'r'&quot;</span>)</code></pre></div>
 <pre><code>## Error: no such table: questions</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbDisconnect</span>(db)</code></pre></div>
-<p>[poll]</p>
+<p><strong>POLL 9B</strong>:</p>
+<p>What kind of R object do you think is returned when you query a database using dbGetQuery?</p>
+<ol style="list-style-type: decimal">
+<li>a list of dataframes</li>
+<li>a matrix</li>
+<li>a dataframe</li>
+<li>a list of vectors</li>
+<li>some sort of specialized object (recall that <code>lm()</code> returns a specialized object)</li>
+</ol>
 </div>
 <div id="computer-architecture" class="slide section level1">
 <h1>Computer architecture</h1>
@@ -793,7 +809,15 @@ U &lt;-<span class="st"> </span><span class="kw">chol</span>(<span class="kw">cr
 <li>Markov chain Monte Carlo for fitting Bayesian statistical models</li>
 <li>optimization</li>
 </ol>
-<p>[poll]</p>
+<p><strong>POLL 9C</strong>: Have you used R's parallel processing capabilities?</p>
+<ol style="list-style-type: decimal">
+<li>No</li>
+<li>Yes, I've used foreach</li>
+<li>Yes, I've used mclapply or parLapply</li>
+<li>Yes, I've used other tools from the parallel package</li>
+<li>Yes, I've used the future package</li>
+<li>Yes, I've used something else, not listed above</li>
+</ol>
 </div>
 <div id="using-multiple-cores-for-ep-problems-parallel-apply-using-future" class="slide section level1">
 <h1>Using multiple cores for EP problems: parallel <em>apply</em> using <code>future</code></h1>
@@ -814,19 +838,44 @@ U &lt;-<span class="st"> </span><span class="kw">chol</span>(<span class="kw">cr
 <pre><code>## Loading required package: future</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nCores &lt;-<span class="st"> </span><span class="dv">4</span>
 <span class="kw">plan</span>(multisession, <span class="dt">workers =</span> nCores)  
-out &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="kw">unique</span>(air<span class="op">$</span>Dest), fitFun)
-out[[<span class="dv">1</span>]]</code></pre></div>
+out &lt;-<span class="st"> </span><span class="kw">future_lapply</span>(<span class="kw">unique</span>(air<span class="op">$</span>Dest), fitFun)</code></pre></div>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## This is mgcv 1.8-28. For overview type 'help(&quot;mgcv-package&quot;)'.</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## This is mgcv 1.8-28. For overview type 'help(&quot;mgcv-package&quot;)'.</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## This is mgcv 1.8-28. For overview type 'help(&quot;mgcv-package&quot;)'.</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## This is mgcv 1.8-28. For overview type 'help(&quot;mgcv-package&quot;)'.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>## 
-## Family: gaussian 
-## Link function: identity 
+## Call:  gam(formula = DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek), 
+##     data = tmp)
 ## 
-## Formula:
-## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## Coefficients:
+##           (Intercept)                   Year  as.factor(DayOfWeek)2  
+##            -3497.3038                 1.7490                -2.1810  
+## as.factor(DayOfWeek)3  as.factor(DayOfWeek)4  as.factor(DayOfWeek)5  
+##               -3.6045                -1.6800                 2.9982  
+## as.factor(DayOfWeek)6  as.factor(DayOfWeek)7             s(Month).1  
+##               -2.4173                 0.7169                -8.6549  
+##            s(Month).2             s(Month).3             s(Month).4  
+##               32.1570               -12.0160                10.7049  
+##            s(Month).5             s(Month).6             s(Month).7  
+##                8.2426               -13.9618                -4.9777  
+##            s(Month).8             s(Month).9              s(Hour).1  
+##              -46.2121                14.8763                 6.7659  
+##             s(Hour).2              s(Hour).3              s(Hour).4  
+##                4.4530                 6.9343                 8.5259  
+##             s(Hour).5              s(Hour).6              s(Hour).7  
+##               -0.2337                 6.1335                 1.8340  
+##             s(Hour).8              s(Hour).9  
+##               -6.9439                 2.2963  
 ## 
-## Estimated degrees of freedom:
-## 7.51 7.49  total = 23 
-## 
-## GCV score: 1051.858</code></pre>
+## Degrees of Freedom: 15782 Total (i.e. Null);  15760 Residual
+##   (142 observations deleted due to missingness)
+## Null Deviance:       17480000 
+## Residual Deviance: 16550000  AIC: 154600</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out[[<span class="dv">81</span>]]</code></pre></div>
 <pre><code>## [1] &quot;Error in smooth.construct.tp.smooth.spec(object, dk$data, dk$knots) : \n  A term has fewer unique covariate combinations than specified maximum degrees of freedom\n&quot;
 ## attr(,&quot;class&quot;)

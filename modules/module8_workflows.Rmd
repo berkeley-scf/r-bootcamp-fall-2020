@@ -80,7 +80,12 @@ colSums(mat)
 
 # Debugging
 
-[poll]
+**POLL 8A**: Have you used R's debugger?
+
+1) yes, some or a lot
+2) yes, a little bit
+3) no
+
 
 As a scripting language, R essentially has a debugger working automatically.
 But there is an official debugger and other tools that greatly help in figuring
@@ -237,7 +242,15 @@ rm(x)
 gc()
 ```
 
-[poll]
+**POLL 8B**: Suppose you have a CSV file with one million rows and one thousand columns, filled with numbers. How much memory will this take up if you read the data into R?
+
+1) 800 MB
+2) 8 GB
+3) 1 GB
+4) 80 GB
+5) something else
+
+
 
 # Scripting
 

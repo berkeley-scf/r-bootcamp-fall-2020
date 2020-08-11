@@ -161,7 +161,17 @@ In this case we don't specify which data object we use in the call to `select()`
 
 **Fun Fact**: There is a good chance you have encountered pipes before in the shell. In R, a pipe symbol is `%>%` while in the shell it is `|.` But the concept is the same!
 
-[poll]
+**POLL 6A**: Which of these will produce an error? (Assume 'continent' is a column in the data frame but not a stand-alone variable.)
+
+1) gap[ , 'continent']
+2) gap[ , continent]
+3) gap %>% select(gap, continent)
+4) gap %>% select(gap, 'continent')
+5) gap$continent
+6) gap$"continent"
+7) gap[[continent]]
+8) gap[['continent']]
+
 
 # `dplyr::filter`
 
@@ -314,7 +324,12 @@ Note that if you use an aggregation function such as `mean()` within `mutate()` 
 
 And if you use an aggregation function such as `mean()` within `summarize()` without using `groupby()`, you'll simply create an output data frame with one row (i.e., the whole input data frame is a single group).
 
-[poll]
+**POLL 6B**: Which of these has the same number of rows as the original gap dataframe?
+
+1) gap %>% group_by(continent) %>% mutate(mean_gdp = mean(gdpPercap))
+2) gap %>% group_by(continent) %>% summarize(mean_gdp = mean(gdpPercap))
+3) gap %>% group_by(continent) %>% summarize(mean_gdp = mean(gdpPercap)) %>% mutate(mean_gdpBillion = mean_gdp / 1e9)
+
 
 # `dplyr::arrange`
 
@@ -418,7 +433,11 @@ long <- data.frame(
 long
 ```
 
-[poll]
+**POLL 6C**: Which of the 'wide' and 'long' objects do you prefer in terms of how the heartrate 'data' are formatted?
+
+1) wide
+2) long
+3) I'd format it some other way
 
 
 **Question**: Which one of these do you think is the *tidy* format?

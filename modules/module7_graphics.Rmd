@@ -408,7 +408,16 @@ ggplot(data = gap2007, aes(x = gdpPercap, y = lifeExp)) +
             geom_point(aes(size = pop, color = continent)) + scale_x_log10()
 ```
 
-[poll]
+**POLL 7A**: Which of these ggplot2 calls will work (in the sense of not giving an error, not in the sense of being a useful plot)?
+
+1) gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) %>% geom_point()
+2) gap %>% ggplot(aes(x = gdpPercap, y = lifeExp))
+3) gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
+4) gap %>% ggplot(aes(x = gdpPercap, y = lifeExp, shape = 'a')) + geom_point()
+5) gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(aes(shape = country), show.legend = FALSE)
+6) gap %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point(shape = 'a', show.legend = FALSE)
+7) gap %>% ggplot() + geom_point(aes(x = gdpPercap, y = lifeExp, shape = country), show.legend = FALSE)
+
 
 ### Scaling Aesthetics:
 

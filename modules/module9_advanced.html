@@ -207,7 +207,14 @@ hr {
 
 <h1>Object-oriented programming (OOP) in R</h1>
 
-<p>[poll]</p>
+<p><strong>POLL 9A</strong>: Have you used object-oriented programming techniques in the past?</p>
+
+<p>1) Yes, I&#39;ve done it in R (S3, S4, ReferenceClasses, or R6)
+2) Yes, in Python
+3) Yes, in Java
+4) Yes, in C++
+5) Yes, in some other language
+6) No</p>
 
 <p>Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.</p>
 
@@ -378,30 +385,29 @@ mod2$residuals[1:20] # access field with list-like syntax
 </code></pre>
 
 <pre><code>##  [1] predict.ar*                predict.Arima*            
-##  [3] predict.arima0*            predict.bam               
-##  [5] predict.bs*                predict.bSpline*          
-##  [7] predict.fastTps            predict.gam               
-##  [9] predict.glm                predict.glmmPQL*          
-## [11] predict.gls*               predict.gnls*             
-## [13] predict.HoltWinters*       predict.interp.surface    
-## [15] predict.jam*               predict.Krig              
-## [17] predict.lda*               predict.lm                
-## [19] predict.lme*               predict.lmList*           
-## [21] predict.lmList4*           predict.loess*            
-## [23] predict.lqs*               predict.mca*              
-## [25] predict.merMod*            predict.mKrig             
-## [27] predict.mlm*               predict.nbSpline*         
-## [29] predict.nlme*              predict.nls*              
-## [31] predict.npolySpline*       predict.ns*               
-## [33] predict.pbSpline*          predict.polr*             
-## [35] predict.poly*              predict.polySpline*       
-## [37] predict.ppolySpline*       predict.ppr*              
-## [39] predict.prcomp*            predict.princomp*         
-## [41] predict.qda*               predict.qsreg             
-## [43] predict.rlm*               predict.smooth.spline*    
-## [45] predict.smooth.spline.fit* predict.sreg              
-## [47] predict.StructTS*          predict.surface           
-## [49] predict.surface.default    predict.Tps               
+##  [3] predict.arima0*            predict.bs*               
+##  [5] predict.bSpline*           predict.fastTps           
+##  [7] predict.glm                predict.glmmPQL*          
+##  [9] predict.gls*               predict.gnls*             
+## [11] predict.HoltWinters*       predict.interp.surface    
+## [13] predict.Krig               predict.lda*              
+## [15] predict.lm                 predict.lme*              
+## [17] predict.lmList*            predict.lmList4*          
+## [19] predict.loess*             predict.lqs*              
+## [21] predict.mca*               predict.merMod*           
+## [23] predict.mKrig              predict.mlm*              
+## [25] predict.nbSpline*          predict.nlme*             
+## [27] predict.nls*               predict.npolySpline*      
+## [29] predict.ns*                predict.pbSpline*         
+## [31] predict.polr*              predict.poly*             
+## [33] predict.polySpline*        predict.ppolySpline*      
+## [35] predict.ppr*               predict.prcomp*           
+## [37] predict.princomp*          predict.qda*              
+## [39] predict.qsreg              predict.rlm*              
+## [41] predict.smooth.spline*     predict.smooth.spline.fit*
+## [43] predict.sreg               predict.StructTS*         
+## [45] predict.surface            predict.surface.default   
+## [47] predict.Tps               
 ## see &#39;?methods&#39; for accessing help and source code
 </code></pre>
 
@@ -410,7 +416,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x55fe40356210&gt;
+## &lt;bytecode: 0x55c3e9f25210&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -1179,7 +1185,15 @@ popularR &lt;- dbGetQuery(db, &quot;select * from questions join questions_tags
 <pre><code class="r">dbDisconnect(db)
 </code></pre>
 
-<p>[poll]</p>
+<p><strong>POLL 9B</strong>:</p>
+
+<p>What kind of R object do you think is returned when you query a database using dbGetQuery?</p>
+
+<p>1) a list of dataframes
+2) a matrix
+3) a dataframe
+4) a list of vectors
+5) some sort of specialized object (recall that <code>lm()</code> returns a specialized object)</p>
 
 <h1>Computer architecture</h1>
 
@@ -1278,7 +1292,14 @@ U &lt;- chol(crossprod(x))
 <li>optimization</li>
 </ol>
 
-<p>[poll]</p>
+<p><strong>POLL 9C</strong>: Have you used R&#39;s parallel processing capabilities?</p>
+
+<p>1) No
+2) Yes, I&#39;ve used foreach
+3) Yes, I&#39;ve used mclapply or parLapply
+4) Yes, I&#39;ve used other tools from the parallel package
+5) Yes, I&#39;ve used the future package
+6) Yes, I&#39;ve used something else, not listed above</p>
 
 <h1>Using multiple cores for EP problems: parallel <em>apply</em> using <code>future</code></h1>
 
@@ -1301,20 +1322,63 @@ library(future.apply)
 nCores &lt;- 4
 plan(multisession, workers = nCores)  
 out &lt;- future_lapply(unique(air$Dest), fitFun)
-out[[1]]
+</code></pre>
+
+<pre><code>## Loading required package: nlme
+</code></pre>
+
+<pre><code>## This is mgcv 1.8-28. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.
+</code></pre>
+
+<pre><code>## Loading required package: nlme
+</code></pre>
+
+<pre><code>## This is mgcv 1.8-28. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.
+</code></pre>
+
+<pre><code>## Loading required package: nlme
+</code></pre>
+
+<pre><code>## This is mgcv 1.8-28. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.
+</code></pre>
+
+<pre><code>## Loading required package: nlme
+</code></pre>
+
+<pre><code>## This is mgcv 1.8-28. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.
+</code></pre>
+
+<pre><code class="r">out[[1]]
 </code></pre>
 
 <pre><code>## 
-## Family: gaussian 
-## Link function: identity 
+## Call:  gam(formula = DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek), 
+##     data = tmp)
 ## 
-## Formula:
-## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## Coefficients:
+##           (Intercept)                   Year  as.factor(DayOfWeek)2  
+##            -3497.3038                 1.7490                -2.1810  
+## as.factor(DayOfWeek)3  as.factor(DayOfWeek)4  as.factor(DayOfWeek)5  
+##               -3.6045                -1.6800                 2.9982  
+## as.factor(DayOfWeek)6  as.factor(DayOfWeek)7             s(Month).1  
+##               -2.4173                 0.7169                -8.6549  
+##            s(Month).2             s(Month).3             s(Month).4  
+##               32.1570               -12.0160                10.7049  
+##            s(Month).5             s(Month).6             s(Month).7  
+##                8.2426               -13.9618                -4.9777  
+##            s(Month).8             s(Month).9              s(Hour).1  
+##              -46.2121                14.8763                 6.7659  
+##             s(Hour).2              s(Hour).3              s(Hour).4  
+##                4.4530                 6.9343                 8.5259  
+##             s(Hour).5              s(Hour).6              s(Hour).7  
+##               -0.2337                 6.1335                 1.8340  
+##             s(Hour).8              s(Hour).9  
+##               -6.9439                 2.2963  
 ## 
-## Estimated degrees of freedom:
-## 7.51 7.49  total = 23 
-## 
-## GCV score: 1051.858
+## Degrees of Freedom: 15782 Total (i.e. Null);  15760 Residual
+##   (142 observations deleted due to missingness)
+## Null Deviance:       17480000 
+## Residual Deviance: 16550000  AIC: 154600
 </code></pre>
 
 <pre><code class="r">out[[81]]

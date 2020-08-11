@@ -16,7 +16,15 @@ For some of the topics here, my goal is not to teach you how to fish, but merely
 
 # Object-oriented programming (OOP) in R
 
-[poll]
+**POLL 9A**: Have you used object-oriented programming techniques in the past?
+
+1) Yes, I've done it in R (S3, S4, ReferenceClasses, or R6)
+2) Yes, in Python
+3) Yes, in Java
+4) Yes, in C++
+5) Yes, in some other language
+6) No
+
 
 Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.
 
@@ -537,7 +545,16 @@ popularR <- dbGetQuery(db, "select * from questions join questions_tags
 dbDisconnect(db)
 ```
 
-[poll]
+**POLL 9B**:
+
+What kind of R object do you think is returned when you query a database using dbGetQuery?
+
+1) a list of dataframes
+2) a matrix
+3) a dataframe
+4) a list of vectors
+5) some sort of specialized object (recall that `lm()` returns a specialized object)
+
 
 # Computer architecture
 
@@ -621,7 +638,16 @@ Some things that are not EP (at least not in a basic formulation):
 1. Markov chain Monte Carlo for fitting Bayesian statistical models
 2. optimization
 
-[poll]
+**POLL 9C**: Have you used R's parallel processing capabilities?
+
+1) No
+2) Yes, I've used foreach
+3) Yes, I've used mclapply or parLapply
+4) Yes, I've used other tools from the parallel package
+5) Yes, I've used the future package
+6) Yes, I've used something else, not listed above
+
+
 
 # Using multiple cores for EP problems: parallel *apply* using `future`
 
