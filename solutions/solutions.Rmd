@@ -442,10 +442,8 @@ gap_rel_gdp <- gap %>%
     arrange(desc(gdpPercap_diff))
 
 ## 4 ##
-gap_wider <- gap_rel_gdp %>% 
-  select(country, year, gdpPercap_diff) %>% 
-  spread(year, gdpPercap_diff)
-
+gap_wider <- output %>% select(country, year, gdpPercap_diff) %>%
+  pivot_wider(names_from = year, values_from = gdpPercap_diff)
 ```
 
 
