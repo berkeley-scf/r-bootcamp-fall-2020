@@ -223,6 +223,139 @@ devs <- master$simulate()   # generate a second time series
 lines(master$getTimes(), devs, col = 'red')
 ```
 
+# Describing relationships
+
+(Note: the next few slides on regression are the material we didn't have time to cover in Module 4.)
+
+- Once we've carried out group-wise operations and perhaps reshaped it, we may also like to describe the relationships in the data. Often this involves fitting some style of regression model.  The goal can be pure prediction, description, or inferring a causal relationship between variables.
+
+Of course to infer causality, one has to be quite careful and techniques that try to avoid the usual pitfall that correlation is not causation are way beyond what we can cover here.
+
+We'll just see the basics of how to fit regressions here. 
+
+# Inference/Regression
+
+- Running regressions in R is generally straightforward.
+
+- Most basic, catch-all regression function in R is *glm*
+
+- *glm* fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
+
+- *lm* is just a standard linear regression (equivalent to glm with family = gaussian(link = "identity"))
+
+- The basic glm call looks something like this:
+
+```{r eval=FALSE}
+glm(formula = y ~ x1 + x2 + x3 + ..., family = familyname(link = "linkname"),
+            data = )
+```
+
+- There are a bunch of families and links to use (help(family) for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
+
+If you're using `lm`, the call looks the same but without the `family` argument. 
+
+- Example: suppose we want to regress the life expectency on the GDP per capita and the population, as well as the continent and year.  The lm/glm call would be something like this:
+
+```{r}
+reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
+                data = gap)
+```
+
+**POLL 4D**:
+
+Consider this regression model:
+
+```
+reg <- lm(formula = lifeExp ~ log(gdpPercap) + log(pop) + continent + year, 
+                data = gap)
+```
+
+*Question 1*: 'continent' could be:
+
+1) numeric
+2) character
+3) factor
+4) none of the above
+
+*Question 2*: 'year' should be:
+
+1) numeric
+2) factor
+3) character
+4) none of the above
+
+# Regression output
+
+- When we store this regression in an object, we get access to several items of interest
+
+```{r}
+# View components contained in the regression output
+names(reg)
+# Examine regression coefficients
+reg$coefficients
+# Examine regression degrees of freedom
+reg$df.residual
+# See the standard (diagnostic) plots for a regression
+plot(reg)
+```
+
+**POLL 4E** Suppose you see this syntax when using the output of a regression:
+
+```
+reg$coefficients
+```
+
+The `reg` object is:
+
+1) a list
+2) a numeric vector
+3) a dataframe
+4) something else
+
+
+- R has a helpful summary method for regression objects
+
+```{r}
+summary(reg)
+```
+
+- Can also extract useful things from the summary object
+
+```{r}
+# Store summary method results
+summ_reg <- summary(reg)
+# View summary method results objects
+objects(summ_reg)
+# View table of coefficients
+summ_reg$coefficients
+```
+
+- Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels)
+
+- If your data aren't factorized, you can tell lm/glm to factorize a variable (i.e. create dummy variables on the fly) by writing
+
+```{r, eval=FALSE}
+glm(formula = y ~ x1 + x2 + factor(x3), family = family(link = "link"),
+            data = )
+```
+
+# Setting up regression interactions
+
+- There are also some useful shortcuts for regressing on interaction terms:
+
+`x1:x2` interacts all terms in x1 with all terms in x2
+```{r}
+summary(lm(lifeExp ~ log(gdpPercap) + log(pop) +
+                    continent:factor(year), 
+                    data = gap))
+```
+
+`x1*x2` produces the cross of x1 and x2, or x1+x2+x1:x2
+```{r}
+summary(lm(lifeExp ~ log(gdpPercap) + log(pop) + continent*factor(year), 
+                data = gap))
+```
+
 # Smoothing
 
 Linear regression and GLMs are of course useful, but often the relationship is not linear, even on some transformed scale.
