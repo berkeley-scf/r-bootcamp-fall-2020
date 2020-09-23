@@ -208,7 +208,7 @@ pd1 <- profileExpr(lr_slow(y, x))
 hotPaths(pd1)
 hotPaths(pd1, value = 'time')
 
-pd1 <- profileExpr(lr_medium(y, x))
+pd2 <- profileExpr(lr_medium(y, x))
 hotPaths(pd2)
 hotPaths(pd2, value = 'time')
 
